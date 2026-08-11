@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Collection &mdash; Eldora Atelier | Luxury Indo-Western Couture</title>
+  <meta name="description" content="Explore the Eldora Atelier collection &mdash; timeless Indo-Western couture for women, men, bridal, and occasion wear. Handcrafted with precision, passion and perfection." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="collection.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER — light cream, centered logo, single nav row
+  ══════════════════════════════════════════ -->
+  <header id="site-header">
+    <div class="header-logo-row">
+      <a class="logo" href="index.html" aria-label="Eldora Atelier">
+        <div class="logo-emblem" aria-hidden="true">
+          <img src="eldora-monogram.png" alt="" />
+        </div>
+        <span class="logo-wordmark">ELDORA</span>
+        <span class="logo-sub">ATELIER</span>
+      </a>
+    </div>
+
+    <div class="header-nav-row">
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="collection.html" class="active" aria-current="page">Collection</a>
+        <a href="#">Services</a>
+        <a href="custom-order.html">Custom Order</a>
+        <a href="about.html">About Us</a>
+        <a href="lookbook.html">Lookbook</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="header-icons">
+        <button aria-label="Search" id="btn-search" class="icon-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button aria-label="Account" id="btn-account" class="icon-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button aria-label="Cart, 0 items" id="btn-cart" class="icon-btn cart-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <sup class="cart-count">0</sup>
+        </button>
+      </div>
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <nav class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawer-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="collection.html" class="active">Collection</a>
+    <a href="#">Services</a>
+    <a href="custom-order.html">Custom Order</a>
+    <a href="about.html">About Us</a>
+    <a href="lookbook.html">Lookbook</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         HERO — dark chocolate, text LEFT, image RIGHT
+    ══════════════════════════════════════════ -->
+    <section class="col-hero" aria-label="Collection introduction">
+      <div class="col-hero-text">
+        <p class="col-eyebrow">OUR COLLECTION</p>
+        <h1 class="col-title">Timeless Styles.<br>Modern Elegance.</h1>
+        <div class="col-ornament" aria-hidden="true">&#9135;&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;&#9135;</div>
+        <p class="col-desc">Explore our handcrafted Indo-Western designs,<br>crafted with precision, passion and perfection.</p>
+      </div>
+      <div class="col-hero-image" role="img" aria-label="Eldora Atelier couture couple in heritage palace"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         BROWSE BY CATEGORY + SORT
+    ══════════════════════════════════════════ -->
+    <section class="cat-section" aria-label="Browse by category">
+      <div class="cat-inner">
+        <div class="cat-left">
+          <p class="browse-label">BROWSE BY CATEGORY</p>
+          <div class="cat-tabs" role="tablist" id="cat-tabs">
+            <button class="cat-tab active" role="tab" aria-selected="true"  data-filter="all"          id="tab-all">All Collections</button>
+            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="women"        id="tab-women">Women</button>
+            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="men"          id="tab-men">Men</button>
+            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="indo-western" id="tab-iw">Indo Western</button>
+            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="bridal"       id="tab-bridal">Bridal</button>
+            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="occasion"     id="tab-occasion">Occasion Wear</button>
+            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="latest"       id="tab-latest">Latest Designs</button>
+          </div>
+        </div>
+        <div class="sort-group">
+          <label class="sort-lbl" for="sort-select">SORT BY</label>
+          <div class="sort-select-wrap">
+            <select id="sort-select" aria-label="Sort collection">
+              <option value="featured">Featured</option>
+              <option value="latest">Latest</option>
+              <option value="popular">Popular</option>
+              <option value="az">A &ndash; Z</option>
+            </select>
+            <span class="sort-caret" aria-hidden="true">&#9662;</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         COLLECTION GRID — 6 equal-width cards
+    ══════════════════════════════════════════ -->
+    <section class="grid-section" aria-label="Collection catalogue">
+      <div class="col-grid" id="collection-grid">
+
+        <!-- WOMEN -->
+        <article class="col-card" data-category="women" data-index="0" aria-label="Women's Collection">
+          <a href="#" class="card-link" aria-label="Explore Women's Collection">
+            <figure class="card-figure">
+              <img src="card-women.png" alt="Elegant South Asian woman in champagne gold lehenga, Women's Collection" loading="lazy" />
+            </figure>
+            <div class="card-overlay" aria-hidden="true"></div>
+            <div class="card-body">
+              <h2 class="card-title">WOMEN</h2>
+              <span class="card-cta">Explore Collection <span class="cta-arrow">&#8594;</span></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- MEN -->
+        <article class="col-card" data-category="men" data-index="1" aria-label="Men's Collection">
+          <a href="#" class="card-link" aria-label="Explore Men's Collection">
+            <figure class="card-figure">
+              <img src="card-men.png" alt="Sophisticated South Asian man in black sherwani, Men's Collection" loading="lazy" />
+            </figure>
+            <div class="card-overlay" aria-hidden="true"></div>
+            <div class="card-body">
+              <h2 class="card-title">MEN</h2>
+              <span class="card-cta">Explore Collection <span class="cta-arrow">&#8594;</span></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- INDO WESTERN -->
+        <article class="col-card" data-category="indo-western" data-index="2" aria-label="Indo Western Collection">
+          <a href="#" class="card-link" aria-label="Explore Indo Western Collection">
+            <figure class="card-figure">
+              <img src="card-indo-western.png" alt="South Asian couple in contemporary Indo-Western couture" loading="lazy" />
+            </figure>
+            <div class="card-overlay" aria-hidden="true"></div>
+            <div class="card-body">
+              <h2 class="card-title">INDO WESTERN</h2>
+              <span class="card-cta">Explore Collection <span class="cta-arrow">&#8594;</span></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- BRIDAL -->
+        <article class="col-card" data-category="bridal" data-index="3" aria-label="Bridal Collection">
+          <a href="#" class="card-link" aria-label="Explore Bridal Collection">
+            <figure class="card-figure">
+              <img src="card-bridal.png" alt="South Asian bride in deep maroon and gold bridal lehenga" loading="lazy" />
+            </figure>
+            <div class="card-overlay" aria-hidden="true"></div>
+            <div class="card-body">
+              <h2 class="card-title">BRIDAL</h2>
+              <span class="card-cta">Explore Collection <span class="cta-arrow">&#8594;</span></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- OCCASION WEAR -->
+        <article class="col-card" data-category="occasion" data-index="4" aria-label="Occasion Wear Collection">
+          <a href="#" class="card-link" aria-label="Explore Occasion Wear Collection">
+            <figure class="card-figure">
+              <img src="card-occasion.png" alt="Elegant South Asian woman in champagne sharara, Occasion Wear" loading="lazy" />
+            </figure>
+            <div class="card-overlay" aria-hidden="true"></div>
+            <div class="card-body">
+              <h2 class="card-title">OCCASION WEAR</h2>
+              <span class="card-cta">Explore Collection <span class="cta-arrow">&#8594;</span></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- LATEST DESIGNS -->
+        <article class="col-card" data-category="latest" data-index="5" aria-label="Latest Designs">
+          <a href="#" class="card-link" aria-label="Explore Latest Designs">
+            <figure class="card-figure">
+              <img src="card-latest.png" alt="Contemporary Indo-Western fashion editorial look" loading="lazy" />
+            </figure>
+            <div class="card-overlay" aria-hidden="true"></div>
+            <div class="card-body">
+              <h2 class="card-title">LATEST DESIGNS</h2>
+              <span class="card-cta">Explore Collection <span class="cta-arrow">&#8594;</span></span>
+            </div>
+          </a>
+        </article>
+
+      </div><!-- /.col-grid -->
+
+      <!-- Empty state -->
+      <div class="empty-state" id="empty-state" hidden aria-live="polite">
+        <span class="empty-icon" aria-hidden="true">&#10022;</span>
+        <p class="empty-title">No designs available in this collection yet.</p>
+        <p class="empty-sub">We are crafting something extraordinary. Please check back soon.</p>
+      </div>
+
+      <!-- Load more -->
+      <div class="load-more-wrap" id="load-more-wrap">
+        <button class="load-more-btn" id="load-more-btn">
+          <span class="lm-label">Load More</span>
+        </button>
+      </div>
+
+    </section><!-- /.grid-section -->
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="foot-col foot-brand">
+        <div class="foot-logo">
+          <span class="foot-logo-icon" aria-hidden="true">&#10022;</span>
+          <strong>ELDORA</strong>
+          <em>ATELIER</em>
+        </div>
+        <p>Where tradition meets<br>contemporary elegance.<br>Custom made with love.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a4 4 0 1 0 8 0 4 4 0 0 0-8 0"/><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.73 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.44.84-2.52 1.88-2.52.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.86 3.48-.24 1.04.51 1.88 1.53 1.88 1.84 0 3.07-2.34 3.07-5.12 0-2.11-1.42-3.59-3.46-3.59-2.35 0-3.73 1.76-3.73 3.58 0 .71.27 1.47.61 1.88.07.08.08.15.06.23-.06.25-.2.79-.23.9-.04.15-.13.18-.3.11-1.12-.52-1.82-2.17-1.82-3.49 0-2.83 2.06-5.44 5.94-5.44 3.12 0 5.55 2.22 5.55 5.19 0 3.1-1.95 5.59-4.66 5.59-.91 0-1.77-.47-2.06-1.03l-.56 2.09c-.2.78-.75 1.75-1.12 2.34.84.26 1.73.4 2.65.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h3 class="foot-heading">Quick Links</h3>
+        <a href="index.html">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="#">Services</a>
+        <a href="#">Custom Order</a>
+        <a href="#">About Us</a>
+        <a href="#">Lookbook</a>
+        <a href="#">Contact Us</a>
+      </div>
+
+      <div class="foot-col">
+        <h3 class="foot-heading">Customer Support</h3>
+        <a href="#">Size Guide</a>
+        <a href="#">Shipping &amp; Delivery</a>
+        <a href="#">Returns &amp; Exchange</a>
+        <a href="#">FAQ</a>
+        <a href="#">Care Instructions</a>
+      </div>
+
+      <div class="foot-col">
+        <h3 class="foot-heading">Contact Us</h3>
+        <a href="#">WhatsApp Us</a>
+        <a href="#">+91 12345 67890</a>
+        <a href="#">hello@eldoraatelier.com</a>
+        <a href="#">Chennai, India</a>
+      </div>
+
+      <div class="foot-col foot-newsletter">
+        <h3 class="foot-heading">Newsletter</h3>
+        <p>Subscribe for new collections<br>&amp; exclusive offers.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" id="nl-email" />
+          <button type="button" aria-label="Subscribe" id="nl-submit">&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>&copy; 2024 Eldora Atelier. All Rights Reserved.</span>
+      <span>
+        <a href="#">Privacy Policy</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="#">Terms &amp; Conditions</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="collection.js"></script>
+</body>
+</html>

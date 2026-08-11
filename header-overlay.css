@@ -1,0 +1,18 @@
+/* Float the existing header over the existing hero without changing page content. */
+header{position:absolute;inset:0 0 auto;z-index:50;height:180px;display:block;padding:0;background:transparent;color:#f8efe4}
+.hero::before{content:'';position:absolute;z-index:10;inset:0 0 auto;height:220px;background:linear-gradient(to bottom,rgba(35,20,13,.94) 0%,rgba(35,20,13,.90) 55%,rgba(35,20,13,.60) 75%,rgba(35,20,13,.20) 90%,rgba(35,20,13,0) 100%);pointer-events:none}
+header .logo{position:absolute;z-index:3;top:20px;left:50%;width:140px;height:auto;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0;color:#f8efe4;text-decoration:none}
+header .logo img{width:54px;height:47px;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(25,14,9,.75))}
+header .logo .logo-name{color:#f8efe4;font-size:22px;line-height:.84;text-shadow:0 1px 2px rgba(25,14,9,.78)}
+header .logo .logo-subtitle{color:#f3e5d8;text-shadow:0 1px 2px rgba(51,24,15,.72)}
+header .nav-left,header .nav-right{position:absolute;top:118px;display:flex;align-items:center;color:#f8efe4;gap:30px;font-size:13px;font-weight:400;letter-spacing:.03em}
+header .nav-left{left:calc(50% - 5px);transform:translateX(-100%)}
+header .nav-right{left:calc(50% + 18px);justify-content:flex-start}
+header nav a{color:#f8efe4;text-decoration:none;white-space:nowrap}
+header nav a.active{color:#e7c27a;border-bottom:1px solid #d9aa55;padding:8px 0}
+header nav button{color:#f8efe4;text-shadow:0 1px 2px rgba(25,14,9,.78)}
+header .nav-left .menu{position:fixed;left:4vw;top:108px;font-size:20px}
+.hero{height:100vh;min-height:650px}.hero-copy{padding-top:245px}
+@media(max-width:1200px){header .nav-left,header .nav-right{gap:21px;font-size:11px}header .nav-right{left:calc(50% + 11px)}}
+@media(max-width:1024px){header .nav-left,header .nav-right{gap:14px;font-size:9px;top:118px}header .nav-right{left:calc(50% + 8px)}header .nav-left .menu{left:3vw;top:108px}.hero-copy{padding-top:245px}}
+@media(max-width:700px){header{height:118px;background:transparent}.hero::before{height:240px;background:linear-gradient(to bottom,rgba(35,20,13,.94),rgba(35,20,13,.88) 55%,rgba(35,20,13,.45) 82%,transparent)}header .logo{top:14px}header .logo img{width:42px;height:36px}header .logo .logo-name{font-size:18px}header .logo .logo-subtitle{font-size:6px}header .nav-left a,header .nav-right a{display:none}header .nav-left{left:0;top:0;transform:none}header .nav-right{left:auto;right:4%;top:82px;gap:11px}header .nav-left .menu{position:absolute;left:4%;top:82px}.hero{height:auto;min-height:0}.hero-copy{padding-top:250px}}

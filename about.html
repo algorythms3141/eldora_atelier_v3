@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us &mdash; Eldora Atelier | Our Story, Craft &amp; Vision</title>
+  <meta name="description" content="Discover the story behind Eldora Atelier — a luxury Indo-Western couture house built on heritage craftsmanship, passion and perfection. Meet our artisans and explore our craft." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="about.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════ -->
+  <header id="site-header">
+    <div class="header-logo-row">
+      <a class="logo" href="index.html" aria-label="Eldora Atelier">
+        <div class="logo-emblem" aria-hidden="true">
+          <img src="eldora-monogram.png" alt="" />
+        </div>
+        <span class="logo-wordmark">ELDORA</span>
+        <span class="logo-sub">ATELIER</span>
+      </a>
+    </div>
+    <div class="header-nav-row">
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="#">Services</a>
+        <a href="custom-order.html">Custom Order</a>
+        <a href="about.html" class="active" aria-current="page">About Us</a>
+        <a href="lookbook.html">Lookbook</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="header-icons">
+        <button aria-label="Search" class="icon-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button aria-label="Account" class="icon-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button aria-label="Cart, 0 items" class="icon-btn cart-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <sup class="cart-count">0</sup>
+        </button>
+      </div>
+      <button class="hamburger" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <nav class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawer-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="collection.html">Collection</a>
+    <a href="#">Services</a>
+    <a href="custom-order.html">Custom Order</a>
+    <a href="about.html" class="active">About Us</a>
+    <a href="lookbook.html">Lookbook</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         1. HERO — full-bleed cinematic banner
+    ══════════════════════════════════════════ -->
+    <section class="ab-hero" aria-label="About Eldora Atelier">
+      <div class="ab-hero-img" role="img" aria-label="Eldora Atelier luxury couture studio interior"></div>
+      <div class="ab-hero-overlay" aria-hidden="true"></div>
+      <div class="ab-hero-content">
+        <p class="ab-eyebrow">ABOUT US</p>
+        <h1 class="ab-hero-title">Where Heritage<br><em>Meets Couture.</em></h1>
+        <div class="ab-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+        <p class="ab-hero-sub">A luxury Indo-Western atelier born from passion,<br>crafted with precision, rooted in India's finest traditions.</p>
+        <div class="ab-hero-stats" role="list" aria-label="Key milestones">
+          <div class="stat-item" role="listitem">
+            <span class="stat-num" data-target="500" id="stat-clients">0</span><span class="stat-plus">+</span>
+            <span class="stat-lbl">Happy Clients</span>
+          </div>
+          <div class="stat-sep" aria-hidden="true"></div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-num" data-target="8" id="stat-years">0</span><span class="stat-plus">+</span>
+            <span class="stat-lbl">Years of Craft</span>
+          </div>
+          <div class="stat-sep" aria-hidden="true"></div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-num" data-target="20" id="stat-cities">0</span><span class="stat-plus">+</span>
+            <span class="stat-lbl">Cities Delivered</span>
+          </div>
+          <div class="stat-sep" aria-hidden="true"></div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-num" data-target="100" id="stat-custom">0</span><span class="stat-pct">%</span>
+            <span class="stat-lbl">Custom Made</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- In-page navigation (anchor links) -->
+    <nav class="ab-subnav" aria-label="Page sections">
+      <a href="#our-story"  class="ab-subnav-link active" data-section="our-story">Our Story</a>
+      <a href="#our-craft"  class="ab-subnav-link" data-section="our-craft">Our Craft</a>
+      <a href="#reviews"    class="ab-subnav-link" data-section="reviews">Reviews</a>
+      <a href="#videos"     class="ab-subnav-link" data-section="videos">Videos</a>
+      <a href="#social"     class="ab-subnav-link" data-section="social">Social</a>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+         2. OUR STORY
+    ══════════════════════════════════════════ -->
+    <section class="ab-section ab-story" id="our-story" aria-labelledby="story-heading">
+      <div class="ab-story-image reveal-left">
+        <div class="ab-story-img-frame">
+          <img src="about-story.png" alt="Eldora Atelier founder in her couture studio surrounded by fabric and design sketches" loading="lazy" />
+        </div>
+        <div class="ab-story-badge" aria-hidden="true">
+          <span>EST.</span>
+          <strong>2016</strong>
+        </div>
+      </div>
+
+      <div class="ab-story-text reveal-right">
+        <p class="section-eyebrow">OUR STORY</p>
+        <h2 class="section-title" id="story-heading">A Vision Woven<br><em>in Thread &amp; Tradition</em></h2>
+        <div class="section-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+
+        <p class="ab-body">Eldora Atelier was born from a profound love for India's textile heritage and a desire to bring it forward — into the contemporary world, into international wardrobes, into every celebratory moment that deserves something truly extraordinary.</p>
+
+        <p class="ab-body">Founded in Chennai in 2016, our atelier began as a small studio where a handful of master artisans worked side by side, pouring decades of craft knowledge into every stitch. What started as a space for bespoke occasion wear quickly grew into a full couture house renowned for its Indo-Western silhouettes and handcrafted embellishments.</p>
+
+        <p class="ab-body">Today, Eldora Atelier serves clients across India and around the world — from intimate festive evenings to grand wedding celebrations — each garment as unique as the person who wears it.</p>
+
+        <blockquote class="ab-quote">
+          <p>"Every piece we create carries a story — the artisan's hands, the fabric's origin, the wearer's dreams."</p>
+          <cite>— Founder, Eldora Atelier</cite>
+        </blockquote>
+
+        <a href="custom-order.html" class="ab-cta-btn">Begin Your Story <span>&#8594;</span></a>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         3. OUR CRAFT
+    ══════════════════════════════════════════ -->
+    <section class="ab-section ab-craft" id="our-craft" aria-labelledby="craft-heading">
+
+      <!-- Top: full-width craft banner -->
+      <div class="craft-banner reveal-up">
+        <img src="about-craft.png" alt="Master artisan hand-embroidering intricate zardozi goldwork on deep maroon fabric" loading="lazy" />
+        <div class="craft-banner-overlay" aria-hidden="true"></div>
+        <div class="craft-banner-text">
+          <p class="section-eyebrow light">OUR CRAFT</p>
+          <h2 class="section-title light" id="craft-heading">Handcrafted With<br><em>Passion &amp; Precision</em></h2>
+        </div>
+      </div>
+
+      <!-- Craft values grid -->
+      <div class="craft-values">
+        <div class="craft-value reveal-up" style="--delay:.05s">
+          <div class="cv-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <h3>Premium Fabrics</h3>
+          <p>We source only the finest silks, georgettes, organzas, and velvet from India's most celebrated textile mills — Kanjivaram, Banarasi, and beyond.</p>
+        </div>
+        <div class="craft-value reveal-up" style="--delay:.12s">
+          <div class="cv-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          </div>
+          <h3>Heritage Embroidery</h3>
+          <p>Every embellishment — zardozi, resham, mirror, sequin — is applied entirely by hand by artisans who have inherited centuries of craft knowledge.</p>
+        </div>
+        <div class="craft-value reveal-up" style="--delay:.19s">
+          <div class="cv-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+          </div>
+          <h3>Bespoke Tailoring</h3>
+          <p>Every garment is constructed from scratch. No ready patterns, no shortcuts — every seam, drape and fall is considered and crafted to your exact measurements.</p>
+        </div>
+        <div class="craft-value reveal-up" style="--delay:.26s">
+          <div class="cv-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Perfect Fit Guarantee</h3>
+          <p>We measure, we fit, we refine. Every piece goes through multiple fitting rounds to ensure it drapes flawlessly, every time, without exception.</p>
+        </div>
+        <div class="craft-value reveal-up" style="--delay:.33s">
+          <div class="cv-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Quality Assurance</h3>
+          <p>Before any garment leaves our atelier, it passes a rigorous quality review — checking every bead, every seam, every finish — to meet our uncompromising standards.</p>
+        </div>
+        <div class="craft-value reveal-up" style="--delay:.40s">
+          <div class="cv-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </div>
+          <h3>Worldwide Delivery</h3>
+          <p>Your bespoke creation reaches you wherever you are — across India, the USA, UK, Canada, UAE and beyond — with care, precision and on time.</p>
+        </div>
+      </div>
+
+      <!-- Team image -->
+      <div class="craft-team-wrap reveal-up">
+        <div class="craft-team-img">
+          <img src="about-team.png" alt="Eldora Atelier team of master artisans at work in their couture studio" loading="lazy" />
+          <div class="craft-team-caption">
+            <p>Our artisans — the heart of Eldora Atelier</p>
+          </div>
+        </div>
+        <div class="craft-team-text">
+          <p class="section-eyebrow">THE TEAM</p>
+          <h2 class="section-title">Master Artisans,<br><em>Timeless Hands</em></h2>
+          <div class="section-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+          <p class="ab-body">Our atelier is home to a family of artisans — embroiderers, tailors, draping specialists and pattern masters — many of whom have been with us since the very beginning. Their hands carry decades of institutional craft knowledge, passed down through generations.</p>
+          <p class="ab-body">We believe that luxury is not just about the final garment. It lives in every deliberate choice — the thread colour, the needle gauge, the way light catches an embellishment. Our team understands this intimately.</p>
+          <div class="team-stats">
+            <div class="team-stat"><strong>25+</strong><span>In-house artisans</span></div>
+            <div class="team-stat"><strong>3</strong><span>Cities of craft expertise</span></div>
+            <div class="team-stat"><strong>40+</strong><span>Years combined experience</span></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         4. CUSTOMER REVIEWS
+    ══════════════════════════════════════════ -->
+    <section class="ab-section ab-reviews" id="reviews" aria-labelledby="reviews-heading">
+      <div class="ab-section-header reveal-up">
+        <p class="section-eyebrow">CUSTOMER REVIEWS</p>
+        <h2 class="section-title" id="reviews-heading">What Our Clients Say</h2>
+        <div class="section-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+        <div class="reviews-rating-summary" aria-label="Overall rating: 4.9 out of 5">
+          <div class="stars" aria-hidden="true">
+            <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+          </div>
+          <strong>4.9 / 5</strong>
+          <span class="rating-count">Based on 200+ reviews</span>
+        </div>
+      </div>
+
+      <!-- Review carousel -->
+      <div class="reviews-track-wrap">
+        <button class="reviews-arrow reviews-arrow-prev" id="rev-prev" aria-label="Previous review">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="reviews-track" id="reviews-track" aria-live="polite">
+
+          <article class="review-card" aria-label="Review by Priya S.">
+            <div class="review-stars" aria-label="5 out of 5 stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote class="review-text">"My bridal lehenga was an absolute dream. The embroidery detail, the fit, the fabric — everything was perfect. The team was incredibly patient through every alteration request. Eldora Atelier truly understands luxury couture."</blockquote>
+            <div class="review-author">
+              <div class="review-avatar" aria-hidden="true">P</div>
+              <div>
+                <strong class="review-name">Priya S.</strong>
+                <span class="review-meta">Bridal Collection &nbsp;·&nbsp; Chennai</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" aria-label="Review by Arjun M.">
+            <div class="review-stars" aria-label="5 out of 5 stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote class="review-text">"I ordered a bandhgala for my sister's wedding and received so many compliments. The craftsmanship is exceptional — you can feel the quality the moment you hold the fabric. Will definitely order again."</blockquote>
+            <div class="review-author">
+              <div class="review-avatar" aria-hidden="true">A</div>
+              <div>
+                <strong class="review-name">Arjun M.</strong>
+                <span class="review-meta">Men's Collection &nbsp;·&nbsp; Bengaluru</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" aria-label="Review by Sneha R.">
+            <div class="review-stars" aria-label="5 out of 5 stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote class="review-text">"I was nervous ordering couture online but the team made the entire process seamless. The custom measurements were taken seriously and the final piece fit like a second skin. Absolutely stunning work."</blockquote>
+            <div class="review-author">
+              <div class="review-avatar" aria-hidden="true">S</div>
+              <div>
+                <strong class="review-name">Sneha R.</strong>
+                <span class="review-meta">Occasion Wear &nbsp;·&nbsp; Mumbai</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" aria-label="Review by Kavitha N.">
+            <div class="review-stars" aria-label="5 out of 5 stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote class="review-text">"The Indo-Western set I ordered for my reception was beyond anything I imagined. The zardozi embroidery was exquisite and the colour palette was exactly as I described. Eldora Atelier is in a league of their own."</blockquote>
+            <div class="review-author">
+              <div class="review-avatar" aria-hidden="true">K</div>
+              <div>
+                <strong class="review-name">Kavitha N.</strong>
+                <span class="review-meta">Indo Western &nbsp;·&nbsp; Dubai, UAE</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" aria-label="Review by Rajan T.">
+            <div class="review-stars" aria-label="5 out of 5 stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote class="review-text">"From the first WhatsApp message to the moment I received my sherwani, every interaction was warm and professional. The attention to detail is unmatched. International shipping was also very smooth."</blockquote>
+            <div class="review-author">
+              <div class="review-avatar" aria-hidden="true">R</div>
+              <div>
+                <strong class="review-name">Rajan T.</strong>
+                <span class="review-meta">Men's Collection &nbsp;·&nbsp; Toronto, Canada</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" aria-label="Review by Ananya P.">
+            <div class="review-stars" aria-label="4 out of 5 stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            <blockquote class="review-text">"Beautiful quality and remarkable craftsmanship. My mother wore the saree blouse to my wedding and it was the most-complimented piece in the room. The only thing I wish for is faster delivery timelines!"</blockquote>
+            <div class="review-author">
+              <div class="review-avatar" aria-hidden="true">A</div>
+              <div>
+                <strong class="review-name">Ananya P.</strong>
+                <span class="review-meta">Women's Collection &nbsp;·&nbsp; Hyderabad</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <button class="reviews-arrow reviews-arrow-next" id="rev-next" aria-label="Next review">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Dots -->
+      <div class="reviews-dots" id="reviews-dots" role="tablist" aria-label="Review navigation dots"></div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         5. VIDEOS
+    ══════════════════════════════════════════ -->
+    <section class="ab-section ab-videos" id="videos" aria-labelledby="videos-heading">
+      <div class="ab-section-header reveal-up">
+        <p class="section-eyebrow">BEHIND THE CRAFT</p>
+        <h2 class="section-title" id="videos-heading">Watch Our Atelier In Motion</h2>
+        <div class="section-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+        <p class="section-sub">Go behind the scenes — watch our artisans at work, explore our creative process and discover what makes every Eldora creation truly one of a kind.</p>
+      </div>
+
+      <div class="videos-grid">
+
+        <!-- Featured video (large) -->
+        <div class="video-card video-featured reveal-left" data-video-id="dQw4w9WgXcQ" aria-label="Play video: The Art of Zardozi Embroidery">
+          <div class="video-thumb">
+            <img src="about-craft.png" alt="Master artisan at work — The Art of Zardozi Embroidery" loading="lazy" />
+            <div class="video-overlay" aria-hidden="true"></div>
+            <button class="video-play-btn" aria-label="Play: The Art of Zardozi Embroidery">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </button>
+            <div class="video-duration" aria-hidden="true">4:32</div>
+          </div>
+          <div class="video-meta">
+            <span class="video-tag">Craft Story</span>
+            <h3 class="video-title">The Art of Zardozi &mdash; A Living Heritage</h3>
+            <p class="video-desc">Follow our master embroiderers as they bring a bridal lehenga to life, one golden thread at a time.</p>
+          </div>
+        </div>
+
+        <!-- Side videos -->
+        <div class="video-side-col">
+          <div class="video-card video-side reveal-right" data-video-id="dQw4w9WgXcQ" style="--delay:.08s" aria-label="Play video: Behind the Atelier">
+            <div class="video-thumb">
+              <img src="about-team.png" alt="Eldora Atelier team at work" loading="lazy" />
+              <div class="video-overlay" aria-hidden="true"></div>
+              <button class="video-play-btn" aria-label="Play: Behind the Atelier">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </button>
+              <div class="video-duration" aria-hidden="true">2:47</div>
+            </div>
+            <div class="video-meta">
+              <span class="video-tag">Studio Tour</span>
+              <h3 class="video-title">Inside the Eldora Atelier</h3>
+              <p class="video-desc">A private look inside our Chennai studio where every bespoke piece begins its journey.</p>
+            </div>
+          </div>
+
+          <div class="video-card video-side reveal-right" data-video-id="dQw4w9WgXcQ" style="--delay:.16s" aria-label="Play video: From Sketch to Garment">
+            <div class="video-thumb">
+              <img src="about-story.png" alt="Designer reviewing sketches in the atelier" loading="lazy" />
+              <div class="video-overlay" aria-hidden="true"></div>
+              <button class="video-play-btn" aria-label="Play: From Sketch to Garment">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </button>
+              <div class="video-duration" aria-hidden="true">6:15</div>
+            </div>
+            <div class="video-meta">
+              <span class="video-tag">Design Process</span>
+              <h3 class="video-title">From Sketch to Couture</h3>
+              <p class="video-desc">Watch the complete journey of a custom lehenga — from first sketch to final fitting.</p>
+            </div>
+          </div>
+
+          <div class="video-card video-side reveal-right" data-video-id="dQw4w9WgXcQ" style="--delay:.24s" aria-label="Play video: Bridal Collection 2024">
+            <div class="video-thumb">
+              <img src="card-bridal.png" alt="Bridal collection editorial shoot" loading="lazy" />
+              <div class="video-overlay" aria-hidden="true"></div>
+              <button class="video-play-btn" aria-label="Play: Bridal Collection 2024">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </button>
+              <div class="video-duration" aria-hidden="true">3:58</div>
+            </div>
+            <div class="video-meta">
+              <span class="video-tag">Collection Film</span>
+              <h3 class="video-title">Bridal Collection &rsquo;24 &mdash; Film</h3>
+              <p class="video-desc">The official film for our 2024 bridal collection — shot in a heritage palace at golden hour.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Video lightbox -->
+    <div class="video-lightbox" id="video-lightbox" role="dialog" aria-modal="true" aria-label="Video player" hidden>
+      <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+      <div class="lightbox-content">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close video">&#10005;</button>
+        <div class="lightbox-iframe-wrap">
+          <iframe id="lightbox-iframe" src="" title="Video player" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         6. INSTAGRAM / PINTEREST FEED
+    ══════════════════════════════════════════ -->
+    <section class="ab-section ab-social" id="social" aria-labelledby="social-heading">
+      <div class="ab-section-header reveal-up">
+        <p class="section-eyebrow">FOLLOW OUR WORLD</p>
+        <h2 class="section-title" id="social-heading">On Instagram &amp; Pinterest</h2>
+        <div class="section-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+        <p class="section-sub">A visual diary of our craft, our creations, and the moments that inspire us.<br>Follow <strong>@eldoraatelier</strong> to stay part of our world.</p>
+        <div class="social-platform-tabs" role="tablist">
+          <button class="sp-tab active" role="tab" aria-selected="true" data-platform="instagram" id="tab-ig">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            Instagram
+          </button>
+          <button class="sp-tab" role="tab" aria-selected="false" data-platform="pinterest" id="tab-pin">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+            Pinterest
+          </button>
+        </div>
+      </div>
+
+      <!-- Feed grid -->
+      <div class="social-grid" id="social-grid">
+        <!-- Instagram posts using existing project images -->
+        <a href="#" class="social-post reveal-up" style="--delay:.04s" aria-label="View on Instagram: Women's collection editorial">
+          <img src="card-women.png"       alt="Women's collection editorial — Eldora Atelier" loading="lazy" />
+          <div class="social-post-hover" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+        </a>
+        <a href="#" class="social-post reveal-up" style="--delay:.08s" aria-label="View on Instagram: Men's collection editorial">
+          <img src="card-men.png"         alt="Men's collection editorial — Eldora Atelier" loading="lazy" />
+          <div class="social-post-hover" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+        </a>
+        <a href="#" class="social-post reveal-up" style="--delay:.12s" aria-label="View on Instagram: Bridal collection">
+          <img src="card-bridal.png"      alt="Bridal collection — Eldora Atelier" loading="lazy" />
+          <div class="social-post-hover" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+        </a>
+        <a href="#" class="social-post reveal-up" style="--delay:.16s" aria-label="View on Instagram: Occasion wear">
+          <img src="card-occasion.png"    alt="Occasion wear collection — Eldora Atelier" loading="lazy" />
+          <div class="social-post-hover" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+        </a>
+        <a href="#" class="social-post reveal-up" style="--delay:.20s" aria-label="View on Instagram: Indo Western collection">
+          <img src="card-indo-western.png" alt="Indo Western collection — Eldora Atelier" loading="lazy" />
+          <div class="social-post-hover" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+        </a>
+        <a href="#" class="social-post reveal-up" style="--delay:.24s" aria-label="View on Instagram: Latest designs">
+          <img src="card-latest.png"      alt="Latest designs — Eldora Atelier" loading="lazy" />
+          <div class="social-post-hover" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+        </a>
+        <a href="#" class="social-post reveal-up" style="--delay:.28s" aria-label="View on Instagram: Collection hero editorial">
+          <img src="about-insta-1.png"    alt="Editorial couture shoot — Eldora Atelier" loading="lazy" />
+          <div class="social-post-hover" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+        </a>
+        <a href="#" class="social-post reveal-up" style="--delay:.32s" aria-label="View on Instagram: Craft detail">
+          <img src="about-craft.png"      alt="Craft detail — Eldora Atelier embroidery" loading="lazy" />
+          <div class="social-post-hover" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+        </a>
+      </div>
+
+      <div class="social-follow-row reveal-up">
+        <a href="#" class="social-follow-btn ig" target="_blank" rel="noopener" aria-label="Follow Eldora Atelier on Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          Follow on Instagram
+        </a>
+        <a href="#" class="social-follow-btn pin" target="_blank" rel="noopener" aria-label="Follow Eldora Atelier on Pinterest">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          Follow on Pinterest
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="foot-col foot-brand">
+        <div class="foot-logo">
+          <span class="foot-logo-icon" aria-hidden="true">&#10022;</span>
+          <strong>ELDORA</strong>
+          <em>ATELIER</em>
+        </div>
+        <p>Where tradition meets<br>contemporary elegance.<br>Custom made with love.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h2 class="foot-heading">Quick Links</h2><a href="index.html">Home</a><a href="collection.html">Collection</a><a href="#">Services</a><a href="custom-order.html">Custom Order</a><a href="about.html">About Us</a><a href="lookbook.html">Lookbook</a><a href="contact.html">Contact Us</a></div>
+      <div class="foot-col"><h2 class="foot-heading">Customer Support</h2><a href="#">Size Guide</a><a href="#">Shipping &amp; Delivery</a><a href="#">Returns &amp; Exchange</a><a href="#">FAQ</a><a href="#">Care Instructions</a></div>
+      <div class="foot-col"><h2 class="foot-heading">Contact Us</h2><a href="#">WhatsApp Us</a><a href="#">+91 12345 67890</a><a href="#">hello@eldoraatelier.com</a><a href="#">Chennai, India</a></div>
+      <div class="foot-col foot-newsletter"><h2 class="foot-heading">Newsletter</h2><p>Subscribe for new collections &amp; exclusive offers.</p><div class="newsletter-form"><input type="email" placeholder="Enter your email" aria-label="Email for newsletter" /><button type="button" aria-label="Subscribe">&#8594;</button></div></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2024 Eldora Atelier. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </footer>
+
+  <script src="about.js"></script>
+</body>
+</html>

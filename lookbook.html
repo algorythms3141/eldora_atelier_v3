@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lookbook &mdash; Eldora Atelier | Trends, Style Guides &amp; Inspiration</title>
+  <meta name="description" content="Explore the Eldora Atelier Lookbook — curated trends, styling guides and articles to help you discover the beauty of Indo-Western couture." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lookbook.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════ -->
+  <header id="site-header">
+    <div class="header-logo-row">
+      <a class="logo" href="index.html" aria-label="Eldora Atelier">
+        <div class="logo-emblem" aria-hidden="true">
+          <img src="eldora-monogram.png" alt="" />
+        </div>
+        <span class="logo-wordmark">ELDORA</span>
+        <span class="logo-sub">ATELIER</span>
+      </a>
+    </div>
+    <div class="header-nav-row">
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="#">Services</a>
+        <a href="custom-order.html">Custom Order</a>
+        <a href="about.html">About Us</a>
+        <a href="lookbook.html" class="active" aria-current="page">Lookbook</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="header-icons">
+        <button aria-label="Search" class="icon-btn" id="btn-search">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button aria-label="Account" class="icon-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button aria-label="Cart, 0 items" class="icon-btn cart-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <sup class="cart-count">0</sup>
+        </button>
+      </div>
+      <button class="hamburger" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <nav class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawer-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="collection.html">Collection</a>
+    <a href="#">Services</a>
+    <a href="custom-order.html">Custom Order</a>
+    <a href="about.html">About Us</a>
+    <a href="lookbook.html" class="active">Lookbook</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         1. HERO — full-bleed editorial
+    ══════════════════════════════════════════ -->
+    <section class="lb-hero" aria-label="Lookbook introduction">
+      <div class="lb-hero-bg" aria-hidden="true"></div>
+      <div class="lb-hero-overlay" aria-hidden="true"></div>
+      <div class="lb-hero-content">
+        <div class="lb-hero-left">
+          <p class="lb-issue">VOLUME 01 &nbsp;&middot;&nbsp; 2024</p>
+          <h1 class="lb-hero-title">THE<br>ELDORA<br><em>LOOKBOOK</em></h1>
+        </div>
+        <div class="lb-hero-right">
+          <div class="lb-hero-ornament" aria-hidden="true">&#10022;</div>
+          <p class="lb-hero-desc">Curated trends, style narratives and editorial inspiration from the world of Indo-Western luxury couture.</p>
+          <div class="lb-hero-tags" role="list" aria-label="Lookbook categories">
+            <span role="listitem">Trends</span>
+            <span class="dot" aria-hidden="true">·</span>
+            <span role="listitem">Style Guides</span>
+            <span class="dot" aria-hidden="true">·</span>
+            <span role="listitem">Articles</span>
+          </div>
+          <a href="#lb-grid" class="lb-hero-scroll" aria-label="Scroll down to explore">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            Explore Below
+          </a>
+        </div>
+      </div>
+      <!-- Floating issue covers preview strip -->
+      <div class="lb-hero-strip" aria-hidden="true">
+        <div class="lb-strip-item" style="background-image:url('card-women.png')"></div>
+        <div class="lb-strip-item" style="background-image:url('card-bridal.png')"></div>
+        <div class="lb-strip-item" style="background-image:url('card-indo-western.png')"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         2. FILTER BAR
+    ══════════════════════════════════════════ -->
+    <section class="lb-filter-bar" aria-label="Filter lookbook content">
+      <div class="lb-filter-inner">
+        <div class="lb-filter-left">
+          <span class="lb-filter-label">BROWSE BY</span>
+          <div class="lb-tabs" role="tablist" id="lb-tabs">
+            <button class="lb-tab active" role="tab" aria-selected="true"  data-filter="all"     id="lb-tab-all">All</button>
+            <button class="lb-tab"        role="tab" aria-selected="false" data-filter="trends"  id="lb-tab-trends">Trends</button>
+            <button class="lb-tab"        role="tab" aria-selected="false" data-filter="style"   id="lb-tab-style">Style Guides</button>
+            <button class="lb-tab"        role="tab" aria-selected="false" data-filter="article" id="lb-tab-article">Articles</button>
+          </div>
+        </div>
+        <div class="lb-filter-right">
+          <span class="lb-count" id="lb-count">12 pieces</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         3. FEATURED EDITORIAL
+    ══════════════════════════════════════════ -->
+    <section class="lb-featured reveal-up" id="lb-featured" data-category="trends" aria-labelledby="featured-heading">
+      <a href="#article-bridal" class="lb-featured-link">
+        <div class="lb-featured-img">
+          <img src="card-bridal.png" alt="Eldora Atelier Bridal Trends 2024 — editorial feature" loading="eager" />
+        </div>
+        <div class="lb-featured-overlay" aria-hidden="true"></div>
+        <div class="lb-featured-content">
+          <div class="lb-featured-meta">
+            <span class="lb-tag trends">Trends</span>
+            <span class="lb-read-time">8 min read</span>
+          </div>
+          <h2 class="lb-featured-title" id="featured-heading">The 2024 Bridal Report:<br><em>What Every Modern Bride Needs to Know</em></h2>
+          <p class="lb-featured-desc">From blush champagne to bold maroon — the bridal silhouettes defining this season, and how to wear them with confidence.</p>
+          <span class="lb-featured-cta">Read the Feature <span>&#8594;</span></span>
+        </div>
+        <div class="lb-featured-date" aria-hidden="true">
+          <span>AUG</span>
+          <strong>12</strong>
+        </div>
+      </a>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         4. MAIN EDITORIAL GRID
+    ══════════════════════════════════════════ -->
+    <section class="lb-grid-section" id="lb-grid" aria-label="Lookbook editorial grid">
+      <div class="lb-grid" id="lb-grid-items">
+
+        <!-- ── TRENDS ── -->
+        <article class="lb-card lb-card-tall reveal-up" data-category="trends" style="--delay:.04s" aria-label="Trend: Champagne Gold">
+          <a href="#" class="lb-card-link">
+            <figure class="lb-card-fig tall">
+              <img src="card-women.png" alt="Women in champagne gold lehenga — Golden Hour trend" loading="lazy" />
+            </figure>
+            <div class="lb-card-overlay" aria-hidden="true"></div>
+            <div class="lb-card-body">
+              <span class="lb-tag trends">Trends</span>
+              <h3 class="lb-card-title">The Golden Hour Palette<br><em>Champagne &amp; Ivory Tones</em></h3>
+              <p class="lb-card-meta">6 min read &nbsp;·&nbsp; Jul 2024</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="lb-card reveal-up" data-category="trends" style="--delay:.08s" aria-label="Trend: Dark Sherwani">
+          <a href="#" class="lb-card-link">
+            <figure class="lb-card-fig">
+              <img src="card-men.png" alt="Man in dark sherwani — The Dark Romance trend" loading="lazy" />
+            </figure>
+            <div class="lb-card-overlay" aria-hidden="true"></div>
+            <div class="lb-card-body">
+              <span class="lb-tag trends">Trends</span>
+              <h3 class="lb-card-title">Dark Romance<br><em>The Rise of Midnight Menswear</em></h3>
+              <p class="lb-card-meta">5 min read &nbsp;·&nbsp; Jul 2024</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="lb-card lb-card-wide reveal-up" data-category="article" style="--delay:.12s" aria-label="Article: Craft behind embroidery">
+          <a href="#" class="lb-card-link">
+            <figure class="lb-card-fig wide">
+              <img src="about-craft.png" alt="Master artisan hand-embroidering — The Art Behind Every Stitch" loading="lazy" />
+            </figure>
+            <div class="lb-card-overlay" aria-hidden="true"></div>
+            <div class="lb-card-body">
+              <span class="lb-tag article">Article</span>
+              <h3 class="lb-card-title">The Art Behind Every Stitch<br><em>A Journey into Zardozi</em></h3>
+              <p class="lb-card-meta">10 min read &nbsp;·&nbsp; Jun 2024</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="lb-card reveal-up" data-category="style" style="--delay:.16s" aria-label="Style Guide: Indo Western">
+          <a href="#" class="lb-card-link">
+            <figure class="lb-card-fig">
+              <img src="card-indo-western.png" alt="Indo Western couple in contemporary fusion wear" loading="lazy" />
+            </figure>
+            <div class="lb-card-overlay" aria-hidden="true"></div>
+            <div class="lb-card-body">
+              <span class="lb-tag style">Style Guide</span>
+              <h3 class="lb-card-title">How to Style<br><em>Indo Western for Sangeet Night</em></h3>
+              <p class="lb-card-meta">7 min read &nbsp;·&nbsp; Jun 2024</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="lb-card lb-card-tall reveal-up" data-category="style" style="--delay:.20s" aria-label="Style Guide: Occasion Wear">
+          <a href="#" class="lb-card-link">
+            <figure class="lb-card-fig tall">
+              <img src="card-occasion.png" alt="Woman in champagne sharara for occasion wear" loading="lazy" />
+            </figure>
+            <div class="lb-card-overlay" aria-hidden="true"></div>
+            <div class="lb-card-body">
+              <span class="lb-tag style">Style Guide</span>
+              <h3 class="lb-card-title">Occasion Wear Decoded<br><em>From Reception to Farewell</em></h3>
+              <p class="lb-card-meta">9 min read &nbsp;·&nbsp; May 2024</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="lb-card reveal-up" data-category="trends" style="--delay:.24s" aria-label="Trend: Latest Designs">
+          <a href="#" class="lb-card-link">
+            <figure class="lb-card-fig">
+              <img src="card-latest.png" alt="Contemporary Indo-Western editorial fashion look" loading="lazy" />
+            </figure>
+            <div class="lb-card-overlay" aria-hidden="true"></div>
+            <div class="lb-card-body">
+              <span class="lb-tag trends">Trends</span>
+              <h3 class="lb-card-title">2024 Resort Collection<br><em>Light, Breezy &amp; Effortless</em></h3>
+              <p class="lb-card-meta">4 min read &nbsp;·&nbsp; May 2024</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="lb-card lb-card-wide reveal-up" data-category="article" style="--delay:.28s" aria-label="Article: Atelier Stories">
+          <a href="#" class="lb-card-link">
+            <figure class="lb-card-fig wide">
+              <img src="about-team.png" alt="Eldora Atelier team at work — Atelier Stories" loading="lazy" />
+            </figure>
+            <div class="lb-card-overlay" aria-hidden="true"></div>
+            <div class="lb-card-body">
+              <span class="lb-tag article">Article</span>
+              <h3 class="lb-card-title">Atelier Stories<br><em>The Hands That Make the Magic</em></h3>
+              <p class="lb-card-meta">12 min read &nbsp;·&nbsp; Apr 2024</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="lb-card reveal-up" data-category="style" style="--delay:.32s" aria-label="Style Guide: Bridal Jewellery Pairing">
+          <a href="#" class="lb-card-link">
+            <figure class="lb-card-fig">
+              <img src="about-insta-1.png" alt="Editorial bridal shoot — Jewellery Pairing Guide" loading="lazy" />
+            </figure>
+            <div class="lb-card-overlay" aria-hidden="true"></div>
+            <div class="lb-card-body">
+              <span class="lb-tag style">Style Guide</span>
+              <h3 class="lb-card-title">The Jewellery Pairing Guide<br><em>Gold, Polki or Diamonds?</em></h3>
+              <p class="lb-card-meta">8 min read &nbsp;·&nbsp; Apr 2024</p>
+            </div>
+          </a>
+        </article>
+
+      </div><!-- /.lb-grid -->
+
+      <!-- Empty state -->
+      <div class="lb-empty" id="lb-empty" hidden aria-live="polite">
+        <span class="lb-empty-icon" aria-hidden="true">&#10022;</span>
+        <p class="lb-empty-title">More content coming soon.</p>
+        <p class="lb-empty-sub">We are crafting something inspiring. Check back shortly.</p>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         5. STYLE GUIDES — numbered steps layout
+    ══════════════════════════════════════════ -->
+    <section class="lb-style-section" id="style-section" aria-labelledby="style-heading">
+      <div class="lb-section-header reveal-up">
+        <p class="section-eyebrow">STYLE GUIDES</p>
+        <h2 class="section-title" id="style-heading">How to Dress<br><em>Like an Eldora Atelier Muse</em></h2>
+        <div class="section-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+        <p class="section-sub">Practical guidance from our designers — on colour theory, fabric selection, silhouette choices and how to carry any garment with effortless elegance.</p>
+      </div>
+
+      <div class="style-guides-wrap">
+
+        <!-- Guide 1 — Women -->
+        <div class="style-guide reveal-up" style="--delay:.05s" data-category="style">
+          <div class="sg-image">
+            <img src="card-women.png" alt="Style guide: Women's lehenga editorial" loading="lazy" />
+            <div class="sg-number" aria-hidden="true">01</div>
+          </div>
+          <div class="sg-content">
+            <span class="lb-tag style">Style Guide</span>
+            <h3 class="sg-title">Choosing Your Lehenga<br><em>for Every Skin Tone</em></h3>
+            <p class="sg-desc">Understanding which colours complement your skin tone is the first step towards looking and feeling extraordinary. Our colour-to-skin guide breaks it down beautifully.</p>
+            <ol class="sg-steps" aria-label="Style steps">
+              <li><strong>Warm undertones</strong> — look best in champagne, terracotta, antique gold and deep maroon.</li>
+              <li><strong>Cool undertones</strong> — look stunning in jewel tones, royal blue, emerald and dusty rose.</li>
+              <li><strong>Neutral undertones</strong> — lucky you! Almost every palette works — choose for mood.</li>
+              <li><strong>Fabric weight matters</strong> — lighter georgette for summer, richer silk for evenings and celebrations.</li>
+            </ol>
+            <a href="#" class="sg-read-more">Read Full Guide <span>&#8594;</span></a>
+          </div>
+        </div>
+
+        <!-- Guide 2 — Men -->
+        <div class="style-guide sg-reverse reveal-up" style="--delay:.10s" data-category="style">
+          <div class="sg-content">
+            <span class="lb-tag style">Style Guide</span>
+            <h3 class="sg-title">The Modern Man's Guide<br><em>to Indian Formal Wear</em></h3>
+            <p class="sg-desc">From choosing between a bandhgala and a sherwani, to pairing the right footwear and pocket square — here is everything the well-dressed Indian man needs to know.</p>
+            <ol class="sg-steps" aria-label="Style steps">
+              <li><strong>Sherwani</strong> — ideal for groom occasions and wedding receptions. Rich embroidery is expected.</li>
+              <li><strong>Bandhgala</strong> — elegant yet versatile. Perfect for sangeets, cocktails and family functions.</li>
+              <li><strong>Nehru jacket</strong> — contemporary and sharp, pairs beautifully with slim churidars or trousers.</li>
+              <li><strong>Footwear rule</strong> — juttis for traditional events; pointed loafers for fusion occasions.</li>
+            </ol>
+            <a href="#" class="sg-read-more">Read Full Guide <span>&#8594;</span></a>
+          </div>
+          <div class="sg-image">
+            <img src="card-men.png" alt="Style guide: Men's sherwani editorial" loading="lazy" />
+            <div class="sg-number" aria-hidden="true">02</div>
+          </div>
+        </div>
+
+        <!-- Guide 3 — Indo Western -->
+        <div class="style-guide reveal-up" style="--delay:.15s" data-category="style">
+          <div class="sg-image">
+            <img src="card-indo-western.png" alt="Style guide: Indo Western fusion wear" loading="lazy" />
+            <div class="sg-number" aria-hidden="true">03</div>
+          </div>
+          <div class="sg-content">
+            <span class="lb-tag style">Style Guide</span>
+            <h3 class="sg-title">Mastering Indo Western<br><em>The Art of Fusion Dressing</em></h3>
+            <p class="sg-desc">The beauty of Indo-Western fashion lies in its boundary-defying nature. But great fusion takes thought, proportion awareness and an understanding of where tradition ends and modernity begins.</p>
+            <ol class="sg-steps" aria-label="Style steps">
+              <li><strong>Lead with one</strong> — let either the Indian or Western element dominate; balance, not confusion.</li>
+              <li><strong>Proportion play</strong> — a structured jacket with flowing palazzo is timeless and always works.</li>
+              <li><strong>Embellishment discipline</strong> — one statement piece per outfit. Over-embellishment kills the look.</li>
+              <li><strong>Footwear bridges worlds</strong> — block heels or strappy sandals complete the fusion seamlessly.</li>
+            </ol>
+            <a href="#" class="sg-read-more">Read Full Guide <span>&#8594;</span></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         6. ARTICLES — horizontal card list
+    ══════════════════════════════════════════ -->
+    <section class="lb-articles-section" id="articles-section" aria-labelledby="articles-heading">
+      <div class="lb-section-header reveal-up">
+        <p class="section-eyebrow">ARTICLES &amp; INSPIRATION</p>
+        <h2 class="section-title" id="articles-heading">Stories From<br><em>the Atelier &amp; Beyond</em></h2>
+        <div class="section-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+      </div>
+
+      <div class="articles-list">
+
+        <article class="article-card reveal-left" style="--delay:.04s" data-category="article">
+          <a href="#" class="article-link">
+            <div class="article-img">
+              <img src="about-story.png" alt="Designer in studio — A Vision Rooted in Heritage" loading="lazy" />
+            </div>
+            <div class="article-body">
+              <div class="article-meta-top">
+                <span class="lb-tag article">Article</span>
+                <time class="article-date" datetime="2024-05-10">May 10, 2024</time>
+              </div>
+              <h3 class="article-title">A Vision Rooted in Heritage<br><em>The Founder's Story</em></h3>
+              <p class="article-excerpt">In 2016, a small atelier in Chennai set out to prove that Indian couture could hold its own on the world stage. Here, the founder reflects on that journey — the struggles, the breakthroughs, and the garments she's most proud of.</p>
+              <div class="article-footer">
+                <span class="article-read-time">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  12 min read
+                </span>
+                <span class="article-read-link">Read Article <span>&#8594;</span></span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="article-card reveal-left" style="--delay:.10s" data-category="article">
+          <a href="#" class="article-link">
+            <div class="article-img">
+              <img src="about-hero.png" alt="Luxury atelier interior — What Luxury Really Means" loading="lazy" />
+            </div>
+            <div class="article-body">
+              <div class="article-meta-top">
+                <span class="lb-tag article">Article</span>
+                <time class="article-date" datetime="2024-04-18">Apr 18, 2024</time>
+              </div>
+              <h3 class="article-title">What Does Luxury<br><em>Actually Mean in Indian Fashion?</em></h3>
+              <p class="article-excerpt">Is luxury about price, or is it about the experience of owning something made entirely for you? We explore the philosophy of luxury couture in the Indian context — and why it matters more than ever.</p>
+              <div class="article-footer">
+                <span class="article-read-time">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  9 min read
+                </span>
+                <span class="article-read-link">Read Article <span>&#8594;</span></span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="article-card reveal-left" style="--delay:.16s" data-category="article">
+          <a href="#" class="article-link">
+            <div class="article-img">
+              <img src="about-craft.png" alt="Zardozi embroidery detail — The Dying Art Thriving Again" loading="lazy" />
+            </div>
+            <div class="article-body">
+              <div class="article-meta-top">
+                <span class="lb-tag article">Article</span>
+                <time class="article-date" datetime="2024-03-22">Mar 22, 2024</time>
+              </div>
+              <h3 class="article-title">The Dying Art That's<br><em>Thriving Again at Eldora</em></h3>
+              <p class="article-excerpt">Zardozi embroidery — once a craft of Mughal courts — came dangerously close to extinction. At Eldora Atelier, we're bringing it back, one golden thread at a time, with artisans who carry centuries of knowledge in their hands.</p>
+              <div class="article-footer">
+                <span class="article-read-time">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  11 min read
+                </span>
+                <span class="article-read-link">Read Article <span>&#8594;</span></span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="article-card reveal-left" style="--delay:.22s" data-category="trends">
+          <a href="#" class="article-link">
+            <div class="article-img">
+              <img src="collection-hero.png" alt="Couture couple editorial — The New Indo-Western Bride &amp; Groom" loading="lazy" />
+            </div>
+            <div class="article-body">
+              <div class="article-meta-top">
+                <span class="lb-tag trends">Trends</span>
+                <time class="article-date" datetime="2024-02-28">Feb 28, 2024</time>
+              </div>
+              <h3 class="article-title">The New Bride &amp; Groom<br><em>Why Couple Dressing Is Having a Moment</em></h3>
+              <p class="article-excerpt">Coordinated couple outfits have moved from kitsch to couture. This season, the best-dressed couples at Indian weddings are choosing complementary palettes, matching embroideries and co-designed sets from a single atelier.</p>
+              <div class="article-footer">
+                <span class="article-read-time">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  7 min read
+                </span>
+                <span class="article-read-link">Read Article <span>&#8594;</span></span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="article-card reveal-left" style="--delay:.28s" data-category="article">
+          <a href="#" class="article-link">
+            <div class="article-img">
+              <img src="custom-order-hero.png" alt="Atelier studio — How to Commission a Bespoke Garment" loading="lazy" />
+            </div>
+            <div class="article-body">
+              <div class="article-meta-top">
+                <span class="lb-tag article">Article</span>
+                <time class="article-date" datetime="2024-01-15">Jan 15, 2024</time>
+              </div>
+              <h3 class="article-title">How to Commission<br><em>a Bespoke Garment: A Complete Guide</em></h3>
+              <p class="article-excerpt">First time ordering a custom couture piece? We walk you through the entire process — from your initial brief and measurements to fabric selection, fittings and final delivery — so you know exactly what to expect.</p>
+              <div class="article-footer">
+                <span class="article-read-time">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  15 min read
+                </span>
+                <span class="article-read-link">Read Article <span>&#8594;</span></span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+      </div><!-- /.articles-list -->
+
+      <div class="articles-load-more reveal-up">
+        <button class="lb-btn-more" id="articles-load-more">
+          Load More Articles
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         7. NEWSLETTER CTA STRIP
+    ══════════════════════════════════════════ -->
+    <section class="lb-newsletter-strip" aria-labelledby="nl-heading">
+      <div class="lb-nl-inner reveal-up">
+        <div class="lb-nl-text">
+          <p class="section-eyebrow light">STAY INSPIRED</p>
+          <h2 class="lb-nl-title" id="nl-heading">The Eldora Edit — Delivered Monthly</h2>
+          <p class="lb-nl-sub">Trends, styling tips, new arrivals and exclusive offers — curated and delivered directly to your inbox.</p>
+        </div>
+        <form class="lb-nl-form" id="lb-nl-form" novalidate aria-label="Newsletter subscription">
+          <div class="lb-nl-input-row">
+            <input type="email" id="lb-nl-email" name="email" placeholder="Your email address" aria-label="Email address" required />
+            <button type="submit" class="lb-nl-btn" id="lb-nl-submit">Subscribe</button>
+          </div>
+          <p class="lb-nl-privacy">No spam, ever. Unsubscribe anytime. &nbsp;<a href="#">Privacy Policy</a></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="foot-col foot-brand">
+        <div class="foot-logo">
+          <span class="foot-logo-icon" aria-hidden="true">&#10022;</span>
+          <strong>ELDORA</strong>
+          <em>ATELIER</em>
+        </div>
+        <p>Where tradition meets<br>contemporary elegance.<br>Custom made with love.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h2 class="foot-heading">Quick Links</h2><a href="index.html">Home</a><a href="collection.html">Collection</a><a href="#">Services</a><a href="custom-order.html">Custom Order</a><a href="about.html">About Us</a><a href="lookbook.html">Lookbook</a><a href="contact.html">Contact Us</a></div>
+      <div class="foot-col"><h2 class="foot-heading">Customer Support</h2><a href="#">Size Guide</a><a href="#">Shipping &amp; Delivery</a><a href="#">Returns &amp; Exchange</a><a href="#">FAQ</a><a href="#">Care Instructions</a></div>
+      <div class="foot-col"><h2 class="foot-heading">Contact Us</h2><a href="#">WhatsApp Us</a><a href="#">+91 12345 67890</a><a href="#">hello@eldoraatelier.com</a><a href="#">Chennai, India</a></div>
+      <div class="foot-col foot-newsletter"><h2 class="foot-heading">Newsletter</h2><p>Subscribe for new collections &amp; exclusive offers.</p><div class="newsletter-form"><input type="email" placeholder="Enter your email" aria-label="Email for newsletter" /><button type="button" aria-label="Subscribe">&#8594;</button></div></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2024 Eldora Atelier. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </footer>
+
+  <script src="lookbook.js"></script>
+</body>
+</html>

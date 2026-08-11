@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Order &mdash; Eldora Atelier | Bespoke Indo-Western Couture</title>
+  <meta name="description" content="Place a custom bespoke order at Eldora Atelier. Choose your category, upload your design reference, select size, and request your handcrafted Indo-Western couture." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="custom-order.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER — identical to collection page
+  ══════════════════════════════════════════ -->
+  <header id="site-header">
+    <div class="header-logo-row">
+      <a class="logo" href="index.html" aria-label="Eldora Atelier">
+        <div class="logo-emblem" aria-hidden="true">
+          <img src="eldora-monogram.png" alt="" />
+        </div>
+        <span class="logo-wordmark">ELDORA</span>
+        <span class="logo-sub">ATELIER</span>
+      </a>
+    </div>
+    <div class="header-nav-row">
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="#">Services</a>
+        <a href="custom-order.html" class="active" aria-current="page">Custom Order</a>
+        <a href="about.html">About Us</a>
+        <a href="lookbook.html">Lookbook</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+      <div class="header-icons">
+        <button aria-label="Search" id="btn-search" class="icon-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button aria-label="Account" id="btn-account" class="icon-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button aria-label="Cart, 0 items" id="btn-cart" class="icon-btn cart-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <sup class="cart-count">0</sup>
+        </button>
+      </div>
+      <button class="hamburger" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <nav class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawer-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="collection.html">Collection</a>
+    <a href="#">Services</a>
+    <a href="custom-order.html" class="active">Custom Order</a>
+    <a href="about.html">About Us</a>
+    <a href="lookbook.html">Lookbook</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         PAGE HERO — split: text left, atelier image right
+    ══════════════════════════════════════════ -->
+    <section class="co-hero" aria-label="Custom Order introduction">
+      <div class="co-hero-text">
+        <p class="co-eyebrow">BESPOKE COUTURE</p>
+        <h1 class="co-title">Made Uniquely<br><em>For You.</em></h1>
+        <div class="co-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+        <p class="co-desc">Share your vision, choose your fabric, and let our master artisans craft something extraordinary — designed entirely around you.</p>
+        <div class="co-process" aria-label="Order process steps">
+          <div class="co-step">
+            <span class="co-step-num">01</span>
+            <span class="co-step-lbl">Choose Category</span>
+          </div>
+          <div class="co-step-sep" aria-hidden="true">&#9135;</div>
+          <div class="co-step">
+            <span class="co-step-num">02</span>
+            <span class="co-step-lbl">Upload Design</span>
+          </div>
+          <div class="co-step-sep" aria-hidden="true">&#9135;</div>
+          <div class="co-step">
+            <span class="co-step-num">03</span>
+            <span class="co-step-lbl">Select Size</span>
+          </div>
+          <div class="co-step-sep" aria-hidden="true">&#9135;</div>
+          <div class="co-step">
+            <span class="co-step-num">04</span>
+            <span class="co-step-lbl">Submit &amp; Connect</span>
+          </div>
+        </div>
+      </div>
+      <div class="co-hero-image" role="img" aria-label="Eldora Atelier luxury studio with master tailor and fabric swatches"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         FORM SECTION
+    ══════════════════════════════════════════ -->
+    <section class="co-form-section" aria-label="Custom order form">
+      <div class="co-form-wrap">
+
+        <!-- Progress bar -->
+        <div class="co-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Form progress" id="co-progress">
+          <div class="co-progress-fill" id="co-progress-fill"></div>
+        </div>
+
+        <form id="custom-order-form" novalidate autocomplete="off">
+
+          <!-- ══ STEP 1: CATEGORY ══ -->
+          <fieldset class="co-fieldset active" id="step-1" data-step="1">
+            <legend class="co-legend">
+              <span class="legend-num">01</span>
+              <span class="legend-title">Choose Your Category</span>
+            </legend>
+            <p class="co-hint">Select the type of garment you'd like us to craft for you.</p>
+
+            <div class="cat-grid" role="group" aria-label="Garment categories">
+              <label class="cat-card" id="cat-women">
+                <input type="radio" name="category" value="women" aria-label="Women's wear" />
+                <div class="cat-card-inner">
+                  <div class="cat-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17l4 4 4-4v-2.26C17.81 13.47 19 11.38 19 9c0-3.87-3.13-7-7-7z"/></svg>
+                  </div>
+                  <span class="cat-name">Women</span>
+                  <span class="cat-sub">Lehengas, Sarees, Gowns &amp; more</span>
+                </div>
+                <span class="cat-check" aria-hidden="true">&#10003;</span>
+              </label>
+
+              <label class="cat-card" id="cat-men">
+                <input type="radio" name="category" value="men" aria-label="Men's wear" />
+                <div class="cat-card-inner">
+                  <div class="cat-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <span class="cat-name">Men</span>
+                  <span class="cat-sub">Sherwanis, Bandhgalas &amp; Suits</span>
+                </div>
+                <span class="cat-check" aria-hidden="true">&#10003;</span>
+              </label>
+
+              <label class="cat-card" id="cat-iw">
+                <input type="radio" name="category" value="indo-western" aria-label="Indo Western" />
+                <div class="cat-card-inner">
+                  <div class="cat-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  </div>
+                  <span class="cat-name">Indo Western</span>
+                  <span class="cat-sub">Fusion contemporary silhouettes</span>
+                </div>
+                <span class="cat-check" aria-hidden="true">&#10003;</span>
+              </label>
+
+              <label class="cat-card" id="cat-bridal">
+                <input type="radio" name="category" value="bridal" aria-label="Bridal wear" />
+                <div class="cat-card-inner">
+                  <div class="cat-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </div>
+                  <span class="cat-name">Bridal</span>
+                  <span class="cat-sub">Bridal lehengas &amp; trousseau</span>
+                </div>
+                <span class="cat-check" aria-hidden="true">&#10003;</span>
+              </label>
+
+              <label class="cat-card" id="cat-occasion">
+                <input type="radio" name="category" value="occasion" aria-label="Occasion wear" />
+                <div class="cat-card-inner">
+                  <div class="cat-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <span class="cat-name">Occasion Wear</span>
+                  <span class="cat-sub">Festive, reception &amp; event wear</span>
+                </div>
+                <span class="cat-check" aria-hidden="true">&#10003;</span>
+              </label>
+
+              <label class="cat-card" id="cat-couple">
+                <input type="radio" name="category" value="couple" aria-label="Couple wear" />
+                <div class="cat-card-inner">
+                  <div class="cat-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <span class="cat-name">Couple Sets</span>
+                  <span class="cat-sub">Coordinated couple outfits</span>
+                </div>
+                <span class="cat-check" aria-hidden="true">&#10003;</span>
+              </label>
+            </div>
+
+            <div class="co-field-error" id="err-category" role="alert" hidden>Please select a category to continue.</div>
+
+            <div class="step-footer">
+              <button type="button" class="co-btn-next" data-validates="category" id="next-1">
+                Continue <span class="btn-arrow">&#8594;</span>
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- ══ STEP 2: UPLOAD DESIGN ══ -->
+          <fieldset class="co-fieldset" id="step-2" data-step="2">
+            <legend class="co-legend">
+              <span class="legend-num">02</span>
+              <span class="legend-title">Upload Your Design Reference</span>
+            </legend>
+            <p class="co-hint">Share inspiration images, sketches, or any reference for your design. We accept JPG, PNG, PDF &mdash; up to 10 MB each.</p>
+
+            <div class="upload-zone" id="upload-zone" role="button" tabindex="0" aria-label="Upload design files — click or drag and drop">
+              <input type="file" id="file-input" name="design_files" multiple accept=".jpg,.jpeg,.png,.pdf,.webp" aria-label="Choose design files" />
+              <div class="upload-icon" aria-hidden="true">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+              </div>
+              <p class="upload-main">Drag &amp; drop your files here</p>
+              <p class="upload-sub">or <span class="upload-browse">browse to upload</span></p>
+              <p class="upload-types">JPG &nbsp;·&nbsp; PNG &nbsp;·&nbsp; PDF &nbsp;·&nbsp; Max 10 MB</p>
+            </div>
+
+            <div class="upload-preview" id="upload-preview" aria-live="polite"></div>
+
+            <div class="co-field-group" style="margin-top:24px;">
+              <label class="co-label" for="design-desc">Describe Your Design Idea <span class="optional">(optional)</span></label>
+              <textarea class="co-textarea" id="design-desc" name="design_description" rows="4" placeholder="E.g. — A champagne gold lehenga with intricate zardozi embroidery, deep V-neckline blouse, sheer dupatta&#8230;"></textarea>
+            </div>
+
+            <div class="step-footer">
+              <button type="button" class="co-btn-back" data-target="1">
+                <span class="btn-arrow-l">&#8592;</span> Back
+              </button>
+              <button type="button" class="co-btn-next" data-target="3" id="next-2">
+                Continue <span class="btn-arrow">&#8594;</span>
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- ══ STEP 3: SIZE ══ -->
+          <fieldset class="co-fieldset" id="step-3" data-step="3">
+            <legend class="co-legend">
+              <span class="legend-num">03</span>
+              <span class="legend-title">Choose Your Size</span>
+            </legend>
+            <p class="co-hint">Select a standard size or enter your custom measurements for a perfect fit.</p>
+
+            <!-- Size toggle -->
+            <div class="size-toggle" role="group" aria-label="Size method">
+              <button type="button" class="size-toggle-btn active" id="toggle-standard" data-panel="standard-panel">Standard Size</button>
+              <button type="button" class="size-toggle-btn" id="toggle-custom" data-panel="custom-panel">Custom Measurements</button>
+            </div>
+
+            <!-- Standard sizes -->
+            <div class="size-panel" id="standard-panel">
+              <div class="size-grid" role="group" aria-label="Standard sizes">
+                <label class="size-chip"><input type="radio" name="std_size" value="XS" /> <span>XS</span></label>
+                <label class="size-chip"><input type="radio" name="std_size" value="S" />  <span>S</span></label>
+                <label class="size-chip"><input type="radio" name="std_size" value="M" />  <span>M</span></label>
+                <label class="size-chip"><input type="radio" name="std_size" value="L" />  <span>L</span></label>
+                <label class="size-chip"><input type="radio" name="std_size" value="XL" /> <span>XL</span></label>
+                <label class="size-chip"><input type="radio" name="std_size" value="XXL" /><span>XXL</span></label>
+                <label class="size-chip"><input type="radio" name="std_size" value="3XL" /><span>3XL</span></label>
+              </div>
+              <a href="#" class="size-guide-link" target="_blank" rel="noopener">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                View Size Guide
+              </a>
+            </div>
+
+            <!-- Custom measurements -->
+            <div class="size-panel hidden" id="custom-panel">
+              <div class="measure-grid">
+                <div class="co-field-group">
+                  <label class="co-label" for="m-chest">Chest / Bust <span class="unit">(inches)</span></label>
+                  <input class="co-input" type="number" id="m-chest" name="chest" min="20" max="60" step="0.5" placeholder="e.g. 36" />
+                </div>
+                <div class="co-field-group">
+                  <label class="co-label" for="m-waist">Waist <span class="unit">(inches)</span></label>
+                  <input class="co-input" type="number" id="m-waist" name="waist" min="20" max="60" step="0.5" placeholder="e.g. 30" />
+                </div>
+                <div class="co-field-group">
+                  <label class="co-label" for="m-hips">Hips <span class="unit">(inches)</span></label>
+                  <input class="co-input" type="number" id="m-hips" name="hips" min="20" max="70" step="0.5" placeholder="e.g. 38" />
+                </div>
+                <div class="co-field-group">
+                  <label class="co-label" for="m-shoulder">Shoulder Width <span class="unit">(inches)</span></label>
+                  <input class="co-input" type="number" id="m-shoulder" name="shoulder" min="10" max="30" step="0.5" placeholder="e.g. 15" />
+                </div>
+                <div class="co-field-group">
+                  <label class="co-label" for="m-length">Full Length <span class="unit">(inches)</span></label>
+                  <input class="co-input" type="number" id="m-length" name="full_length" min="20" max="70" step="0.5" placeholder="e.g. 44" />
+                </div>
+                <div class="co-field-group">
+                  <label class="co-label" for="m-sleeve">Sleeve Length <span class="unit">(inches)</span></label>
+                  <input class="co-input" type="number" id="m-sleeve" name="sleeve" min="0" max="30" step="0.5" placeholder="e.g. 22" />
+                </div>
+                <div class="co-field-group" style="grid-column:span 2">
+                  <label class="co-label" for="m-notes">Additional Fit Notes <span class="optional">(optional)</span></label>
+                  <input class="co-input" type="text" id="m-notes" name="fit_notes" placeholder="e.g. slightly relaxed at waist, longer blouse length&#8230;" />
+                </div>
+              </div>
+              <p class="measure-note">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Our team will contact you to confirm measurements before we begin crafting.
+              </p>
+            </div>
+
+            <div class="step-footer">
+              <button type="button" class="co-btn-back" data-target="2">
+                <span class="btn-arrow-l">&#8592;</span> Back
+              </button>
+              <button type="button" class="co-btn-next" data-target="4" id="next-3">
+                Continue <span class="btn-arrow">&#8594;</span>
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- ══ STEP 4: NOTES + CONTACT ══ -->
+          <fieldset class="co-fieldset" id="step-4" data-step="4">
+            <legend class="co-legend">
+              <span class="legend-num">04</span>
+              <span class="legend-title">Additional Details &amp; Contact</span>
+            </legend>
+            <p class="co-hint">Tell us anything else we should know, and share your contact so we can reach you.</p>
+
+            <div class="form-2col">
+              <div class="co-field-group">
+                <label class="co-label" for="f-name">Full Name <span class="req" aria-hidden="true">*</span></label>
+                <input class="co-input" type="text" id="f-name" name="full_name" placeholder="Your full name" required autocomplete="name" />
+                <div class="co-field-error" id="err-name" role="alert" hidden>Please enter your name.</div>
+              </div>
+              <div class="co-field-group">
+                <label class="co-label" for="f-phone">WhatsApp / Phone <span class="req" aria-hidden="true">*</span></label>
+                <div class="input-with-flag">
+                  <span class="country-code">&#127470;&#127475; +91</span>
+                  <input class="co-input" type="tel" id="f-phone" name="phone" placeholder="98765 43210" required autocomplete="tel" pattern="[0-9\s\-]{7,15}" />
+                </div>
+                <div class="co-field-error" id="err-phone" role="alert" hidden>Please enter a valid phone number.</div>
+              </div>
+              <div class="co-field-group">
+                <label class="co-label" for="f-email">Email Address <span class="optional">(optional)</span></label>
+                <input class="co-input" type="email" id="f-email" name="email" placeholder="you@example.com" autocomplete="email" />
+              </div>
+              <div class="co-field-group">
+                <label class="co-label" for="f-event">Event / Occasion Date <span class="optional">(optional)</span></label>
+                <input class="co-input" type="date" id="f-event" name="event_date" />
+              </div>
+            </div>
+
+            <div class="co-field-group" style="margin-top:8px;">
+              <label class="co-label" for="f-notes">Additional Notes &amp; Requests <span class="optional">(optional)</span></label>
+              <textarea class="co-textarea tall" id="f-notes" name="notes" rows="5" placeholder="Share any specific fabric preferences, colour requests, embroidery styles, or other details you'd like us to know before we get started&#8230;"></textarea>
+            </div>
+
+            <!-- Budget preference -->
+            <div class="co-field-group" style="margin-top:4px;">
+              <label class="co-label">Approximate Budget Range <span class="optional">(optional)</span></label>
+              <div class="budget-grid" role="group" aria-label="Budget range">
+                <label class="budget-chip"><input type="radio" name="budget" value="below-25k" /><span>Below &#8377;25,000</span></label>
+                <label class="budget-chip"><input type="radio" name="budget" value="25k-50k"  /><span>&#8377;25,000 &ndash; &#8377;50,000</span></label>
+                <label class="budget-chip"><input type="radio" name="budget" value="50k-1L"   /><span>&#8377;50,000 &ndash; &#8377;1 Lakh</span></label>
+                <label class="budget-chip"><input type="radio" name="budget" value="above-1L" /><span>Above &#8377;1 Lakh</span></label>
+              </div>
+            </div>
+
+            <div class="step-footer">
+              <button type="button" class="co-btn-back" data-target="3">
+                <span class="btn-arrow-l">&#8592;</span> Back
+              </button>
+              <button type="button" class="co-btn-next" data-validates="contact" data-target="5" id="next-4">
+                Review Order <span class="btn-arrow">&#8594;</span>
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- ══ STEP 5: REVIEW + SUBMIT ══ -->
+          <fieldset class="co-fieldset" id="step-5" data-step="5">
+            <legend class="co-legend">
+              <span class="legend-num">05</span>
+              <span class="legend-title">Review &amp; Submit Your Order</span>
+            </legend>
+            <p class="co-hint">Here's a summary of your custom order request. Review and submit — our team will reach you within 24 hours.</p>
+
+            <!-- Summary -->
+            <div class="review-card" id="review-card" aria-label="Order summary"></div>
+
+            <!-- Terms -->
+            <label class="co-checkbox-wrap">
+              <input type="checkbox" id="chk-terms" name="terms" required aria-required="true" />
+              <span class="co-checkbox-box" aria-hidden="true">
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+              </span>
+              <span>I agree to the <a href="#" class="co-link">Terms &amp; Conditions</a> and understand this is a non-binding inquiry that will be confirmed by the Eldora Atelier team.</span>
+            </label>
+            <div class="co-field-error" id="err-terms" role="alert" hidden>Please accept the terms to continue.</div>
+
+            <!-- Submit actions -->
+            <div class="submit-actions">
+              <!-- Primary submit -->
+              <button type="submit" class="co-btn-submit" id="submit-form">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Submit Custom Order
+              </button>
+
+              <!-- Divider -->
+              <div class="submit-or" aria-hidden="true">
+                <span></span><em>or reach us directly</em><span></span>
+              </div>
+
+              <!-- WhatsApp option -->
+              <a href="#" class="co-btn-whatsapp" id="whatsapp-btn" target="_blank" rel="noopener" aria-label="Send order via WhatsApp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                Continue on WhatsApp
+              </a>
+            </div>
+
+            <div class="step-footer" style="margin-top:24px; padding-top:0; border:none;">
+              <button type="button" class="co-btn-back" data-target="4">
+                <span class="btn-arrow-l">&#8592;</span> Edit Order
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- ══ SUCCESS ══ -->
+          <div class="co-success" id="co-success" hidden aria-live="polite">
+            <div class="success-icon" aria-hidden="true">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <p class="success-eyebrow">ORDER RECEIVED</p>
+            <h2 class="success-title">Thank You!</h2>
+            <div class="success-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
+            <p class="success-msg">Your custom order request has been submitted. Our atelier team will contact you within <strong>24 hours</strong> to begin your bespoke journey.</p>
+            <div class="success-actions">
+              <a href="collection.html" class="co-btn-submit" style="display:inline-flex;text-decoration:none;">Explore Collection</a>
+              <a href="#" class="co-btn-whatsapp" id="success-wa" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+
+        </form><!-- /#custom-order-form -->
+      </div><!-- /.co-form-wrap -->
+
+      <!-- Side info panel (desktop only) -->
+      <aside class="co-sidebar" aria-label="Why choose Eldora Atelier">
+        <div class="sidebar-inner">
+          <p class="sidebar-eyebrow">WHY ELDORA ATELIER</p>
+          <h2 class="sidebar-title">Crafted With<br><em>Passion &amp; Precision</em></h2>
+          <div class="sidebar-divider" aria-hidden="true">&#9135;&#9135; &#10022; &#9135;&#9135;</div>
+
+          <ul class="sidebar-benefits" role="list">
+            <li>
+              <span class="sb-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>100% Custom Made</strong>
+                <p>Every piece is crafted from scratch to your exact specifications.</p>
+              </div>
+            </li>
+            <li>
+              <span class="sb-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Premium Fabrics</strong>
+                <p>We use only the finest silks, georgettes, and embroidered textiles.</p>
+              </div>
+            </li>
+            <li>
+              <span class="sb-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Perfect Fit Guarantee</strong>
+                <p>Tailored to your exact measurements for a flawless fit.</p>
+              </div>
+            </li>
+            <li>
+              <span class="sb-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>On-Time Delivery</strong>
+                <p>We honour delivery timelines — across India and worldwide.</p>
+              </div>
+            </li>
+            <li>
+              <span class="sb-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Dedicated Support</strong>
+                <p>One-on-one consultation with our design team throughout the process.</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="sidebar-contact">
+            <p class="sidebar-contact-label">NEED HELP? REACH US</p>
+            <a href="#" class="sidebar-wa-btn" target="_blank" rel="noopener" aria-label="Contact on WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              WhatsApp Us
+            </a>
+            <a href="mailto:hello@eldoraatelier.com" class="sidebar-email-link">hello@eldoraatelier.com</a>
+          </div>
+        </div>
+      </aside>
+
+    </section><!-- /.co-form-section -->
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="foot-col foot-brand">
+        <div class="foot-logo">
+          <span class="foot-logo-icon" aria-hidden="true">&#10022;</span>
+          <strong>ELDORA</strong>
+          <em>ATELIER</em>
+        </div>
+        <p>Where tradition meets<br>contemporary elegance.<br>Custom made with love.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h2 class="foot-heading">Quick Links</h2>
+        <a href="index.html">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="#">Services</a>
+        <a href="custom-order.html">Custom Order</a>
+        <a href="#">About Us</a>
+        <a href="#">Lookbook</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="foot-col">
+        <h2 class="foot-heading">Customer Support</h2>
+        <a href="#">Size Guide</a>
+        <a href="#">Shipping &amp; Delivery</a>
+        <a href="#">Returns &amp; Exchange</a>
+        <a href="#">FAQ</a>
+        <a href="#">Care Instructions</a>
+      </div>
+      <div class="foot-col">
+        <h2 class="foot-heading">Contact Us</h2>
+        <a href="#">WhatsApp Us</a>
+        <a href="#">+91 12345 67890</a>
+        <a href="#">hello@eldoraatelier.com</a>
+        <a href="#">Chennai, India</a>
+      </div>
+      <div class="foot-col foot-newsletter">
+        <h2 class="foot-heading">Newsletter</h2>
+        <p>Subscribe for new collections &amp; exclusive offers.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" />
+          <button type="button" aria-label="Subscribe">&#8594;</button>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2024 Eldora Atelier. All Rights Reserved.</span>
+      <span>
+        <a href="#">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Terms &amp; Conditions</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="custom-order.js"></script>
+</body>
+</html>
