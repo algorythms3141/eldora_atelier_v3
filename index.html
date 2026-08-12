@@ -1,46 +1,380 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eldora Atelier — Custom Couture</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Montserrat:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="overrides.css" />
-    <link rel="stylesheet" href="header-overlay.css" />
-  </head>
-  <body>
-    <header>
-      <nav class="nav-left"><button class="menu" aria-label="Menu"></button><a href="index.html" class="active">Home</a><a href="collection.html">Designs</a><a href="custom-order.html">Custom Order</a><a href="about.html">About Us</a></nav>
-      <a class="logo" href="index.html" aria-label="Eldora Atelier"><img src="eldora-monogram.png" alt="Eldora Atelier floral monogram"><span class="logo-name">ELDORA</span><span class="logo-subtitle">— &nbsp; ATELIER &nbsp; —</span></a>
-      <nav class="nav-right"><a href="lookbook.html">Lookbook</a><a href="contact.html">Contact Us</a><button aria-label="Search">⌕</button><button aria-label="Account">♙</button><button class="bag" aria-label="Bag">♧<sup>0</sup></button></nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eldora Atelier — Custom Indo-Western Couture</title>
+  <meta name="description" content="Eldora Atelier — Online custom Indo-Western couture. Bespoke outfits tailored to your style, occasion and personality. Timeless. Elegant. Uniquely yours." />
 
-    <main>
-      <section class="hero">
-        <div class="hero-copy"><p class="eyebrow">ONLINE CUSTOM COSTUME</p><h1>Eldora <span>Atelier</span></h1><div class="flourish">╌╌╌ ❦ ╌╌╌</div><p class="tagline">INDO WESTERN &nbsp;•&nbsp; TIMELESS &nbsp;•&nbsp; ELEGANT</p><p class="intro">Custom made Indo Western outfits,<br>designed to reflect your unique style<br>with perfection.</p><div class="cta"><a class="button fill">Explore Designs</a><a class="button outline">Custom Order</a></div></div>
-        <div class="hero-photo" role="img" aria-label="Eldora couture couple"></div>
-      </section>
-      <section class="benefits">
-        <div><b>✂</b><p><strong>100% CUSTOM MADE</strong><small>Tailored to Perfection</small></p></div><div><b>▧</b><p><strong>PREMIUM FABRICS</strong><small>Handpicked with Care</small></p></div><div><b>〰</b><p><strong>PERFECT FIT GUARANTEE</strong><small>Made for Your Measurements</small></p></div><div><b>♧</b><p><strong>SAFE & ON-TIME DELIVERY</strong><small>Across India & Worldwide</small></p></div><div><b>♡</b><p><strong>DESIGNED WITH PASSION</strong><small>Crafted by Experts</small></p></div>
-      </section>
-      <section class="collections">
-        <h2><span>╌╌ ◇</span> Explore Designs <span>◇ ╌╌</span></h2>
-        <div class="card-row">
-          <article class="couture-card woman"><div class="inner"><div class="card-copy"><h3>Women</h3><a>Shop Now</a></div></div></article>
-          <article class="couture-card man"><div class="inner"><div class="card-copy"><h3>Men</h3><a>Shop Now</a></div></div></article>
-          <article class="couture-card couple"><div class="inner"><div class="card-copy"><h3>Couple</h3><a>Shop Now</a></div></div></article>
-          <article class="couture-card party"><div class="inner"><div class="card-copy"><h3>Party Wear</h3><a>Shop Now</a></div></div></article>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="overrides.css" />
+</head>
+<body>
+
+  <!-- ── Announcement Bar ───────────────────────────────── -->
+  <div class="announce">
+    Free consultations available &nbsp;·&nbsp; Shipping across India &amp; Worldwide
+  </div>
+
+  <!-- ── Header ────────────────────────────────────────── -->
+  <header>
+    <nav class="nav-left">
+      <button class="menu-btn" aria-label="Menu">☰</button>
+      <a href="index.html" class="active">Home</a>
+      <a href="collection.html">Designs</a>
+      <a href="custom-order.html">Custom Order</a>
+      <a href="about.html">About Us</a>
+    </nav>
+
+    <a class="logo" href="index.html" aria-label="Eldora Atelier">
+      <img src="eldora-monogram.png" alt="Eldora Atelier floral monogram" />
+      <span class="logo-name">ELDORA</span>
+      <span class="logo-subtitle">— &nbsp; ATELIER &nbsp; —</span>
+    </a>
+
+    <nav class="nav-right">
+      <a href="lookbook.html">Lookbook</a>
+      <a href="contact.html">Contact Us</a>
+      <button aria-label="Search">⌕</button>
+      <button aria-label="Account">♙</button>
+      <button class="bag-btn" aria-label="Bag">♧<sup>0</sup></button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §1  HERO                                           -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="hero">
+
+      <!-- LEFT — editorial copy -->
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Online Custom Costume</p>
+
+        <h1 class="hero-title reveal reveal-delay-1">ELDORA</h1>
+        <p class="hero-script reveal reveal-delay-2">Atelier</p>
+
+        <div class="gold-rule reveal reveal-delay-2">❦</div>
+
+        <p class="tagline reveal reveal-delay-3">
+          Indo Western &nbsp;·&nbsp; Timeless &nbsp;·&nbsp; Elegant
+        </p>
+
+        <p class="intro reveal reveal-delay-3">
+          Custom-made Indo-Western couture designed around<br>
+          your individual style, occasion and personality.
+        </p>
+
+        <div class="cta-row reveal reveal-delay-4">
+          <a href="collection.html" class="btn btn-fill">Explore Designs</a>
+          <a href="custom-order.html" class="btn btn-outline">Custom Order</a>
         </div>
-      </section>
-      <section class="custom">
-        <div class="atelier-image"><div class="mannequin">♙</div><div class="tailor-props">✂ &nbsp; ◉ &nbsp; ◌</div></div>
-        <div class="custom-copy"><p>CUSTOM ORDER</p><h2>Made Uniquely Yours</h2><div class="floral">❧</div><span>Your vision, our craftsmanship.<br>Choose your design, fabric &amp; details<br>and we will create something extraordinary.</span><div class="process"><div>♙<small>CHOOSE DESIGN</small></div><div>▧<small>SELECT FABRIC</small></div><div>〰<small>PERFECT MEASURE</small></div><div>❦<small>PERSONALIZED DETAILS</small></div></div><a class="button fill">Start Your Custom Order</a></div>
-      </section>
-      <section class="services"><div><b>▣</b><p>BOOK CONSULTATION<small>One-to-one styling session</small></p></div><div><b>♙</b><p>PERSONAL FITTING<small>Perfect fit guaranteed</small></p></div><div><b>✿</b><p>PREMIUM QUALITY<small>Finest fabrics &amp; craftsmanship</small></p></div><div><b>◇</b><p>EXCLUSIVE DESIGNS<small>Unique. Elegant. Timeless.</small></p></div></section>
-    </main>
-    <footer><div class="footer-grid"><section class="foot-brand"><div class="foot-logo">❦<strong>ELDORA</strong><i>ATELIER</i></div><p>Where tradition meets<br>contemporary elegance.<br>Custom made with love.</p><span>◎ &nbsp; ◉ &nbsp; ◌</span></section><section><h4>Quick Links</h4><a>Home</a><a>Designs</a><a>Custom Order</a><a>About Us</a><a>Lookbook</a><a>Contact Us</a></section><section><h4>Help</h4><a>How It Works</a><a>Size Guide</a><a>Shipping &amp; Delivery</a><a>Returns &amp; Exchange</a><a>FAQ</a></section><section><h4>Contact Us</h4><a>⌕ &nbsp;+91 12345 67890</a><a>✉ &nbsp;hello@eldoraatelier.com</a><a>⌖ &nbsp;Chennai, India</a></section><section class="newsletter"><h4>Newsletter</h4><p>Subscribe to get updates on<br>new collections &amp; exclusive offers.</p><label><input placeholder="Enter your email"><button>→</button></label></section></div><div class="copyright"><span>© 2024 Eldora Atelier. All Rights Reserved.</span><span>Privacy Policy &nbsp;&nbsp; | &nbsp;&nbsp; Terms &amp; Conditions</span></div></footer>
-  </body>
+      </div>
+
+      <!-- RIGHT — fashion photography -->
+      <div class="hero-visual">
+        <img src="hero-couple.png" alt="Eldora Atelier — Indo Western Couture" />
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §2  BENEFITS STRIP                                 -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="benefits">
+      <div class="benefit">
+        <span class="bico">✂</span>
+        <div>
+          <strong>100% Custom Made</strong>
+          <small>Tailored to Perfection</small>
+        </div>
+      </div>
+      <div class="benefit">
+        <span class="bico">▧</span>
+        <div>
+          <strong>Premium Fabrics</strong>
+          <small>Handpicked with Care</small>
+        </div>
+      </div>
+      <div class="benefit">
+        <span class="bico">〰</span>
+        <div>
+          <strong>Perfect Fit Guarantee</strong>
+          <small>Made for Your Measurements</small>
+        </div>
+      </div>
+      <div class="benefit">
+        <span class="bico">♧</span>
+        <div>
+          <strong>Safe &amp; On-Time Delivery</strong>
+          <small>Across India &amp; Worldwide</small>
+        </div>
+      </div>
+      <div class="benefit">
+        <span class="bico">♡</span>
+        <div>
+          <strong>Designed with Passion</strong>
+          <small>Crafted by Experts</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §3  EXPLORE DESIGNS                                -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="collections">
+      <div class="section-head reveal">
+        <div class="gold-rule-line"></div>
+        <h2>Explore Designs</h2>
+        <div class="gold-rule-line"></div>
+      </div>
+      <p class="section-sub reveal">Discover our curated collections of custom Indo-Western couture</p>
+
+      <div class="card-grid">
+        <article class="ed-card reveal reveal-delay-1">
+          <div class="ed-card-img" style="background-image:url('card-women.png')"></div>
+          <div class="ed-card-body">
+            <span class="ed-cat">Women</span>
+            <a href="collection.html" class="ed-link">Explore →</a>
+          </div>
+        </article>
+
+        <article class="ed-card reveal reveal-delay-2">
+          <div class="ed-card-img" style="background-image:url('card-men.png')"></div>
+          <div class="ed-card-body">
+            <span class="ed-cat">Men</span>
+            <a href="collection.html" class="ed-link">Explore →</a>
+          </div>
+        </article>
+
+        <article class="ed-card reveal reveal-delay-3">
+          <div class="ed-card-img" style="background-image:url('card-bridal.png')"></div>
+          <div class="ed-card-body">
+            <span class="ed-cat">Bridal</span>
+            <a href="collection.html" class="ed-link">Explore →</a>
+          </div>
+        </article>
+
+        <article class="ed-card reveal reveal-delay-4">
+          <div class="ed-card-img" style="background-image:url('card-occasion.png')"></div>
+          <div class="ed-card-body">
+            <span class="ed-cat">Occasion Wear</span>
+            <a href="collection.html" class="ed-link">Explore →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §4  CUSTOM ORDER                                   -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="custom-order-section">
+      <div class="co-image reveal">
+        <img src="custom-order-hero.png" alt="Custom order — Eldora Atelier" />
+      </div>
+      <div class="co-content">
+        <p class="eyebrow reveal">Custom Order</p>
+        <h2 class="reveal reveal-delay-1">Made Uniquely Yours</h2>
+        <p class="co-desc reveal reveal-delay-1">
+          Every garment begins as a vision. We listen, design, and craft each
+          piece to reflect your personality, occasion and silhouette — made
+          exclusively for you.
+        </p>
+
+        <ol class="co-steps">
+          <li class="reveal reveal-delay-1">
+            <span>1</span>
+            <div>
+              <strong>Choose Your Style</strong>
+              <small>Browse our catalogue or describe your dream design</small>
+            </div>
+          </li>
+          <li class="reveal reveal-delay-2">
+            <span>2</span>
+            <div>
+              <strong>Share Measurements</strong>
+              <small>We guide you through every detail with precision</small>
+            </div>
+          </li>
+          <li class="reveal reveal-delay-2">
+            <span>3</span>
+            <div>
+              <strong>Select Fabric &amp; Colour</strong>
+              <small>Handpicked premium fabrics curated for you</small>
+            </div>
+          </li>
+          <li class="reveal reveal-delay-3">
+            <span>4</span>
+            <div>
+              <strong>Personalised Fitting</strong>
+              <small>Perfect fit, refined to your silhouette</small>
+            </div>
+          </li>
+          <li class="reveal reveal-delay-3">
+            <span>5</span>
+            <div>
+              <strong>Delivery</strong>
+              <small>Worldwide — handled with the utmost care</small>
+            </div>
+          </li>
+        </ol>
+
+        <a href="custom-order.html" class="btn btn-fill reveal reveal-delay-4">
+          Create Your Custom Look
+        </a>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §5  BRAND STORY                                    -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="brand-story-wrap">
+      <div class="bs-ornament reveal">❦ · ❦</div>
+      <blockquote class="reveal reveal-delay-1">
+        Where tradition meets contemporary elegance.<br>
+        Every thread tells your story.
+      </blockquote>
+      <p class="bs-body reveal reveal-delay-2">
+        Eldora Atelier was born from a love of Indo-Western craftsmanship and the desire
+        to make bespoke couture accessible to every individual who dreams of wearing
+        something truly their own. We create garments that are timeless, personal,
+        and made with intention — honouring your heritage while celebrating who you are today.
+      </p>
+      <a href="about.html" class="teal-link reveal reveal-delay-3">Discover Our Story →</a>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §6  LOOKBOOK TEASER                                -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="lookbook-teaser">
+      <div class="lt-head reveal">
+        <h2>The Lookbook</h2>
+        <a href="lookbook.html" class="teal-link">View All →</a>
+      </div>
+      <div class="lt-grid">
+        <div class="lt-img lt-tall reveal"
+             style="background-image:url('about-hero.png')"
+             role="img" aria-label="Eldora Atelier lookbook"></div>
+        <div class="lt-img reveal reveal-delay-1"
+             style="background-image:url('about-craft.png')"
+             role="img" aria-label="Craft detail"></div>
+        <div class="lt-img reveal reveal-delay-2"
+             style="background-image:url('about-insta-1.png')"
+             role="img" aria-label="Featured look"></div>
+        <div class="lt-img reveal reveal-delay-1"
+             style="background-image:url('card-indo-western.png')"
+             role="img" aria-label="Indo western look"></div>
+        <div class="lt-img reveal reveal-delay-2"
+             style="background-image:url('about-story.png')"
+             role="img" aria-label="Our story"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §7  BRAND QUOTE / STATEMENT                        -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="brand-quote">
+      <span class="bq-mark reveal">"</span>
+      <blockquote class="reveal reveal-delay-1">
+        Crafted with love. Designed for you.<br>
+        Because elegance is always personal.
+      </blockquote>
+      <cite class="reveal reveal-delay-2">— Eldora Atelier</cite>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────── -->
+  <footer>
+    <div class="foot-grid">
+
+      <!-- Brand -->
+      <div class="foot-col foot-brand">
+        <div class="foot-brand-inner">
+          <img src="eldora-monogram.png" alt="Eldora Atelier" />
+          <div>
+            <span class="foot-name">ELDORA</span>
+            <span class="foot-sub">ATELIER</span>
+          </div>
+        </div>
+        <p class="foot-desc">
+          Custom Indo-Western Couture.<br>
+          Where tradition meets contemporary elegance.<br>
+          Made with love, crafted with precision.
+        </p>
+        <div class="foot-social">◎ &nbsp; ◉ &nbsp; ◌</div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="foot-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="collection.html">Designs</a>
+        <a href="custom-order.html">Custom Order</a>
+        <a href="about.html">About Us</a>
+        <a href="lookbook.html">Lookbook</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <!-- Help -->
+      <div class="foot-col">
+        <h4>Help</h4>
+        <a href="#">How It Works</a>
+        <a href="#">Size Guide</a>
+        <a href="#">Shipping &amp; Delivery</a>
+        <a href="#">Returns &amp; Exchange</a>
+        <a href="#">FAQ</a>
+      </div>
+
+      <!-- Contact -->
+      <div class="foot-col">
+        <h4>Contact Us</h4>
+        <a href="tel:+911234567890">⌕ &nbsp;+91 12345 67890</a>
+        <a href="mailto:hello@eldoraatelier.com">✉ &nbsp;hello@eldoraatelier.com</a>
+        <a href="#">⌖ &nbsp;Chennai, India</a>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="foot-col foot-newsletter">
+        <h4>Newsletter</h4>
+        <p>Subscribe for new collections<br>and exclusive offers.</p>
+        <label class="nl-label">
+          <input type="email" placeholder="Enter your email" aria-label="Email address">
+          <button type="button" aria-label="Subscribe">→</button>
+        </label>
+      </div>
+
+    </div>
+    <div class="foot-copy">
+      <span>© 2024 Eldora Atelier. All Rights Reserved.</span>
+      <span>Privacy Policy &nbsp;&nbsp;|&nbsp;&nbsp; Terms &amp; Conditions</span>
+    </div>
+  </footer>
+
+  <!-- ── Scroll Reveal Script ───────────────────────────── -->
+  <script>
+    (function () {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('revealed');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08 }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    })();
+  </script>
+
+</body>
 </html>
