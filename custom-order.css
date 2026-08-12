@@ -7,27 +7,34 @@
 
 /* ── Design Tokens ── */
 :root {
-  --wine:       #1e0d07;
-  --wine2:      #33180f;
-  --wine3:      #4d291b;
-  --maroon:     #6b1a2a;
-  --ivory:      #faf4ec;
-  --cream:      #f2e9de;
-  --champagne:  #e8d5c0;
-  --beige:      #ede5da;
-  --gold:       #b48a52;
-  --gold2:      #c9a870;
-  --gold3:      #e0c080;
-  --ink:        #2a1608;
-  --ink2:       #5a3520;
-  --muted:      #9a7a65;
-  --success:    #4a7c59;
+  /* Backgrounds */
+  --ivory:      #F5F0E8;
+  --cream:      #F0E8DC;
+  --champagne:  #F3EBE0;
+  --beige:      #E8DFD5;
+
+  /* Brand */
+  --wine:       #0F5147;
+  --wine2:      #17665A;
+  --wine3:      #4A8A7D;
+  --maroon:     #0F5147;
+  --gold:       #B8892E;
+  --gold2:      #D7BC78;
+  --gold3:      #F0E4C0;
+
+  /* Text */
+  --ink:        #1C2E28;
+  --ink2:       #4A5E58;
+  --muted:      #7A9088;
+
+  /* Misc */
+  --success:    #4A8A7D;
   --wa:         #25D366;
-  --sans:       Montserrat, Arial, sans-serif;
+  --sans:       'Jost', Arial, sans-serif;
   --serif:      'Cormorant Garamond', Georgia, serif;
   --radius:     6px;
-  --shadow:     0 4px 24px rgba(44,18,8,.10);
-  --shadow-lg:  0 8px 40px rgba(44,18,8,.16);
+  --shadow:     0 4px 24px rgba(15,81,71,.10);
+  --shadow-lg:  0 8px 40px rgba(15,81,71,.16);
   --transition: all .25s ease;
 }
 
@@ -51,36 +58,25 @@ input, textarea, select { font-family: var(--sans); }
    ================================================================ */
 #site-header {
   background: var(--cream);
-  border-bottom: 1px solid rgba(180,138,82,.18);
+  border-bottom: 1px solid var(--border, rgba(184,137,46,.22));
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 12px rgba(44,18,8,.06);
-}
-.header-logo-row {
-  display: flex;
-  justify-content: center;
-  padding: 14px 0 10px;
-  border-bottom: 1px solid rgba(180,138,82,.12);
+  box-shadow: 0 1px 12px rgba(15,81,71,.06);
 }
 .logo {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  gap: 1px;
-  line-height: 1;
+  justify-content: center;
+  text-decoration: none;
+  height: 80px;
+  max-width: 280px;
 }
-.logo-emblem {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(180,138,82,.45);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 3px;
-  background: rgba(180,138,82,.06);
+.logo-full {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
-.logo-emblem img { width: 28px; height: 28px; object-fit: contain; }
-.logo-wordmark { font: 600 22px var(--serif); letter-spacing: 5px; color: var(--ink); line-height: 1; }
-.logo-sub { font: 500 7.5px var(--sans); letter-spacing: 3px; color: var(--ink2); text-transform: uppercase; line-height: 1.4; }
 
 .header-nav-row {
   display: flex; align-items: center; justify-content: center;

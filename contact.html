@@ -7,7 +7,8 @@
   <meta name="description" content="Reach out to Eldora Atelier for bespoke couture enquiries, consultations, or any questions. We are based in Chennai, India and ship worldwide." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="contact.css" />
 </head>
 <body>
@@ -15,42 +16,24 @@
   <!-- ================================================================
        HEADER
   ================================================================ -->
-  <header id="site-header">
-    <div class="header-logo-row">
-      <a class="logo" href="index.html" aria-label="Eldora Atelier">
-        <div class="logo-emblem" aria-hidden="true">
-          <img src="eldora-monogram.png" alt="" />
-        </div>
-        <span class="logo-wordmark">ELDORA</span>
-        <span class="logo-sub">ATELIER</span>
-      </a>
-    </div>
-    <div class="header-nav-row">
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="collection.html">Designs</a>
-        <a href="#">Services</a>
-        <a href="custom-order.html">Custom Order</a>
-        <a href="about.html">About Us</a>
-        <a href="#">Lookbook</a>
-        <a href="contact.html" class="active" aria-current="page">Contact Us</a>
-      </nav>
-      <div class="header-icons">
-        <button aria-label="Search" class="icon-btn">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </button>
-        <button aria-label="Account" class="icon-btn">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </button>
-        <button aria-label="Cart, 0 items" class="icon-btn cart-btn">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <sup class="cart-count">0</sup>
-        </button>
-      </div>
-      <button class="hamburger" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+  <header>
+    <nav class="nav-left">
+      <button class="menu-btn" aria-label="Menu">☰</button>
+      <a href="index.html">Home</a>
+      <a href="collection.html">Designs</a>
+      <a href="custom-order.html">Custom Order</a>
+      <a href="about.html">About Us</a>
+    </nav>
+    <a class="logo" href="index.html" aria-label="Eldora Atelier">
+      <img src="logo-font.png" alt="Eldora Atelier — Custom Indo-Western Couture" class="logo-full" />
+    </a>
+    <nav class="nav-right">
+      <a href="lookbook.html">Lookbook</a>
+      <a href="contact.html" class="active">Contact Us</a>
+      <button aria-label="Search">⌕</button>
+      <button aria-label="Account">♙</button>
+      <button class="bag-btn" aria-label="Bag">♧<sup>0</sup></button>
+    </nav>
   </header>
 
   <!-- Mobile drawer -->

@@ -6,21 +6,28 @@
 
 /* ── Design Tokens ── */
 :root {
-  --wine:        #1e0d07;    /* darkest chocolate */
-  --wine2:       #33180f;    /* header bg on dark */
-  --wine3:       #4d291b;    /* medium chocolate */
-  --maroon:      #6b1a2a;
-  --ivory:       #faf4ec;    /* page bg */
-  --cream:       #f2e9de;    /* header bg */
-  --champagne:   #e8d5c0;    /* hero text area */
-  --beige:       #ede5da;    /* cat-section bg */
-  --gold:        #b48a52;
-  --gold2:       #c9a870;
-  --gold3:       #e0c080;
-  --ink:         #2a1608;    /* dark text */
-  --ink2:        #5a3520;    /* medium text */
-  --muted:       #9a7a65;    /* muted text */
-  --sans:        Montserrat, Arial, sans-serif;
+  /* Backgrounds */
+  --ivory:       #F5F0E8;   /* page bg */
+  --cream:       #F0E8DC;   /* header bg */
+  --champagne:   #F3EBE0;   /* hero text area */
+  --beige:       #E8DFD5;   /* cat-section bg */
+
+  /* Brand */
+  --wine:        #0F5147;   /* deep teal */
+  --wine2:       #17665A;   /* mid teal */
+  --wine3:       #4A8A7D;   /* soft teal */
+  --maroon:      #0F5147;
+  --gold:        #B8892E;
+  --gold2:       #D7BC78;
+  --gold3:       #F0E4C0;
+
+  /* Text */
+  --ink:         #1C2E28;
+  --ink2:        #4A5E58;
+  --muted:       #7A9088;
+
+  /* Misc */
+  --sans:        'Jost', Arial, sans-serif;
   --serif:       'Cormorant Garamond', Georgia, serif;
 }
 
@@ -42,60 +49,26 @@ button { cursor: pointer; font-family: var(--sans); }
    ================================================================ */
 #site-header {
   background: var(--cream);
-  border-bottom: 1px solid rgba(180,138,82,.18);
+  border-bottom: 1px solid var(--border, rgba(184,137,46,.22));
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 12px rgba(44,18,8,.06);
-}
-
-/* ── Logo row ── */
-.header-logo-row {
-  display: flex;
-  justify-content: center;
-  padding: 14px 0 10px;
-  border-bottom: 1px solid rgba(180,138,82,.12);
+  box-shadow: 0 1px 12px rgba(15,81,71,.06);
 }
 
 .logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  text-decoration: none;
-  line-height: 1;
-}
-
-.logo-emblem {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(180,138,82,.45);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 3px;
-  background: rgba(180,138,82,.06);
+  text-decoration: none;
+  height: 80px;
+  max-width: 280px;
 }
-.logo-emblem img {
-  width: 28px;
-  height: 28px;
+
+.logo-full {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-}
-
-.logo-wordmark {
-  font: 600 22px var(--serif);
-  letter-spacing: 5px;
-  color: var(--ink);
-  line-height: 1;
-}
-
-.logo-sub {
-  font: 500 7.5px var(--sans);
-  letter-spacing: 3px;
-  color: var(--ink2);
-  text-transform: uppercase;
-  line-height: 1.4;
 }
 
 /* ── Nav row ── */
