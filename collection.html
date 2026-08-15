@@ -32,9 +32,28 @@
       <a href="contact.html">Contact Us</a>
       <button aria-label="Search">⌕</button>
       <button aria-label="Account">♙</button>
-      <button class="bag-btn" aria-label="Bag">♧<sup>0</sup></button>
+      <button class="bag-btn collections-btn" aria-label="My Collections">♧<sup class="collections-count">0</sup></button>
     </nav>
   </header>
+
+  <!-- Collections drawer -->
+  <div class="collections-drawer" id="collections-drawer" aria-hidden="true">
+    <div class="collections-drawer-header">
+      <h3>My Collections</h3>
+      <button class="collections-close" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="collections-items" id="collections-items">
+      <!-- Items will be populated by JavaScript -->
+    </div>
+    <div class="collections-empty" id="collections-empty" style="display: none;">
+      <p>Your collections is empty</p>
+      <a href="collection.html" class="btn-browse">Browse Designs</a>
+    </div>
+    <div class="collections-footer">
+      <button class="btn-enquire-collections" id="btn-enquire-collections">Enquire My Collections</button>
+    </div>
+  </div>
+  <div class="collections-overlay" id="collections-overlay"></div>
 
   <!-- Mobile drawer -->
   <nav class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
@@ -72,23 +91,18 @@
         <div class="cat-left">
           <p class="browse-label">BROWSE BY CATEGORY</p>
           <div class="cat-tabs" role="tablist" id="cat-tabs">
-            <button class="cat-tab active" role="tab" aria-selected="true"  data-filter="all"          id="tab-all">All Designs</button>
-            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="women"        id="tab-women">Women</button>
-            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="men"          id="tab-men">Men</button>
-            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="indo-western" id="tab-iw">Indo Western</button>
-            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="bridal"       id="tab-bridal">Bridal</button>
-            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="occasion"     id="tab-occasion">Occasion Wear</button>
-            <button class="cat-tab"        role="tab" aria-selected="false" data-filter="latest"       id="tab-latest">Latest Designs</button>
+            <button class="cat-tab active" role="tab" aria-selected="true" data-filter="all" id="tab-all">All Designs</button>
+            <!-- Categories will be loaded dynamically here -->
           </div>
         </div>
         <div class="sort-group">
           <label class="sort-lbl" for="sort-select">SORT BY</label>
           <div class="sort-select-wrap">
             <select id="sort-select" aria-label="Sort collection">
-              <option value="featured">Featured</option>
-              <option value="latest">Latest</option>
-              <option value="popular">Popular</option>
+              <option value="price-low-high">Price: Low to High</option>
+              <option value="price-high-low">Price: High to Low</option>
               <option value="az">A &ndash; Z</option>
+              <option value="za">Z &ndash; A</option>
             </select>
             <span class="sort-caret" aria-hidden="true">&#9662;</span>
           </div>
@@ -97,110 +111,12 @@
     </section>
 
     <!-- ══════════════════════════════════════════
-         COLLECTION GRID — 6 equal-width cards
+         COLLECTION GRID — Products loaded dynamically
     ══════════════════════════════════════════ -->
     <section class="grid-section" aria-label="Designs catalogue">
       <div class="col-grid" id="collection-grid">
-
-        <!-- WOMEN -->
-        <article class="col-card" data-category="women" data-index="0" aria-label="Women's Designs">
-          <a href="#" class="card-link" aria-label="Explore Women's Designs">
-            <figure class="card-figure">
-              <img src="card-women.png" alt="Elegant South Asian woman in champagne gold lehenga, Women's Collection" loading="lazy" />
-            </figure>
-            <div class="card-overlay" aria-hidden="true"></div>
-            <div class="card-body">
-              <h2 class="card-title">WOMEN</h2>
-              <span class="card-cta">Explore Designs <span class="cta-arrow">&#8594;</span></span>
-            </div>
-          </a>
-        </article>
-
-        <!-- MEN -->
-        <article class="col-card" data-category="men" data-index="1" aria-label="Men's Designs">
-          <a href="#" class="card-link" aria-label="Explore Men's Designs">
-            <figure class="card-figure">
-              <img src="card-men.png" alt="Sophisticated South Asian man in black sherwani, Men's Collection" loading="lazy" />
-            </figure>
-            <div class="card-overlay" aria-hidden="true"></div>
-            <div class="card-body">
-              <h2 class="card-title">MEN</h2>
-              <span class="card-cta">Explore Designs <span class="cta-arrow">&#8594;</span></span>
-            </div>
-          </a>
-        </article>
-
-        <!-- INDO WESTERN -->
-        <article class="col-card" data-category="indo-western" data-index="2" aria-label="Indo Western Designs">
-          <a href="#" class="card-link" aria-label="Explore Indo Western Designs">
-            <figure class="card-figure">
-              <img src="card-indo-western.png" alt="South Asian couple in contemporary Indo-Western couture" loading="lazy" />
-            </figure>
-            <div class="card-overlay" aria-hidden="true"></div>
-            <div class="card-body">
-              <h2 class="card-title">INDO WESTERN</h2>
-              <span class="card-cta">Explore Designs <span class="cta-arrow">&#8594;</span></span>
-            </div>
-          </a>
-        </article>
-
-        <!-- BRIDAL -->
-        <article class="col-card" data-category="bridal" data-index="3" aria-label="Bridal Designs">
-          <a href="#" class="card-link" aria-label="Explore Bridal Designs">
-            <figure class="card-figure">
-              <img src="card-bridal.png" alt="South Asian bride in deep maroon and gold bridal lehenga" loading="lazy" />
-            </figure>
-            <div class="card-overlay" aria-hidden="true"></div>
-            <div class="card-body">
-              <h2 class="card-title">BRIDAL</h2>
-              <span class="card-cta">Explore Designs <span class="cta-arrow">&#8594;</span></span>
-            </div>
-          </a>
-        </article>
-
-        <!-- OCCASION WEAR -->
-        <article class="col-card" data-category="occasion" data-index="4" aria-label="Occasion Wear Designs">
-          <a href="#" class="card-link" aria-label="Explore Occasion Wear Designs">
-            <figure class="card-figure">
-              <img src="card-occasion.png" alt="Elegant South Asian woman in champagne sharara, Occasion Wear" loading="lazy" />
-            </figure>
-            <div class="card-overlay" aria-hidden="true"></div>
-            <div class="card-body">
-              <h2 class="card-title">OCCASION WEAR</h2>
-              <span class="card-cta">Explore Designs <span class="cta-arrow">&#8594;</span></span>
-            </div>
-          </a>
-        </article>
-
-        <!-- LATEST DESIGNS -->
-        <article class="col-card" data-category="latest" data-index="5" aria-label="Latest Designs">
-          <a href="#" class="card-link" aria-label="Explore Latest Designs">
-            <figure class="card-figure">
-              <img src="card-latest.png" alt="Contemporary Indo-Western fashion editorial look" loading="lazy" />
-            </figure>
-            <div class="card-overlay" aria-hidden="true"></div>
-            <div class="card-body">
-              <h2 class="card-title">LATEST DESIGNS</h2>
-              <span class="card-cta">Explore Designs <span class="cta-arrow">&#8594;</span></span>
-            </div>
-          </a>
-        </article>
-
+        <!-- Products will be loaded dynamically here -->
       </div><!-- /.col-grid -->
-
-      <!-- Empty state -->
-      <div class="empty-state" id="empty-state" hidden aria-live="polite">
-        <span class="empty-icon" aria-hidden="true">&#10022;</span>
-        <p class="empty-title">No designs available in this collection yet.</p>
-        <p class="empty-sub">We are crafting something extraordinary. Please check back soon.</p>
-      </div>
-
-      <!-- Load more -->
-      <div class="load-more-wrap" id="load-more-wrap">
-        <button class="load-more-btn" id="load-more-btn">
-          <span class="lm-label">Load More</span>
-        </button>
-      </div>
 
     </section><!-- /.grid-section -->
 

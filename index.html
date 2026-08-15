@@ -41,9 +41,41 @@
       <a href="contact.html">Contact Us</a>
       <button aria-label="Search">⌕</button>
       <button aria-label="Account">♙</button>
-      <button class="bag-btn" aria-label="Bag">♧<sup>0</sup></button>
+      <button class="bag-btn collections-btn" aria-label="My Collections">♧<sup class="collections-count">0</sup></button>
     </nav>
   </header>
+
+  <!-- Collections drawer -->
+  <div class="collections-drawer" id="collections-drawer" aria-hidden="true">
+    <div class="collections-drawer-header">
+      <h3>My Collections</h3>
+      <button class="collections-close" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="collections-items" id="collections-items">
+      <!-- Items will be populated by JavaScript -->
+    </div>
+    <div class="collections-empty" id="collections-empty" style="display: none;">
+      <p>Your collections is empty</p>
+      <a href="collection.html" class="btn-browse">Browse Designs</a>
+    </div>
+    <div class="collections-footer">
+      <button class="btn-enquire-collections" id="btn-enquire-collections">Enquire My Collections</button>
+    </div>
+  </div>
+  <div class="collections-overlay" id="collections-overlay"></div>
+
+  <!-- Mobile drawer -->
+  <nav class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawer-close" aria-label="Close">&#10005;</button>
+    <a href="index.html" class="active">Home</a>
+    <a href="collection.html">Designs</a>
+    <a href="#">Services</a>
+    <a href="custom-order.html">Custom Order</a>
+    <a href="about.html">About Us</a>
+    <a href="lookbook.html">Lookbook</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+  <div class="drawer-overlay" id="drawer-overlay"></div>
 
   <main>
 
@@ -351,6 +383,180 @@
       <span>Privacy Policy &nbsp;&nbsp;|&nbsp;&nbsp; Terms &amp; Conditions</span>
     </div>
   </footer>
+
+  <!-- ── Mobile Drawer Script ───────────────────────────── -->
+  <script>
+    (function () {
+      const toggle = document.querySelector('.menu-btn');
+      const drawer = document.getElementById('mobile-drawer');
+      const close = document.getElementById('drawer-close');
+      const overlay = document.getElementById('drawer-overlay');
+
+      function openDrawer() {
+        drawer.classList.add('open');
+        drawer.removeAttribute('aria-hidden');
+        overlay.classList.add('visible');
+        toggle && toggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        overlay.classList.remove('visible');
+        toggle && toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      toggle && toggle.addEventListener('click', openDrawer);
+      close && close.addEventListener('click', closeDrawer);
+      overlay && overlay.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', e => e.key === 'Escape' && closeDrawer());
+    })();
+  </script>
+
+  <!-- ── Collections Drawer Script ───────────────────────────── -->
+  <script>
+    (function () {
+      /* ══════════════════════════════════════════
+         1.5 COLLECTIONS DRAWER
+      ══════════════════════════════════════════ */
+      let whatsappNumber = '919876543210'; // Default fallback
+
+      // Fetch settings from API
+      async function fetchSettings() {
+        try {
+          const response = await fetch('api/settings_api.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'get_public_settings' })
+          });
+          const data = await response.json();
+          if (data.success && data.settings.contact_number1) {
+            whatsappNumber = data.settings.contact_number1.replace(/\+/g, '');
+          }
+        } catch (error) {
+          console.error('Failed to fetch settings:', error);
+        }
+      }
+
+      const collectionsBtn = document.querySelector('.collections-btn');
+      const collectionsDrawer = document.getElementById('collections-drawer');
+      const collectionsClose = document.querySelector('.collections-close');
+      const collectionsOverlay = document.getElementById('collections-overlay');
+      const collectionsItems = document.getElementById('collections-items');
+      const collectionsEmpty = document.getElementById('collections-empty');
+      const collectionsCount = document.querySelector('.collections-count');
+      const btnEnquireCollections = document.getElementById('btn-enquire-collections');
+
+      function openCollectionsDrawer() {
+        renderCollections();
+        if (collectionsDrawer) {
+          collectionsDrawer.classList.add('open');
+          collectionsDrawer.removeAttribute('aria-hidden');
+        }
+        if (collectionsOverlay) {
+          collectionsOverlay.classList.add('visible');
+        }
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeCollectionsDrawer() {
+        if (collectionsDrawer) {
+          collectionsDrawer.classList.remove('open');
+          collectionsDrawer.setAttribute('aria-hidden', 'true');
+        }
+        if (collectionsOverlay) {
+          collectionsOverlay.classList.remove('visible');
+        }
+        document.body.style.overflow = '';
+      }
+
+      function updateCollectionsCount() {
+        const collections = JSON.parse(localStorage.getItem('my_collections') || '[]');
+        if (collectionsCount) {
+          collectionsCount.textContent = collections.length;
+        }
+      }
+
+      function renderCollections() {
+        const collections = JSON.parse(localStorage.getItem('my_collections') || '[]');
+
+        if (collections.length === 0) {
+          if (collectionsItems) collectionsItems.style.display = 'none';
+          if (collectionsEmpty) collectionsEmpty.style.display = 'flex';
+          if (btnEnquireCollections) btnEnquireCollections.style.display = 'none';
+          return;
+        }
+
+        if (collectionsItems) collectionsItems.style.display = 'block';
+        if (collectionsEmpty) collectionsEmpty.style.display = 'none';
+        if (btnEnquireCollections) btnEnquireCollections.style.display = 'block';
+
+        if (collectionsItems) {
+          collectionsItems.innerHTML = collections.map((item, index) => `
+            <div class="collections-item" data-index="${index}">
+              <div class="collections-item-image">
+                <img src=".${item.image}" alt="${item.name}">
+              </div>
+              <div class="collections-item-details">
+                <div class="collections-item-name">${item.name}</div>
+                <div class="collections-item-price">Starting from ₹${item.price}</div>
+                ${item.selectedSize ? `<div class="collections-item-size">Size: ${item.selectedSize}</div>` : ''}
+                <button class="collections-item-remove" data-index="${index}">Remove</button>
+              </div>
+            </div>
+          `).join('');
+
+          document.querySelectorAll('.collections-item-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.target.dataset.index);
+              removeFromCollections(index);
+            });
+          });
+        }
+      }
+
+      function removeFromCollections(index) {
+        const collections = JSON.parse(localStorage.getItem('my_collections') || '[]');
+        collections.splice(index, 1);
+        localStorage.setItem('my_collections', JSON.stringify(collections));
+        updateCollectionsCount();
+        renderCollections();
+      }
+
+      if (collectionsBtn) {
+        collectionsBtn.addEventListener('click', openCollectionsDrawer);
+      }
+      if (collectionsClose) {
+        collectionsClose.addEventListener('click', closeCollectionsDrawer);
+      }
+      if (collectionsOverlay) {
+        collectionsOverlay.addEventListener('click', closeCollectionsDrawer);
+      }
+      document.addEventListener('keydown', e => e.key === 'Escape' && closeCollectionsDrawer());
+
+      if (btnEnquireCollections) {
+        btnEnquireCollections.addEventListener('click', () => {
+          const collections = JSON.parse(localStorage.getItem('my_collections') || '[]');
+          if (collections.length === 0) return;
+
+          const message = collections.map(item => {
+            return `${item.name} (Size: ${item.selectedSize || 'Not specified'}) - Starting from ₹${item.price}`;
+          }).join('\n');
+
+          const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+            `Hi Eldora Atelier, I'm interested in enquiring about these designs from my collections:\n\n${message}\n\nPlease provide more details.`
+          )}`;
+
+          window.open(whatsappUrl, '_blank');
+        });
+      }
+
+      updateCollectionsCount();
+      fetchSettings();
+    })();
+  </script>
 
   <!-- ── Scroll Reveal Script ───────────────────────────── -->
   <script>

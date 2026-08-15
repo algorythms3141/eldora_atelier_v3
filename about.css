@@ -75,11 +75,23 @@ button { cursor: pointer; font-family: var(--sans); }
 .hamburger { display: none; flex-direction: column; gap: 5px; border: none; background: transparent; padding: 4px; position: absolute; right: 3%; }
 .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--ink2); }
 .mobile-drawer { position: fixed; inset: 0 auto 0 0; width: 280px; background: var(--wine); z-index: 200; display: flex; flex-direction: column; padding: 30px 24px; gap: 0; transform: translateX(-100%); transition: transform .35s cubic-bezier(.4,0,.2,1); }
+
+@media (min-width: 961px) {
+  .mobile-drawer {
+    display: none;
+  }
+}
 .mobile-drawer.open { transform: translateX(0); }
 .mobile-drawer a { color: #f0ddc7; font: 400 11px var(--sans); text-transform: uppercase; letter-spacing: .1em; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
 .mobile-drawer a.active { color: var(--gold3); }
 .drawer-close { border: 0; background: transparent; color: var(--gold2); font-size: 16px; align-self: flex-end; margin-bottom: 18px; }
 .drawer-overlay { position: fixed; inset: 0; background: rgba(20,8,4,.55); z-index: 190; opacity: 0; pointer-events: none; transition: opacity .35s; }
+
+@media (min-width: 961px) {
+  .drawer-overlay {
+    display: none;
+  }
+}
 .drawer-overlay.visible { opacity: 1; pointer-events: all; }
 
 /* ================================================================

@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Our Designs - Eldora Atelier</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d4f4f 0%, #1a5f5f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar-brand h1 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .navbar-brand span {
+            color: #b76e79;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #e9ecef;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab.active {
+            color: #b76e79;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .add-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .filter-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filter-section label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .filter-section select {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .filter-section select:focus {
+            border-color: #b76e79;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .data-table td {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .data-table img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn {
+            padding: 8px 16px;
+            background: #b76e79;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background: #5568d3;
+        }
+
+        .delete-btn {
+            padding: 8px 16px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-header h3 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #b76e79;
+            box-shadow: 0 0 0 3px rgba(183, 110, 121, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .image-upload {
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload:hover {
+            border-color: #b76e79;
+            background: #f8f9fa;
+        }
+
+        .image-upload input[type="file"] {
+            display: none;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .image-preview-item {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .image-preview-item .remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .cancel-btn {
+            flex: 1;
+            padding: 12px;
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background: #e9ecef;
+        }
+
+        .save-btn {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .success-message,
+        .error-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            border-left: 4px solid #c33;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        .sizes-input {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .size-chip {
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .size-chip.selected {
+            background: #b76e79;
+            color: white;
+            border-color: #b76e79;
+        }
+
+        .size-chip:hover {
+            border-color: #b76e79;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .navbar-brand h1 {
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .tabs {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .tab {
+                padding: 10px 20px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .data-table {
+                font-size: 12px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 10px;
+            }
+
+            .modal-content {
+                padding: 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1>Eldora <span>Atelier</span></h1>
+        </div>
+        <div class="navbar-actions">
+            <a href="index.html" class="back-btn">← Back to Dashboard</a>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab active" data-tab="categories">Manage Categories</button>
+                <button class="tab" data-tab="products">Manage Products</button>
+            </div>
+
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+
+            <!-- Categories Tab -->
+            <div class="tab-content active" id="categories">
+                <div class="section-header">
+                    <h2>Categories</h2>
+                    <button class="add-btn" id="addCategoryBtn">+ Add Category</button>
+                </div>
+
+                <div id="categoriesTable">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Products Tab -->
+            <div class="tab-content" id="products">
+                <div class="section-header">
+                    <h2>Products</h2>
+                    <button class="add-btn" id="addProductBtn">+ Add Product</button>
+                </div>
+
+                <div class="filter-section">
+                    <label>Filter by Category:</label>
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+
+                <div id="productsTable">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Category Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="categoryModalTitle">Add Category</h3>
+                <button class="close-btn" id="closeCategoryModal">&times;</button>
+            </div>
+            <form id="categoryForm">
+                <input type="hidden" id="categoryId">
+                <div class="form-group">
+                    <label>Category Name *</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <div class="form-group">
+                    <label>Category Image *</label>
+                    <div class="image-upload" id="categoryImageUpload">
+                        <input type="file" id="categoryImage" accept="image/*" required>
+                        <p>Click to upload image</p>
+                    </div>
+                    <div class="image-preview" id="categoryImagePreview"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" id="cancelCategoryBtn">Cancel</button>
+                    <button type="submit" class="save-btn">Save Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="productModalTitle">Add Product</h3>
+                <button class="close-btn" id="closeProductModal">&times;</button>
+            </div>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Product Name *</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="productDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Available Sizes</label>
+                    <div class="sizes-input" id="sizesInput">
+                        <div class="size-chip" data-size="S">S</div>
+                        <div class="size-chip" data-size="M">M</div>
+                        <div class="size-chip" data-size="L">L</div>
+                        <div class="size-chip" data-size="XL">XL</div>
+                        <div class="size-chip" data-size="XXL">XXL</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Product Images</label>
+                    <div class="image-upload" id="productImageUpload">
+                        <input type="file" id="productImages" accept="image/*" multiple>
+                        <p>Click to upload images (multiple)</p>
+                    </div>
+                    <div class="image-preview" id="productImagePreview"></div>
+                </div>
+                <div class="form-group">
+                    <label>Price From *</label>
+                    <input type="number" id="productPrice" step="0.01" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" id="cancelProductBtn">Cancel</button>
+                    <button type="submit" class="save-btn">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('admin_token');
+        
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+                
+                if (tab.dataset.tab === 'categories') {
+                    loadCategories();
+                } else {
+                    loadProducts();
+                    loadCategoriesForFilter();
+                }
+            });
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('admin_token');
+            window.location.href = 'login.html';
+        });
+
+        // Category Modal
+        const categoryModal = document.getElementById('categoryModal');
+        const categoryForm = document.getElementById('categoryForm');
+        let categoryImageData = null;
+
+        document.getElementById('addCategoryBtn').addEventListener('click', () => {
+            document.getElementById('categoryModalTitle').textContent = 'Add Category';
+            document.getElementById('categoryId').value = '';
+            document.getElementById('categoryName').value = '';
+            document.getElementById('categoryImage').value = '';
+            document.getElementById('categoryImagePreview').innerHTML = '';
+            categoryImageData = null;
+            categoryModal.classList.add('active');
+        });
+
+        document.getElementById('closeCategoryModal').addEventListener('click', () => {
+            categoryModal.classList.remove('active');
+        });
+
+        document.getElementById('cancelCategoryBtn').addEventListener('click', () => {
+            categoryModal.classList.remove('active');
+        });
+
+        document.getElementById('categoryImageUpload').addEventListener('click', () => {
+            document.getElementById('categoryImage').click();
+        });
+
+        document.getElementById('categoryImage').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                categoryImageData = file; // Store the original file object
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('categoryImagePreview').innerHTML = `
+                        <div class="image-preview-item">
+                            <img src="${e.target.result}">
+                        </div>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        categoryForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const categoryId = document.getElementById('categoryId').value;
+            const categoryName = document.getElementById('categoryName').value;
+            
+            if (!categoryName) {
+                showError('Category name is required');
+                return;
+            }
+
+            if (!categoryId && !categoryImageData) {
+                showError('Category image is required');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('action', categoryId ? 'update_category' : 'add_category');
+            formData.append('token', token);
+            formData.append('name', categoryName);
+            
+            if (categoryId) {
+                formData.append('id', categoryId);
+            }
+            
+            if (categoryImageData && typeof categoryImageData === 'object') {
+                formData.append('image', categoryImageData);
+            }
+
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(data.message || 'Category saved successfully');
+                    categoryModal.classList.remove('active');
+                    loadCategories();
+                } else {
+                    showError(data.message || 'Failed to save category');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        });
+
+        // Product Modal
+        const productModal = document.getElementById('productModal');
+        const productForm = document.getElementById('productForm');
+        let productImageData = [];
+
+        document.getElementById('addProductBtn').addEventListener('click', async () => {
+            await loadCategoriesForDropdown();
+            document.getElementById('productModalTitle').textContent = 'Add Product';
+            document.getElementById('productId').value = '';
+            document.getElementById('productCategory').value = '';
+            document.getElementById('productName').value = '';
+            document.getElementById('productDescription').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productImages').value = '';
+            document.getElementById('productImagePreview').innerHTML = '';
+            productImageData = [];
+            document.querySelectorAll('.size-chip').forEach(chip => chip.classList.remove('selected'));
+            productModal.classList.add('active');
+        });
+
+        document.getElementById('closeProductModal').addEventListener('click', () => {
+            productModal.classList.remove('active');
+        });
+
+        document.getElementById('cancelProductBtn').addEventListener('click', () => {
+            productModal.classList.remove('active');
+        });
+
+        document.getElementById('productImageUpload').addEventListener('click', () => {
+            document.getElementById('productImages').click();
+        });
+
+        document.getElementById('productImages').addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            files.forEach(file => {
+                productImageData.push(file); // Store original file object
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    // Update preview with DataURL but keep file object in array
+                    updateProductImagePreview();
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function updateProductImagePreview() {
+            const preview = document.getElementById('productImagePreview');
+            preview.innerHTML = productImageData.map((img, index) => {
+                // If it's a file object, create a temporary URL for preview
+                let src;
+                if (typeof img === 'object') {
+                    src = URL.createObjectURL(img);
+                } else {
+                    // It's a URL string from DB - prepend ../ if it starts with /
+                    src = img.startsWith('/') ? '..' + img : img;
+                }
+                return `
+                    <div class="image-preview-item">
+                        <img src="${src}">
+                        <button type="button" class="remove-btn" onclick="removeProductImage(${index})">&times;</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.removeProductImage = (index) => {
+            productImageData.splice(index, 1);
+            updateProductImagePreview();
+        };
+
+        // Size selection
+        document.querySelectorAll('.size-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                chip.classList.toggle('selected');
+            });
+        });
+
+        productForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const productId = document.getElementById('productId').value;
+            const categoryId = document.getElementById('productCategory').value;
+            const productName = document.getElementById('productName').value;
+            const productDescription = document.getElementById('productDescription').value;
+            const productPrice = document.getElementById('productPrice').value;
+            
+            const selectedSizes = Array.from(document.querySelectorAll('.size-chip.selected'))
+                .map(chip => chip.dataset.size)
+                .join('|');
+
+            if (!categoryId) {
+                showError('Please select a category');
+                return;
+            }
+
+            if (!productName) {
+                showError('Product name is required');
+                return;
+            }
+
+            if (!productPrice) {
+                showError('Price is required');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('action', productId ? 'update_product' : 'add_product');
+            formData.append('token', token);
+            formData.append('category_id', categoryId);
+            formData.append('name', productName);
+            formData.append('description', productDescription);
+            formData.append('available_sizes', selectedSizes);
+            formData.append('price_from', productPrice);
+            
+            if (productId) {
+                formData.append('id', productId);
+            }
+            
+            // Separate existing URLs from new file uploads
+            const existingUrls = productImageData.filter(img => typeof img === 'string');
+            const newFiles = productImageData.filter(img => typeof img === 'object');
+            
+            // Send existing URLs to backend so it knows which ones to keep
+            formData.append('existing_images', existingUrls.join('|'));
+            
+            // Send new file uploads
+            newFiles.forEach((img, index) => {
+                formData.append(`images_${index}`, img);
+            });
+            formData.append('image_count', newFiles.length);
+
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(data.message || 'Product saved successfully');
+                    productModal.classList.remove('active');
+                    loadProducts();
+                } else {
+                    showError(data.message || 'Failed to save product');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        });
+
+        // Load Categories
+        async function loadCategories() {
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'get_categories',
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderCategories(data.categories);
+                } else {
+                    showError(data.message || 'Failed to load categories');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        }
+
+        function renderCategories(categories) {
+            const container = document.getElementById('categoriesTable');
+            
+            if (!categories || categories.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Categories Yet</h3>
+                        <p>Click "Add Category" to create your first category</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${categories.map(cat => {
+                            const imageUrl = cat.image_url ? (cat.image_url.startsWith('/') ? '..' + cat.image_url : cat.image_url) : '/uploads/categories/default.png';
+                            return `
+                            <tr>
+                                <td><img src="${imageUrl}" alt="${cat.name}"></td>
+                                <td>${cat.name}</td>
+                                <td>${new Date(cat.created_at).toLocaleDateString()}</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="edit-btn" onclick="editCategory(${cat.id})">Edit</button>
+                                        <button class="delete-btn" onclick="deleteCategory(${cat.id})">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        window.editCategory = async (id) => {
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'get_category',
+                        id: id,
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    const category = data.category;
+                    document.getElementById('categoryModalTitle').textContent = 'Edit Category';
+                    document.getElementById('categoryId').value = category.id;
+                    document.getElementById('categoryName').value = category.name;
+                    
+                    if (category.image_url) {
+                        categoryImageData = category.image_url;
+                        const imageUrl = category.image_url.startsWith('/') ? '..' + category.image_url : category.image_url;
+                        document.getElementById('categoryImagePreview').innerHTML = `
+                            <div class="image-preview-item">
+                                <img src="${imageUrl}">
+                            </div>
+                        `;
+                    }
+                    
+                    categoryModal.classList.add('active');
+                } else {
+                    showError(data.message || 'Failed to load category');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        };
+
+        window.deleteCategory = async (id) => {
+            if (!confirm('Are you sure you want to delete this category?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'delete_category',
+                        id: id,
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(data.message || 'Category deleted successfully');
+                    loadCategories();
+                } else {
+                    showError(data.message || 'Failed to delete category');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        };
+
+        // Load Products
+        async function loadProducts(categoryFilter = '') {
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'get_products',
+                        category_id: categoryFilter,
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderProducts(data.products);
+                } else {
+                    showError(data.message || 'Failed to load products');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        }
+
+        function renderProducts(products) {
+            const container = document.getElementById('productsTable');
+            
+            if (!products || products.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Products Yet</h3>
+                        <p>Click "Add Product" to create your first product</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Sizes</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${products.map(prod => {
+                            const images = prod.images_urls ? prod.images_urls.split('|') : [];
+                            const thumbnail = images[0] ? (images[0].startsWith('/') ? '..' + images[0] : images[0]) : '/uploads/products/default.png';
+                            const sizes = prod.available_sizes ? prod.available_sizes.split('|').join(', ') : 'N/A';
+                            
+                            return `
+                                <tr>
+                                    <td><img src="${thumbnail}" alt="${prod.name}"></td>
+                                    <td>${prod.name}</td>
+                                    <td>${prod.category_name || 'N/A'}</td>
+                                    <td>₹${parseFloat(prod.price_from).toFixed(2)}</td>
+                                    <td>${sizes}</td>
+                                    <td>${new Date(prod.created_at).toLocaleDateString()}</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="edit-btn" onclick="editProduct(${prod.id})">Edit</button>
+                                            <button class="delete-btn" onclick="deleteProduct(${prod.id})">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        window.editProduct = async (id) => {
+            await loadCategoriesForDropdown();
+            
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'get_product',
+                        id: id,
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    const product = data.product;
+                    document.getElementById('productModalTitle').textContent = 'Edit Product';
+                    document.getElementById('productId').value = product.id;
+                    document.getElementById('productCategory').value = product.category_id;
+                    document.getElementById('productName').value = product.name;
+                    document.getElementById('productDescription').value = product.description || '';
+                    document.getElementById('productPrice').value = product.price_from;
+                    
+                    // Load sizes
+                    const sizes = product.available_sizes ? product.available_sizes.split('|') : [];
+                    document.querySelectorAll('.size-chip').forEach(chip => {
+                        if (sizes.includes(chip.dataset.size)) {
+                            chip.classList.add('selected');
+                        } else {
+                            chip.classList.remove('selected');
+                        }
+                    });
+                    
+                    // Load images
+                    if (product.images_urls) {
+                        productImageData = product.images_urls.split('|').map(url => {
+                            // Keep the URL as-is for editing (it's already stored in DB)
+                            return url;
+                        });
+                        updateProductImagePreview();
+                    }
+                    
+                    productModal.classList.add('active');
+                } else {
+                    showError(data.message || 'Failed to load product');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        };
+
+        window.deleteProduct = async (id) => {
+            if (!confirm('Are you sure you want to delete this product?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'delete_product',
+                        id: id,
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(data.message || 'Product deleted successfully');
+                    loadProducts();
+                } else {
+                    showError(data.message || 'Failed to delete product');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        };
+
+        // Load categories for dropdown
+        async function loadCategoriesForDropdown() {
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'get_categories',
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    const select = document.getElementById('productCategory');
+                    select.innerHTML = '<option value="">Select Category</option>';
+                    
+                    if (data.categories && data.categories.length === 0) {
+                        showError('Please create a category first before adding a product');
+                        return;
+                    }
+                    
+                    data.categories.forEach(cat => {
+                        select.innerHTML += `<option value="${cat.id}">${cat.name}</option>`;
+                    });
+                }
+            } catch (error) {
+                showError('Failed to load categories');
+            }
+        }
+
+        // Load categories for filter
+        async function loadCategoriesForFilter() {
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'get_categories',
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    const select = document.getElementById('categoryFilter');
+                    select.innerHTML = '<option value="">All Categories</option>';
+                    
+                    data.categories.forEach(cat => {
+                        select.innerHTML += `<option value="${cat.id}">${cat.name}</option>`;
+                    });
+                }
+            } catch (error) {
+                showError('Failed to load categories');
+            }
+        }
+
+        // Category filter change
+        document.getElementById('categoryFilter').addEventListener('change', (e) => {
+            loadProducts(e.target.value);
+        });
+
+        // Utility functions
+        function showSuccess(message) {
+            const el = document.getElementById('successMessage');
+            el.textContent = message;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3000);
+        }
+
+        function showError(message) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = message;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 5000);
+        }
+
+        // Initial load
+        loadCategories();
+    </script>
+</body>
+</html>

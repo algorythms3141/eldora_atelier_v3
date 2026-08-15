@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details &mdash; Eldora Atelier | Luxury Indo-Western Couture</title>
+  <meta name="description" content="View product details at Eldora Atelier — timeless Indo-Western couture for women, men, bridal, and occasion wear. Handcrafted with precision, passion and perfection." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="product_details.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER — light cream, centered logo, single nav row
+  ══════════════════════════════════════════ -->
+  <header>
+    <nav class="nav-left">
+      <button class="menu-btn" aria-label="Menu">☰</button>
+      <a href="index.html">Home</a>
+      <a href="collection.html">Designs</a>
+      <a href="custom-order.html">Custom Order</a>
+      <a href="about.html">About Us</a>
+    </nav>
+    <a class="logo" href="index.html" aria-label="Eldora Atelier">
+      <img src="logo-font.png" alt="Eldora Atelier — Custom Indo-Western Couture" class="logo-full" />
+    </a>
+    <nav class="nav-right">
+      <a href="lookbook.html">Lookbook</a>
+      <a href="contact.html">Contact Us</a>
+      <button aria-label="Search">⌕</button>
+      <button aria-label="Account">♙</button>
+      <button class="bag-btn collections-btn" aria-label="My Collections">♧<sup class="collections-count">0</sup></button>
+    </nav>
+  </header>
+
+  <!-- Collections drawer -->
+  <div class="collections-drawer" id="collections-drawer" aria-hidden="true">
+    <div class="collections-drawer-header">
+      <h3>My Collections</h3>
+      <button class="collections-close" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="collections-items" id="collections-items">
+      <!-- Items will be populated by JavaScript -->
+    </div>
+    <div class="collections-empty" id="collections-empty" style="display: none;">
+      <p>Your collections is empty</p>
+      <a href="collection.html" class="btn-browse">Browse Designs</a>
+    </div>
+    <div class="collections-footer">
+      <button class="btn-enquire-collections" id="btn-enquire-collections">Enquire My Collections</button>
+    </div>
+  </div>
+  <div class="collections-overlay" id="collections-overlay"></div>
+
+  <!-- Mobile drawer -->
+  <nav class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawer-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="collection.html">Designs</a>
+    <a href="#">Services</a>
+    <a href="custom-order.html">Custom Order</a>
+    <a href="about.html">About Us</a>
+    <a href="lookbook.html">Lookbook</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <main id="main-content">
+    
+    <!-- ══════════════════════════════════════════
+         PRODUCT DETAILS SECTION
+    ══════════════════════════════════════════ -->
+    <section class="product-details-section" aria-label="Product details">
+      <div class="product-container">
+        
+        <!-- Product Images Gallery -->
+        <div class="product-gallery">
+          <div class="main-image">
+            <img id="main-product-image" src="" alt="Product image" />
+          </div>
+          <div class="thumbnail-gallery" id="thumbnail-gallery">
+            <!-- Thumbnails will be loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- Product Information -->
+        <div class="product-info">
+          <div class="breadcrumb">
+            <a href="collection.html">Designs</a>
+            <span class="separator">/</span>
+            <span id="product-category-name">Category</span>
+          </div>
+
+          <h1 class="product-title" id="product-title">Loading...</h1>
+          
+          <div class="product-price" id="product-price">
+            Starting from ₹0.00
+          </div>
+
+          <div class="product-description" id="product-description">
+            Loading product description...
+          </div>
+
+          <!-- Size Selection -->
+          <div class="size-selection" id="size-selection-container">
+            <p class="size-label">Select Size</p>
+            <div class="size-options" id="size-options">
+              <!-- Sizes will be loaded dynamically -->
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="product-actions">
+            <button class="btn-enquire" id="btn-enquire">
+              <span class="btn-icon">&#128233;</span>
+              Enquire Now
+            </button>
+            <button class="btn-add-collection" id="btn-add-collection">
+              <span class="btn-icon">&#10022;</span>
+              Add to My Collections
+            </button>
+            <button class="btn-share" id="btn-share">
+              <span class="btn-icon">&#128279;</span>
+              Share
+            </button>
+          </div>
+
+          <!-- Product Details -->
+          <div class="product-meta">
+            <div class="meta-item">
+              <span class="meta-label">Category:</span>
+              <span class="meta-value" id="meta-category">-</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Available Sizes:</span>
+              <span class="meta-value" id="meta-sizes">-</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         ENQUIRE MODAL
+    ══════════════════════════════════════════ -->
+    <div class="modal-overlay" id="enquire-modal" aria-hidden="true">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close" aria-label="Close">&#10005;</button>
+        <h2 class="modal-title">Enquire About This Design</h2>
+        <form class="enquire-form" id="enquire-form">
+          <div class="form-group">
+            <label for="enquire-name">Name *</label>
+            <input type="text" id="enquire-name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="enquire-email">Email *</label>
+            <input type="email" id="enquire-email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="enquire-phone">Phone Number</label>
+            <input type="tel" id="enquire-phone" name="phone" />
+          </div>
+          <div class="form-group">
+            <label for="enquire-message">Message *</label>
+            <textarea id="enquire-message" name="message" rows="4" required>I'm interested in this design. Please provide more details.</textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Enquiry</button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="foot-col foot-brand">
+        <div class="foot-logo">
+          <span class="foot-logo-icon" aria-hidden="true">&#10022;</span>
+          <strong>ELDORA</strong>
+          <em>ATELIER</em>
+        </div>
+        <p>Where tradition meets<br>contemporary elegance.<br>Custom made with love.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a4 4 0 1 0 8 0 4 4 0 0 0-8 0"/><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.73 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.44.84-2.52 1.88-2.52.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.86 3.48-.24 1.04.51 1.88 1.53 1.88 1.84 0 3.07-2.34 3.07-5.12 0-2.11-1.42-3.59-3.46-3.59-2.35 0-3.73 1.76-3.73 3.58 0 .71.27 1.47.61 1.88.07.08.08.15.06.23-.06.25-.2.79-.23.9-.04.15-.13.18-.3.11-1.12-.52-1.82-2.17-1.82-3.49 0-2.83 2.06-5.44 5.94-5.44 3.12 0 5.55 2.22 5.55 5.19 0 3.1-1.95 5.59-4.66 5.59-.91 0-1.77-.47-2.06-1.03l-.56 2.09c-.2.78-.75 1.75-1.12 2.34.84.26 1.73.4 2.65.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h3 class="foot-heading">Quick Links</h3>
+        <a href="index.html">Home</a>
+        <a href="collection.html">Designs</a>
+        <a href="#">Services</a>
+        <a href="custom-order.html">Custom Order</a>
+        <a href="about.html">About Us</a>
+        <a href="lookbook.html">Lookbook</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <div class="foot-col">
+        <h3 class="foot-heading">Customer Support</h3>
+        <a href="#">Size Guide</a>
+        <a href="#">Shipping &amp; Delivery</a>
+        <a href="#">Returns &amp; Exchange</a>
+        <a href="#">FAQ</a>
+        <a href="#">Care Instructions</a>
+      </div>
+
+      <div class="foot-col">
+        <h3 class="foot-heading">Contact Us</h3>
+        <a href="#">WhatsApp Us</a>
+        <a href="#">+91 12345 67890</a>
+        <a href="#">hello@eldoraatelier.com</a>
+        <a href="#">Chennai, India</a>
+      </div>
+
+      <div class="foot-col foot-newsletter">
+        <h3 class="foot-heading">Newsletter</h3>
+        <p>Subscribe for new collections<br>&amp; exclusive offers.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" id="nl-email" />
+          <button type="button" aria-label="Subscribe" id="nl-submit">&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>&copy; 2024 Eldora Atelier. All Rights Reserved.</span>
+      <span>
+        <a href="#">Privacy Policy</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="#">Terms &amp; Conditions</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="product_details.js"></script>
+</body>
+</html>

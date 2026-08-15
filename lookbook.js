@@ -18,7 +18,7 @@
   /* ================================================================
      1. MOBILE DRAWER
   ================================================================ */
-  const toggle  = $('#menu-toggle');
+  const toggle  = $('.menu-btn');
   const drawer  = $('#mobile-drawer');
   const dclose  = $('#drawer-close');
   const overlay = $('#drawer-overlay');
@@ -30,6 +30,144 @@
   dclose  && dclose.addEventListener('click', closeDrawer);
   overlay && overlay.addEventListener('click', closeDrawer);
   document.addEventListener('keydown', e => e.key === 'Escape' && closeDrawer());
+
+  /* ══════════════════════════════════════════
+     1.5 COLLECTIONS DRAWER
+  ══════════════════════════════════════════ */
+  let whatsappNumber = '919876543210'; // Default fallback
+
+  // Fetch settings from API
+  async function fetchSettings() {
+    try {
+      const response = await fetch('api/settings_api.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'get_public_settings' })
+      });
+      const data = await response.json();
+      if (data.success && data.settings.contact_number1) {
+        whatsappNumber = data.settings.contact_number1.replace(/\+/g, '');
+      }
+    } catch (error) {
+      console.error('Failed to fetch settings:', error);
+    }
+  }
+
+  const collectionsBtn = document.querySelector('.collections-btn');
+  const collectionsDrawer = document.getElementById('collections-drawer');
+  const collectionsClose = document.querySelector('.collections-close');
+  const collectionsOverlay = document.getElementById('collections-overlay');
+  const collectionsItems = document.getElementById('collections-items');
+  const collectionsEmpty = document.getElementById('collections-empty');
+  const collectionsCount = document.querySelector('.collections-count');
+  const btnEnquireCollections = document.getElementById('btn-enquire-collections');
+
+  function openCollectionsDrawer() {
+    renderCollections();
+    if (collectionsDrawer) {
+      collectionsDrawer.classList.add('open');
+      collectionsDrawer.removeAttribute('aria-hidden');
+    }
+    if (collectionsOverlay) {
+      collectionsOverlay.classList.add('visible');
+    }
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCollectionsDrawer() {
+    if (collectionsDrawer) {
+      collectionsDrawer.classList.remove('open');
+      collectionsDrawer.setAttribute('aria-hidden', 'true');
+    }
+    if (collectionsOverlay) {
+      collectionsOverlay.classList.remove('visible');
+    }
+    document.body.style.overflow = '';
+  }
+
+  function updateCollectionsCount() {
+    const collections = JSON.parse(localStorage.getItem('my_collections') || '[]');
+    if (collectionsCount) {
+      collectionsCount.textContent = collections.length;
+    }
+  }
+
+  function renderCollections() {
+    const collections = JSON.parse(localStorage.getItem('my_collections') || '[]');
+
+    if (collections.length === 0) {
+      if (collectionsItems) collectionsItems.style.display = 'none';
+      if (collectionsEmpty) collectionsEmpty.style.display = 'flex';
+      if (btnEnquireCollections) btnEnquireCollections.style.display = 'none';
+      return;
+    }
+
+    if (collectionsItems) collectionsItems.style.display = 'block';
+    if (collectionsEmpty) collectionsEmpty.style.display = 'none';
+    if (btnEnquireCollections) btnEnquireCollections.style.display = 'block';
+
+    if (collectionsItems) {
+      collectionsItems.innerHTML = collections.map((item, index) => `
+        <div class="collections-item" data-index="${index}">
+          <div class="collections-item-image">
+            <img src=".${item.image}" alt="${item.name}">
+          </div>
+          <div class="collections-item-details">
+            <div class="collections-item-name">${item.name}</div>
+            <div class="collections-item-price">Starting from ₹${item.price}</div>
+            ${item.selectedSize ? `<div class="collections-item-size">Size: ${item.selectedSize}</div>` : ''}
+            <button class="collections-item-remove" data-index="${index}">Remove</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.collections-item-remove').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = parseInt(e.target.dataset.index);
+          removeFromCollections(index);
+        });
+      });
+    }
+  }
+
+  function removeFromCollections(index) {
+    const collections = JSON.parse(localStorage.getItem('my_collections') || '[]');
+    collections.splice(index, 1);
+    localStorage.setItem('my_collections', JSON.stringify(collections));
+    updateCollectionsCount();
+    renderCollections();
+  }
+
+  if (collectionsBtn) {
+    collectionsBtn.addEventListener('click', openCollectionsDrawer);
+  }
+  if (collectionsClose) {
+    collectionsClose.addEventListener('click', closeCollectionsDrawer);
+  }
+  if (collectionsOverlay) {
+    collectionsOverlay.addEventListener('click', closeCollectionsDrawer);
+  }
+  document.addEventListener('keydown', e => e.key === 'Escape' && closeCollectionsDrawer());
+
+  if (btnEnquireCollections) {
+    btnEnquireCollections.addEventListener('click', () => {
+      const collections = JSON.parse(localStorage.getItem('my_collections') || '[]');
+      if (collections.length === 0) return;
+
+      const message = collections.map(item => {
+        return `${item.name} (Size: ${item.selectedSize || 'Not specified'}) - Starting from ₹${item.price}`;
+      }).join('\n');
+
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        `Hi Eldora Atelier, I'm interested in enquiring about these designs from my collections:\n\n${message}\n\nPlease provide more details.`
+      )}`;
+
+      window.open(whatsappUrl, '_blank');
+    });
+  }
+
+  updateCollectionsCount();
+  fetchSettings();
 
   /* ================================================================
      2. HEADER SCROLL SHADOW
