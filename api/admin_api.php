@@ -69,11 +69,73 @@ try {
         case 'delete_product':
             handleDeleteProduct($db, $input);
             break;
+        case 'get_customer_orders':
+            handleGetCustomerOrders($db, $input);
+            break;
+        case 'update_order_status':
+            handleUpdateOrderStatus($db, $input);
+            break;
         case 'public_get_categories':
             handlePublicGetCategories($db);
             break;
         case 'public_get_products':
             handlePublicGetProducts($db, $input);
+            break;
+        case 'co_public_get_categories':
+            handleCoPublicGetCategories($db);
+            break;
+        // Custom Order Categories
+        case 'co_get_categories':
+            handleCoGetCategories($db, $input);
+            break;
+        case 'co_get_category':
+            handleCoGetCategory($db, $input);
+            break;
+        case 'co_add_category':
+            handleCoAddCategory($db, $input);
+            break;
+        case 'co_update_category':
+            handleCoUpdateCategory($db, $input);
+            break;
+        case 'co_delete_category':
+            handleCoDeleteCategory($db, $input);
+            break;
+        // Custom Order Measurements
+        case 'co_get_measurements':
+            handleCoGetMeasurements($db, $input);
+            break;
+        case 'co_get_measurement':
+            handleCoGetMeasurement($db, $input);
+            break;
+        case 'co_add_measurements':
+            handleCoAddMeasurements($db, $input);
+            break;
+        case 'co_update_measurement':
+            handleCoUpdateMeasurement($db, $input);
+            break;
+        case 'co_delete_measurement':
+            handleCoDeleteMeasurement($db, $input);
+            break;
+        // Contact Enquiries
+        case 'get_contact_enquiries':
+            handleGetContactEnquiries($db, $input);
+            break;
+        case 'delete_contact_enquiry':
+            handleDeleteContactEnquiry($db, $input);
+            break;
+        // Services (admin)
+        case 'get_services':
+            handleGetServices($db, $input);
+            break;
+        case 'save_service':
+            handleSaveService($db, $input);
+            break;
+        case 'delete_service':
+            handleDeleteService($db, $input);
+            break;
+        // Services (public — no auth)
+        case 'public_get_services':
+            handlePublicGetServices($db);
             break;
         default:
             echo json_encode(['success' => false, 'message' => 'Invalid action']);
@@ -677,4 +739,487 @@ function handlePublicGetProducts($db, $input) {
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     echo json_encode(['success' => true, 'products' => $products]);
+}
+
+/* ================================================================
+   CUSTOM ORDER — co_categories handlers
+================================================================ */
+function handleCoGetCategories($db, $input) {
+    verifyTokenOrDie($input);
+
+    $stmt = $db->query("SELECT * FROM co_categories ORDER BY name ASC");
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode(['success' => true, 'categories' => $categories]);
+}
+
+function handleCoGetCategory($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) { echo json_encode(['success' => false, 'message' => 'Invalid id']); return; }
+
+    $stmt = $db->prepare("SELECT * FROM co_categories WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $category = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$category) { echo json_encode(['success' => false, 'message' => 'Category not found']); return; }
+
+    echo json_encode(['success' => true, 'category' => $category]);
+}
+
+function handleCoAddCategory($db, $input) {
+    verifyTokenOrDie($input);
+
+    $name = trim($input['name'] ?? '');
+    $description = trim($input['description'] ?? '');
+
+    if (empty($name)) {
+        echo json_encode(['success' => false, 'message' => 'Category name is required']);
+        return;
+    }
+
+    $stmt = $db->prepare("INSERT INTO co_categories (name, description) VALUES (:name, :description)");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':description', $description);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Category added successfully']);
+}
+
+function handleCoUpdateCategory($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id          = intval($input['id'] ?? 0);
+    $name        = trim($input['name'] ?? '');
+    $description = trim($input['description'] ?? '');
+
+    if (!$id || empty($name)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid request']);
+        return;
+    }
+
+    $stmt = $db->prepare("UPDATE co_categories SET name = :name, description = :description WHERE id = :id");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Category updated successfully']);
+}
+
+function handleCoDeleteCategory($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) { echo json_encode(['success' => false, 'message' => 'Invalid id']); return; }
+
+    // Cascade: remove linked measurements first (FK constraint)
+    $stmt = $db->prepare("DELETE FROM co_custom_measurements WHERE category_id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $stmt = $db->prepare("DELETE FROM co_categories WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Category deleted successfully']);
+}
+
+/* ================================================================
+   CUSTOM ORDER — co_custom_measurements handlers
+================================================================ */
+function handleCoGetMeasurements($db, $input) {
+    verifyTokenOrDie($input);
+
+    $stmt = $db->query("
+        SELECT m.*, c.name AS category_name
+        FROM co_custom_measurements m
+        JOIN co_categories c ON m.category_id = c.id
+        ORDER BY c.name ASC, m.sort_order ASC, m.id ASC
+    ");
+    $measurements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode(['success' => true, 'measurements' => $measurements]);
+}
+
+function handleCoGetMeasurement($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) { echo json_encode(['success' => false, 'message' => 'Invalid id']); return; }
+
+    $stmt = $db->prepare("
+        SELECT m.*, c.name AS category_name
+        FROM co_custom_measurements m
+        JOIN co_categories c ON m.category_id = c.id
+        WHERE m.id = :id
+    ");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $measurement = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$measurement) { echo json_encode(['success' => false, 'message' => 'Measurement not found']); return; }
+
+    echo json_encode(['success' => true, 'measurement' => $measurement]);
+}
+
+function handleCoAddMeasurements($db, $input) {
+    verifyTokenOrDie($input);
+
+    $categoryId = intval($input['category_id'] ?? 0);
+    $namesRaw   = trim($input['names'] ?? '');
+
+    if (!$categoryId || empty($namesRaw)) {
+        echo json_encode(['success' => false, 'message' => 'Category and at least one measurement name are required']);
+        return;
+    }
+
+    // names are pipe-separated and arrive in the user-defined order
+    $names = array_values(array_filter(array_map('trim', explode('|', $namesRaw))));
+    if (empty($names)) {
+        echo json_encode(['success' => false, 'message' => 'No valid measurement names provided']);
+        return;
+    }
+
+    // Find the current max sort_order for this category so new rows are appended
+    $maxStmt = $db->prepare("SELECT COALESCE(MAX(sort_order), -1) AS max_order FROM co_custom_measurements WHERE category_id = :cid");
+    $maxStmt->bindParam(':cid', $categoryId, PDO::PARAM_INT);
+    $maxStmt->execute();
+    $baseOrder = intval($maxStmt->fetchColumn()) + 1;
+
+    $stmt = $db->prepare("INSERT INTO co_custom_measurements (category_id, name, sort_order) VALUES (:category_id, :name, :sort_order)");
+    foreach ($names as $i => $name) {
+        $sortOrder = $baseOrder + $i;
+        $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':sort_order', $sortOrder, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    $count = count($names);
+    echo json_encode(['success' => true, 'message' => "$count measurement(s) added successfully"]);
+}
+
+function handleCoUpdateMeasurement($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id         = intval($input['id'] ?? 0);
+    $categoryId = intval($input['category_id'] ?? 0);
+    $namesRaw   = trim($input['names'] ?? '');
+
+    if (!$id || !$categoryId || empty($namesRaw)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid request']);
+        return;
+    }
+
+    // Single-field edit: take the first name only
+    $names = array_values(array_filter(array_map('trim', explode('|', $namesRaw))));
+    $name  = $names[0] ?? '';
+
+    if (empty($name)) {
+        echo json_encode(['success' => false, 'message' => 'Measurement name is required']);
+        return;
+    }
+
+    $stmt = $db->prepare("UPDATE co_custom_measurements SET category_id = :category_id, name = :name WHERE id = :id");
+    $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Measurement updated successfully']);
+}
+
+function handleCoDeleteMeasurement($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) { echo json_encode(['success' => false, 'message' => 'Invalid id']); return; }
+
+    $stmt = $db->prepare("DELETE FROM co_custom_measurements WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Measurement deleted successfully']);
+}
+
+/* ================================================================
+   CUSTOM ORDER — public endpoint (no auth)
+   Returns all co_categories, each with its ordered measurements
+================================================================ */
+function handleCoPublicGetCategories($db) {
+    // Fetch all categories
+    $catStmt = $db->query("SELECT id, name, description FROM co_categories ORDER BY name ASC");
+    $categories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Fetch all measurements ordered by sort_order
+    $measStmt = $db->query("
+        SELECT id, category_id, name
+        FROM co_custom_measurements
+        ORDER BY category_id ASC, sort_order ASC, id ASC
+    ");
+    $allMeasurements = $measStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Group measurements by category_id
+    $measByCategory = [];
+    foreach ($allMeasurements as $m) {
+        $measByCategory[$m['category_id']][] = ['id' => $m['id'], 'name' => $m['name']];
+    }
+
+    // Attach measurements array to each category
+    foreach ($categories as &$cat) {
+        $cat['measurements'] = $measByCategory[$cat['id']] ?? [];
+    }
+    unset($cat);
+
+    echo json_encode(['success' => true, 'categories' => $categories]);
+}
+
+/* ================================================================
+   CUSTOMER ORDERS — admin handlers
+================================================================ */
+function handleGetCustomerOrders($db, $input) {
+    verifyTokenOrDie($input);
+
+    $status = trim($input['status'] ?? '');
+    $allowed = ['PENDING', 'IN-PROGRESS', 'DONE'];
+
+    if ($status !== '' && !in_array($status, $allowed, true)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid status filter']);
+        return;
+    }
+
+    if ($status !== '') {
+        $stmt = $db->prepare("
+            SELECT id, order_data, status, modified_by, created_at, updated_at
+            FROM custom_orders
+            WHERE status = :status
+            ORDER BY created_at DESC
+        ");
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+    } else {
+        $stmt = $db->query("
+            SELECT id, order_data, status, modified_by, created_at, updated_at
+            FROM custom_orders
+            ORDER BY created_at DESC
+        ");
+    }
+
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Decode the JSON blob for each row so the front-end gets a proper object
+    foreach ($rows as &$row) {
+        $row['order_data'] = json_decode($row['order_data'], true);
+    }
+    unset($row);
+
+    echo json_encode(['success' => true, 'orders' => $rows]);
+}
+
+function handleUpdateOrderStatus($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id      = intval($input['id']     ?? 0);
+    $status  = trim($input['status']   ?? '');
+    $allowed = ['PENDING', 'IN-PROGRESS', 'DONE'];
+
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'Invalid order id']);
+        return;
+    }
+    if (!in_array($status, $allowed, true)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid status value']);
+        return;
+    }
+
+    // Derive modified_by from the JWT payload
+    $modifiedBy = 'admin';
+    $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ??
+                  $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ??
+                  (function_exists('apache_request_headers') ? apache_request_headers()['Authorization'] ?? '' : '');
+    $token = '';
+    if (!empty($authHeader) && preg_match('/Bearer\s+(.*)$/i', $authHeader, $m)) {
+        $token = $m[1];
+    }
+    if (empty($token) && !empty($input['token'])) {
+        $token = $input['token'];
+    }
+    if (!empty($token)) {
+        $payload = verifyJWT($token);
+        if ($payload && !empty($payload['username'])) {
+            $modifiedBy = $payload['username'];
+        }
+    }
+
+    $stmt = $db->prepare("
+        UPDATE custom_orders SET status = :status, modified_by = :modified_by WHERE id = :id
+    ");
+    $stmt->bindParam(':status',      $status,     PDO::PARAM_STR);
+    $stmt->bindParam(':modified_by', $modifiedBy, PDO::PARAM_STR);
+    $stmt->bindParam(':id',          $id,         PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => "Order #$id status updated to $status"]);
+}
+
+/* ================================================================
+   SERVICES handlers
+================================================================ */
+function handleGetServices($db, $input) {
+    verifyTokenOrDie($input);
+
+    $stmt = $db->query("SELECT * FROM services ORDER BY created_at DESC");
+    $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode(['success' => true, 'services' => $services]);
+}
+
+function handleSaveService($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id           = intval($input['id'] ?? 0);
+    $title        = trim($input['title'] ?? '');
+    $summary      = trim($input['summary'] ?? '');
+    $description  = trim($input['description'] ?? '');
+    $startingPrice = trim($input['starting_price'] ?? '');
+
+    if (empty($title)) {
+        echo json_encode(['success' => false, 'message' => 'Title is required']);
+        return;
+    }
+
+    // --- Photo handling ---
+    // Existing photos the admin chose to keep (pipe-separated urls sent from the form)
+    $existingPhotos = [];
+    $existingRaw = trim($input['existing_photos'] ?? '');
+    if ($existingRaw !== '') {
+        $existingPhotos = array_values(array_filter(explode('|', $existingRaw)));
+    }
+
+    // New photo uploads: keys photo_0 (main) .. photo_4 (optional 4)
+    $newPhotos = [];
+    for ($i = 0; $i <= 4; $i++) {
+        $key = "photo_$i";
+        if (!empty($_FILES[$key]) && $_FILES[$key]['error'] === UPLOAD_ERR_OK) {
+            $url = uploadImage($_FILES[$key], 'services');
+            if ($url) {
+                $newPhotos[] = $url;
+            }
+        }
+    }
+
+    // Merge: kept existing first, then new; cap at 5
+    $allPhotos = array_slice(array_merge($existingPhotos, $newPhotos), 0, 5);
+    $photoUrlsString = implode('|', $allPhotos);
+
+    $startingPriceVal = ($startingPrice !== '') ? floatval($startingPrice) : null;
+
+    if ($id) {
+        // UPDATE
+        $stmt = $db->prepare("
+            UPDATE services
+            SET title = :title, summary = :summary, description = :description,
+                photo_urls = :photo_urls, starting_price = :starting_price
+            WHERE id = :id
+        ");
+        $stmt->bindParam(':title',         $title);
+        $stmt->bindParam(':summary',       $summary);
+        $stmt->bindParam(':description',   $description);
+        $stmt->bindParam(':photo_urls',    $photoUrlsString);
+        $stmt->bindParam(':starting_price', $startingPriceVal);
+        $stmt->bindParam(':id',            $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        echo json_encode(['success' => true, 'message' => 'Service updated successfully']);
+    } else {
+        // INSERT
+        $stmt = $db->prepare("
+            INSERT INTO services (title, summary, description, photo_urls, starting_price)
+            VALUES (:title, :summary, :description, :photo_urls, :starting_price)
+        ");
+        $stmt->bindParam(':title',         $title);
+        $stmt->bindParam(':summary',       $summary);
+        $stmt->bindParam(':description',   $description);
+        $stmt->bindParam(':photo_urls',    $photoUrlsString);
+        $stmt->bindParam(':starting_price', $startingPriceVal);
+        $stmt->execute();
+
+        echo json_encode(['success' => true, 'message' => 'Service added successfully', 'id' => intval($db->lastInsertId())]);
+    }
+}
+
+function handleDeleteService($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'Invalid service id']);
+        return;
+    }
+
+    // Fetch photos so we can delete files
+    $stmt = $db->prepare("SELECT photo_urls FROM services WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $service = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Delete DB row
+    $stmt = $db->prepare("DELETE FROM services WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Delete photo files
+    if ($service && !empty($service['photo_urls'])) {
+        foreach (explode('|', $service['photo_urls']) as $url) {
+            if ($url && file_exists(__DIR__ . '/../' . $url)) {
+                unlink(__DIR__ . '/../' . $url);
+            }
+        }
+    }
+
+    echo json_encode(['success' => true, 'message' => 'Service deleted successfully']);
+}
+
+/* ================================================================
+   SERVICES — public endpoint (no auth)
+================================================================ */
+function handlePublicGetServices($db) {
+    $stmt = $db->query("SELECT id, title, summary, description, photo_urls, starting_price, last_modified FROM services ORDER BY created_at DESC");
+    $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode(['success' => true, 'services' => $services]);
+}
+
+/* ================================================================
+   CONTACT ENQUIRIES handlers
+================================================================ */
+function handleGetContactEnquiries($db, $input) {
+    verifyTokenOrDie($input);
+
+    $stmt = $db->query("
+        SELECT id, name, email, phone, enquiry_type, event, message, modified, created_at
+        FROM contact_inquiries
+        ORDER BY created_at DESC
+    ");
+    $enquiries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode(['success' => true, 'enquiries' => $enquiries]);
+}
+
+function handleDeleteContactEnquiry($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'Invalid enquiry id']);
+        return;
+    }
+
+    $stmt = $db->prepare("DELETE FROM contact_inquiries WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Enquiry deleted successfully']);
 }

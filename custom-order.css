@@ -262,9 +262,11 @@ input, textarea, select { font-family: var(--sans); }
   border: none;
   padding: 0;
   display: none;
+}
+.co-fieldset.active {
+  display: block;
   animation: stepIn .35s ease both;
 }
-.co-fieldset.active { display: block; }
 @keyframes stepIn {
   from { opacity: 0; transform: translateX(18px); }
   to   { opacity: 1; transform: translateX(0); }
@@ -305,6 +307,15 @@ input, textarea, select { font-family: var(--sans); }
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin-bottom: 28px;
+}
+
+.cat-loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  font: 300 12px var(--sans);
+  color: var(--muted);
+  padding: 32px 0;
+  letter-spacing: .04em;
 }
 
 .cat-card {

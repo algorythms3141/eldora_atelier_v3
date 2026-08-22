@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../eldora-monogram.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Eldora Atelier Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d4f4f 0%, #1a5f5f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand { display: flex; align-items: center; gap: 15px; }
+        .navbar-brand h1 { color: #333; font-size: 24px; font-weight: 600; }
+        .navbar-brand span { color: #b76e79; }
+        .navbar-actions { display: flex; align-items: center; gap: 15px; }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: #e9ecef; }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(183,110,121,0.3); }
+
+        /* ── Layout ── */
+        .main-content { flex: 1; padding: 30px 20px; }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .page-header h2 { color: #333; font-size: 24px; font-weight: 700; }
+        .page-header p  { color: #666; font-size: 14px; margin-top: 4px; }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #0d4f4f 0%, #1a5f5f 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(13,79,79,0.3); }
+
+        .btn-danger {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #dc3545 0%, #e06070 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-danger:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(220,53,69,0.3); }
+
+        .btn-edit {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #0d4f4f 0%, #1a5f5f 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-edit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(13,79,79,0.3); }
+
+        /* ── Services Grid ── */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+        .service-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+        .service-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #f5f5f5;
+            display: block;
+        }
+        .service-card-img-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f0f4f4 0%, #e0ecec 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 40px;
+        }
+
+        .service-card-body { padding: 18px 20px; }
+        .service-card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+        .service-card-summary {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .service-card-price {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0d4f4f;
+            margin-bottom: 14px;
+        }
+        .service-card-actions { display: flex; gap: 10px; }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            grid-column: 1 / -1;
+        }
+        .empty-state svg { margin-bottom: 12px; opacity: 0.4; }
+        .empty-state p { font-size: 16px; margin-bottom: 6px; }
+        .empty-state small { font-size: 13px; }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #1e3a3a;
+            color: #f0ddc7;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast.error { background: #5c1a1a; color: #f8d7d7; }
+
+        /* ── Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 1000;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 30px 16px;
+            overflow-y: auto;
+        }
+        .modal-overlay.open { display: flex; }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 36px;
+            width: 100%;
+            max-width: 680px;
+            position: relative;
+            margin: auto;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 20px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #888;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-close:hover { color: #333; }
+
+        .modal h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        /* ── Form ── */
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+        }
+        .form-group label .opt { font-weight: 400; color: #999; }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #333;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus { border-color: #0d4f4f; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group textarea.tall { min-height: 160px; }
+
+        /* ── Photo Upload Section ── */
+        .photo-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 12px;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .photo-slot {
+            position: relative;
+            aspect-ratio: 1;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #fafafa;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .photo-slot:hover { border-color: #0d4f4f; background: #f0f6f6; }
+        .photo-slot.has-image { border-style: solid; border-color: #0d4f4f; }
+        .photo-slot.main-slot { border-color: #b76e79; }
+        .photo-slot.main-slot:hover { border-color: #9a5a68; }
+        .photo-slot.main-slot.has-image { border-color: #b76e79; }
+
+        .photo-slot input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+        .photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-slot-label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            font-size: 9px;
+            text-align: center;
+            padding: 3px 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            pointer-events: none;
+        }
+        .photo-slot-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 4px;
+            color: #bbb;
+            pointer-events: none;
+        }
+        .photo-slot-placeholder svg { opacity: 0.6; }
+        .photo-slot-placeholder span { font-size: 9px; text-align: center; }
+
+        .photo-remove {
+            position: absolute;
+            top: 4px; right: 4px;
+            background: rgba(220,53,69,0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px; height: 20px;
+            font-size: 12px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            background: #f8f9fa;
+            color: #555;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-secondary:hover { background: #e9ecef; }
+
+        .btn-save {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #0d4f4f 0%, #1a5f5f 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-save:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(13,79,79,0.3); }
+        .btn-save:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        /* ── Confirm Modal ── */
+        .confirm-modal {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+            text-align: center;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+        }
+        .confirm-modal h3 { font-size: 18px; color: #333; margin-bottom: 10px; }
+        .confirm-modal p  { font-size: 14px; color: #666; margin-bottom: 24px; }
+        .confirm-actions { display: flex; gap: 12px; justify-content: center; }
+
+        /* ── Loading ── */
+        .loading-row {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1>Eldora <span>Atelier</span></h1>
+        </div>
+        <div class="navbar-actions">
+            <a href="index.html" class="back-btn">← Dashboard</a>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h2>Services</h2>
+                    <p>Manage the services offered by Eldora Atelier</p>
+                </div>
+                <button class="btn-primary" id="btnAddService">+ Add Service</button>
+            </div>
+
+            <div class="services-grid" id="servicesGrid">
+                <div class="loading-row">Loading services…</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ══ Add / Edit Modal ══ -->
+    <div class="modal-overlay" id="serviceModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3 id="modalTitle">Add Service</h3>
+
+            <form id="serviceForm" enctype="multipart/form-data">
+                <input type="hidden" id="serviceId" value="">
+
+                <div class="form-group">
+                    <label for="fTitle">Title <span style="color:#dc3545">*</span></label>
+                    <input type="text" id="fTitle" placeholder="e.g. Bridal Lehenga Consultation" maxlength="200">
+                </div>
+
+                <div class="form-group">
+                    <label for="fSummary">Summary <span class="opt">(short tagline)</span></label>
+                    <input type="text" id="fSummary" placeholder="One-line description shown on the service card" maxlength="500">
+                </div>
+
+                <div class="form-group">
+                    <label for="fDescription">Description <span class="opt">(full detail)</span></label>
+                    <textarea id="fDescription" class="tall" placeholder="Detailed description of the service — fabrics, process, timeline, inclusions…"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="fPrice">Starting Price (₹) <span class="opt">(optional)</span></label>
+                    <input type="number" id="fPrice" placeholder="e.g. 15000" min="0" step="1">
+                </div>
+
+                <!-- Photo Upload -->
+                <div>
+                    <div class="photo-section-title">
+                        Photos — 1 main (required for display) + up to 4 optional
+                    </div>
+                    <div class="photo-grid" id="photoGrid">
+                        <!-- Slot 0: Main photo -->
+                        <div class="photo-slot main-slot" id="slot-0">
+                            <input type="file" id="photoInput0" accept="image/jpeg,image/png,image/webp" data-slot="0">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder0">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Main Photo</span>
+                            </div>
+                            <img id="slotPreview0" style="display:none" alt="main photo">
+                            <div class="photo-slot-label">Main</div>
+                            <button type="button" class="photo-remove" id="slotRemove0" style="display:none" data-slot="0">&times;</button>
+                        </div>
+                        <!-- Slots 1–4: Optional photos -->
+                        <div class="photo-slot" id="slot-1">
+                            <input type="file" id="photoInput1" accept="image/jpeg,image/png,image/webp" data-slot="1">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder1">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Photo 2</span>
+                            </div>
+                            <img id="slotPreview1" style="display:none" alt="photo 2">
+                            <div class="photo-slot-label">Optional</div>
+                            <button type="button" class="photo-remove" id="slotRemove1" style="display:none" data-slot="1">&times;</button>
+                        </div>
+                        <div class="photo-slot" id="slot-2">
+                            <input type="file" id="photoInput2" accept="image/jpeg,image/png,image/webp" data-slot="2">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder2">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Photo 3</span>
+                            </div>
+                            <img id="slotPreview2" style="display:none" alt="photo 3">
+                            <div class="photo-slot-label">Optional</div>
+                            <button type="button" class="photo-remove" id="slotRemove2" style="display:none" data-slot="2">&times;</button>
+                        </div>
+                        <div class="photo-slot" id="slot-3">
+                            <input type="file" id="photoInput3" accept="image/jpeg,image/png,image/webp" data-slot="3">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder3">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Photo 4</span>
+                            </div>
+                            <img id="slotPreview3" style="display:none" alt="photo 4">
+                            <div class="photo-slot-label">Optional</div>
+                            <button type="button" class="photo-remove" id="slotRemove3" style="display:none" data-slot="3">&times;</button>
+                        </div>
+                        <div class="photo-slot" id="slot-4">
+                            <input type="file" id="photoInput4" accept="image/jpeg,image/png,image/webp" data-slot="4">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder4">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Photo 5</span>
+                            </div>
+                            <img id="slotPreview4" style="display:none" alt="photo 5">
+                            <div class="photo-slot-label">Optional</div>
+                            <button type="button" class="photo-remove" id="slotRemove4" style="display:none" data-slot="4">&times;</button>
+                        </div>
+                    </div>
+                    <!-- Hidden field: existing photo urls to keep on edit -->
+                    <input type="hidden" id="existingPhotos" value="">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="modalCancel">Cancel</button>
+                    <button type="submit" class="btn-save" id="btnSave">Save Service</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ══ Confirm Delete Modal ══ -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="confirm-modal">
+            <h3>Delete Service?</h3>
+            <p id="confirmMsg">This will permanently delete the service and all its photos.</p>
+            <div class="confirm-actions">
+                <button class="btn-secondary" id="confirmCancel">Cancel</button>
+                <button class="btn-danger" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+    (function () {
+        'use strict';
+
+        const token = localStorage.getItem('admin_token');
+        if (!token) { window.location.href = 'login.html'; return; }
+
+        /* ── helpers ── */
+        const API = '../api/admin_api.php';
+        const $ = id => document.getElementById(id);
+
+        function authHeaders() {
+            return { 'Authorization': 'Bearer ' + token };
+        }
+
+        function showToast(msg, isError = false) {
+            const t = $('toast');
+            t.textContent = msg;
+            t.className = 'toast' + (isError ? ' error' : '');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function fmtPrice(v) {
+            if (!v && v !== 0) return null;
+            return '₹' + Number(v).toLocaleString('en-IN');
+        }
+
+        /* ─────────────── SERVICES LIST ─────────────── */
+        let services = [];
+
+        async function loadServices() {
+            $('servicesGrid').innerHTML = '<div class="loading-row">Loading services…</div>';
+            try {
+                const fd = new FormData();
+                fd.append('action', 'get_services');
+                fd.append('token', token);
+                const res = await fetch(API, { method: 'POST', headers: authHeaders(), body: fd });
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message);
+                services = data.services || [];
+                renderGrid();
+            } catch (e) {
+                $('servicesGrid').innerHTML = `<div class="loading-row" style="color:#c33">Failed to load: ${e.message}</div>`;
+            }
+        }
+
+        function renderGrid() {
+            const grid = $('servicesGrid');
+            if (!services.length) {
+                grid.innerHTML = `
+                  <div class="empty-state">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                    <p>No services yet</p>
+                    <small>Click "Add Service" to create your first one.</small>
+                  </div>`;
+                return;
+            }
+
+            grid.innerHTML = services.map(s => {
+                const photos = s.photo_urls ? s.photo_urls.split('|').filter(Boolean) : [];
+                const mainPhoto = photos[0] || null;
+                const imgHtml = mainPhoto
+                    ? `<img class="service-card-img" src="../${mainPhoto}" alt="${escHtml(s.title)}">`
+                    : `<div class="service-card-img-placeholder">🖼</div>`;
+                const priceHtml = s.starting_price
+                    ? `<div class="service-card-price">Starting from ${fmtPrice(s.starting_price)}</div>`
+                    : '';
+                return `
+                  <div class="service-card">
+                    ${imgHtml}
+                    <div class="service-card-body">
+                      <div class="service-card-title">${escHtml(s.title)}</div>
+                      ${s.summary ? `<div class="service-card-summary">${escHtml(s.summary)}</div>` : ''}
+                      ${priceHtml}
+                      <div class="service-card-actions">
+                        <button class="btn-edit" onclick="openEdit(${s.id})">Edit</button>
+                        <button class="btn-danger" onclick="openDelete(${s.id})">Delete</button>
+                      </div>
+                    </div>
+                  </div>`;
+            }).join('');
+        }
+
+        function escHtml(str) {
+            return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        /* ─────────────── PHOTO SLOTS ─────────────── */
+        // slotState[i] = { file: File|null, existingUrl: string|null }
+        const slotState = [
+            { file: null, existingUrl: null },
+            { file: null, existingUrl: null },
+            { file: null, existingUrl: null },
+            { file: null, existingUrl: null },
+            { file: null, existingUrl: null },
+        ];
+
+        function resetSlots() {
+            for (let i = 0; i < 5; i++) {
+                slotState[i] = { file: null, existingUrl: null };
+                renderSlot(i);
+                // Reset the file input
+                const inp = $('photoInput' + i);
+                inp.value = '';
+            }
+        }
+
+        function renderSlot(i) {
+            const s      = slotState[i];
+            const slot   = $('slot-' + i);
+            const img    = $('slotPreview' + i);
+            const ph     = $('slotPlaceholder' + i);
+            const rm     = $('slotRemove' + i);
+
+            if (s.file) {
+                // New file selected — show object URL
+                img.src = URL.createObjectURL(s.file);
+                img.style.display = 'block';
+                ph.style.display  = 'none';
+                rm.style.display  = 'flex';
+                slot.classList.add('has-image');
+            } else if (s.existingUrl) {
+                img.src = '../' + s.existingUrl;
+                img.style.display = 'block';
+                ph.style.display  = 'none';
+                rm.style.display  = 'flex';
+                slot.classList.add('has-image');
+            } else {
+                img.src = '';
+                img.style.display = 'none';
+                ph.style.display  = 'flex';
+                rm.style.display  = 'none';
+                slot.classList.remove('has-image');
+            }
+        }
+
+        // Attach file input listeners
+        for (let i = 0; i < 5; i++) {
+            $('photoInput' + i).addEventListener('change', function () {
+                const file = this.files[0];
+                if (!file) return;
+                slotState[i].file = file;
+                slotState[i].existingUrl = null; // new file replaces existing
+                renderSlot(i);
+                this.value = '';
+            });
+            $('slotRemove' + i).addEventListener('click', function (e) {
+                e.stopPropagation();
+                slotState[i].file = null;
+                slotState[i].existingUrl = null;
+                renderSlot(i);
+            });
+        }
+
+        /* ─────────────── OPEN MODAL ─────────────── */
+        function openAdd() {
+            $('modalTitle').textContent = 'Add Service';
+            $('serviceId').value = '';
+            $('fTitle').value = '';
+            $('fSummary').value = '';
+            $('fDescription').value = '';
+            $('fPrice').value = '';
+            $('existingPhotos').value = '';
+            resetSlots();
+            $('serviceModal').classList.add('open');
+        }
+
+        window.openEdit = function (id) {
+            const s = services.find(x => Number(x.id) === Number(id));
+            if (!s) return;
+
+            $('modalTitle').textContent = 'Edit Service';
+            $('serviceId').value  = s.id;
+            $('fTitle').value     = s.title || '';
+            $('fSummary').value   = s.summary || '';
+            $('fDescription').value = s.description || '';
+            $('fPrice').value     = s.starting_price || '';
+
+            // Pre-fill photo slots with existing photos
+            resetSlots();
+            const photos = s.photo_urls ? s.photo_urls.split('|').filter(Boolean) : [];
+            photos.forEach((url, i) => {
+                if (i < 5) {
+                    slotState[i].existingUrl = url;
+                    renderSlot(i);
+                }
+            });
+
+            $('serviceModal').classList.add('open');
+        };
+
+        function closeModal() {
+            $('serviceModal').classList.remove('open');
+        }
+
+        $('btnAddService').addEventListener('click', openAdd);
+        $('modalClose').addEventListener('click', closeModal);
+        $('modalCancel').addEventListener('click', closeModal);
+        $('serviceModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        /* ─────────────── SAVE ─────────────── */
+        $('serviceForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const title = $('fTitle').value.trim();
+            if (!title) { showToast('Title is required', true); return; }
+
+            const saveBtn = $('btnSave');
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving…';
+
+            try {
+                const fd = new FormData();
+                fd.append('action',        'save_service');
+                fd.append('token',         token);
+                fd.append('id',            $('serviceId').value);
+                fd.append('title',         title);
+                fd.append('summary',       $('fSummary').value.trim());
+                fd.append('description',   $('fDescription').value.trim());
+                fd.append('starting_price', $('fPrice').value.trim());
+
+                // Build existing_photos: urls for slots that still have existingUrl (no new file)
+                const keepUrls = slotState
+                    .filter(s => s.existingUrl && !s.file)
+                    .map(s => s.existingUrl);
+                fd.append('existing_photos', keepUrls.join('|'));
+
+                // Append new files with keys photo_0 .. photo_4
+                slotState.forEach((s, i) => {
+                    if (s.file) fd.append('photo_' + i, s.file);
+                });
+
+                const res  = await fetch(API, { method: 'POST', headers: authHeaders(), body: fd });
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message);
+
+                showToast(data.message || 'Saved successfully');
+                closeModal();
+                await loadServices();
+            } catch (err) {
+                showToast(err.message || 'Save failed', true);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save Service';
+            }
+        });
+
+        /* ─────────────── DELETE ─────────────── */
+        let pendingDeleteId = null;
+
+        window.openDelete = function (id) {
+            pendingDeleteId = id;
+            const s = services.find(x => Number(x.id) === Number(id));
+            $('confirmMsg').textContent = `Delete "${s ? s.title : 'this service'}"? This cannot be undone.`;
+            $('confirmModal').classList.add('open');
+        };
+
+        $('confirmCancel').addEventListener('click', () => {
+            $('confirmModal').classList.remove('open');
+            pendingDeleteId = null;
+        });
+
+        $('confirmModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                this.classList.remove('open');
+                pendingDeleteId = null;
+            }
+        });
+
+        $('confirmDelete').addEventListener('click', async function () {
+            if (!pendingDeleteId) return;
+            this.disabled = true;
+            this.textContent = 'Deleting…';
+            try {
+                const fd = new FormData();
+                fd.append('action', 'delete_service');
+                fd.append('token',  token);
+                fd.append('id',     pendingDeleteId);
+
+                const res  = await fetch(API, { method: 'POST', headers: authHeaders(), body: fd });
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message);
+
+                showToast('Service deleted');
+                $('confirmModal').classList.remove('open');
+                pendingDeleteId = null;
+                await loadServices();
+            } catch (err) {
+                showToast(err.message || 'Delete failed', true);
+            } finally {
+                this.disabled = false;
+                this.textContent = 'Delete';
+            }
+        });
+
+        /* ─────────────── LOGOUT ─────────────── */
+        $('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('admin_token');
+            window.location.href = 'login.html';
+        });
+
+        /* ─────────────── INIT ─────────────── */
+        loadServices();
+    })();
+    </script>
+</body>
+</html>

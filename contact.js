@@ -45,7 +45,7 @@
   ══════════════════════════════════════════ */
   let whatsappNumber = '919876543210'; // Default fallback
 
-  // Fetch settings from API
+  // Fetch settings from API and populate all dynamic contact fields
   async function fetchSettings() {
     try {
       const response = await fetch('api/settings_api.php', {
@@ -54,12 +54,85 @@
         body: JSON.stringify({ action: 'get_public_settings' })
       });
       const data = await response.json();
-      if (data.success && data.settings.contact_number1) {
-        whatsappNumber = data.settings.contact_number1.replace(/\+/g, '');
+      if (!data.success) return;
+
+      const s = data.settings;
+
+      /* ── WhatsApp number ── */
+      const rawNum = s.contact_number1 || '';
+      if (rawNum) {
+        whatsappNumber = rawNum.replace(/\+/g, '');
+        const waHref  = `https://wa.me/${whatsappNumber}`;
+        const numDisplay = rawNum;
+
+        // Cards
+        setLink('ct-wa-link',   waHref,          numDisplay + ' →');
+        setLink('ct-phone-link', 'tel:' + rawNum, numDisplay + ' →');
+        // Detail column
+        setLink('ct-detail-phone', 'tel:' + rawNum, numDisplay);
+        // Social WhatsApp button
+        setLink('ct-wa-social', waHref, null);
+        // Footer
+        setLink('ft-wa-link',    waHref,          'WhatsApp Us');
+        setLink('ft-phone-link', 'tel:' + rawNum, numDisplay);
       }
+
+      /* ── Second number (if set) ── */
+      if (s.contact_number2) {
+        const num2 = s.contact_number2;
+        const detPhone = document.getElementById('ct-detail-phone');
+        if (detPhone) {
+          detPhone.insertAdjacentHTML('afterend',
+            ` / <a href="tel:${num2}">${num2}</a>`);
+        }
+      }
+
+      /* ── Email ── */
+      if (s.email_address) {
+        const email = s.email_address;
+        setLink('ct-email-link',  'mailto:' + email, email + ' →');
+        setLink('ct-detail-email','mailto:' + email, email);
+        setLink('ft-email-link',  'mailto:' + email, email);
+      }
+
+      /* ── Address ── */
+      if (s.address) {
+        const addrEl = document.getElementById('ct-detail-address');
+        if (addrEl) addrEl.innerHTML = s.address.replace(/\n/g, '<br>');
+        const ftAddr = document.getElementById('ft-address-link');
+        if (ftAddr) ftAddr.textContent = s.address.split('\n')[0]; // first line only in footer
+        // Visit Us card text
+        const visitLink = document.getElementById('ct-visit-link');
+        if (visitLink) visitLink.textContent = s.address.split('\n')[0] + ' →';
+        // Map label
+        const mapLabel = document.getElementById('ct-map-label');
+        if (mapLabel) mapLabel.textContent = 'Eldora Atelier — ' + s.address.split('\n')[0];
+      }
+
+      /* ── Google Maps URL ── */
+      if (s.google_map_location_url) {
+        setLink('ct-map-link',  s.google_map_location_url, null);
+        setLink('ct-visit-link', '#map', null); // keep card pointing to anchor
+        const ftAddr = document.getElementById('ft-address-link');
+        if (ftAddr) ftAddr.href = s.google_map_location_url;
+      }
+
+      /* ── Instagram ── */
+      if (s.instagram_link) {
+        setLink('ct-ig-link', s.instagram_link, null);
+      }
+
     } catch (error) {
       console.error('Failed to fetch settings:', error);
     }
+  }
+
+  /* Set href (and optionally text) on an element by id */
+  function setLink(id, href, text) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.href = href;
+    if (text !== null) el.textContent = text;
   }
 
   const collectionsBtn = document.querySelector('.collections-btn');
@@ -239,7 +312,7 @@
     });
   });
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     let valid = true;
@@ -251,24 +324,56 @@
     });
 
     if (!valid) {
-      // Scroll to first error
       const firstErr = form.querySelector('.error');
       firstErr && firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
 
-    // Simulate successful submission (no real back-end)
     const submitBtn = $('#form-submit');
+    const btnText   = submitBtn && submitBtn.querySelector('.ct-btn-text');
+
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.querySelector('.ct-btn-text').textContent = 'Sending…';
+      if (btnText) btnText.textContent = 'Sending…';
     }
 
-    setTimeout(() => {
+    try {
+      const res  = await fetch('api/contactus_api.php', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action:       'submit_inquiry',
+          name:         $('#cf-name').value.trim(),
+          email:        $('#cf-email').value.trim(),
+          phone:        $('#cf-phone').value.trim(),
+          enquiry_type: $('#cf-type').value,
+          event:        $('#cf-event').value.trim(),
+          message:      $('#cf-message').value.trim(),
+        }),
+      });
+      const data = await res.json();
+
+      if (!data.success) throw new Error(data.message);
+
       form.hidden = true;
       if (success) success.removeAttribute('hidden');
-      if (submitBtn) submitBtn.disabled = false;
-    }, 800);
+
+    } catch (err) {
+      // Show error inline below the button
+      let errBox = $('#cf-submit-err');
+      if (!errBox) {
+        errBox = document.createElement('p');
+        errBox.id = 'cf-submit-err';
+        errBox.style.cssText = 'color:#b84040;font:300 12px var(--sans,sans-serif);margin-top:10px';
+        submitBtn ? submitBtn.insertAdjacentElement('afterend', errBox) : form.appendChild(errBox);
+      }
+      errBox.textContent = err.message || 'Something went wrong. Please try again.';
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        if (btnText) btnText.textContent = 'Send Enquiry';
+      }
+    }
   });
 
 })();

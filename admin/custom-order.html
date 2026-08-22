@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../eldora-monogram.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Orders - Eldora Atelier</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d4f4f 0%, #1a5f5f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand { display: flex; align-items: center; gap: 15px; }
+        .navbar-brand h1 { color: #333; font-size: 24px; font-weight: 600; }
+        .navbar-brand span { color: #b76e79; }
+        .navbar-actions { display: flex; align-items: center; gap: 15px; }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: #e9ecef; }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(183,110,121,0.3); }
+
+        .main-content { flex: 1; padding: 40px 20px; }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #e0e0e0; }
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .tab.active { color: #b76e79; }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Section header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .section-header h2 { color: #333; font-size: 28px; font-weight: 600; }
+
+        .add-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .add-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(183,110,121,0.3); }
+
+        /* Table */
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .data-table th, .data-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        .data-table th { background: #f8f9fa; color: #333; font-weight: 600; font-size: 14px; }
+        .data-table td { color: #555; font-size: 14px; vertical-align: middle; }
+
+        .action-buttons { display: flex; gap: 8px; }
+        .edit-btn {
+            padding: 7px 14px;
+            background: #b76e79;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .edit-btn:hover { background: #a05c6a; }
+        .delete-btn {
+            padding: 7px 14px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .delete-btn:hover { background: #c82333; }
+
+        /* ── Measurement cards (table view) ── */
+        .cat-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .cat-card {
+            border: 1.5px solid #e8e0e6;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .cat-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #f9f1f4 0%, #fdf8fb 100%);
+            border-bottom: 1.5px solid #e8e0e6;
+        }
+        .cat-card-head h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+        .cat-card-head .cat-count {
+            font-size: 11px;
+            font-weight: 600;
+            color: #b76e79;
+            background: #f0e8ef;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        .cat-card-body { padding: 12px 16px; }
+        .m-field-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 7px 0;
+            border-bottom: 1px solid #f3edf1;
+        }
+        .m-field-row:last-child { border-bottom: none; }
+        .m-field-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .m-field-num {
+            width: 22px;
+            height: 22px;
+            background: #b76e79;
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .m-field-name { font-size: 13px; color: #444; }
+        .m-field-actions { display: flex; gap: 6px; opacity: 0; transition: opacity 0.15s; }
+        .m-field-row:hover .m-field-actions { opacity: 1; }
+        .m-edit-btn, .m-del-btn {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .m-edit-btn { background: #b76e79; color: white; }
+        .m-edit-btn:hover { background: #a05c6a; }
+        .m-del-btn { background: #dc3545; color: white; }
+        .m-del-btn:hover { background: #c82333; }
+        .cat-card-foot {
+            padding: 10px 16px;
+            background: #fdf8fb;
+            border-top: 1.5px solid #e8e0e6;
+            text-align: right;
+        }
+        .cat-card-foot button {
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .cat-card-foot button:hover { opacity: 0.88; }
+
+        /* ── Drag-to-reorder list in modal ── */
+        .field-list {
+            list-style: none;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .field-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            background: #fdf8fb;
+            border: 1.5px solid #e8e0e6;
+            border-radius: 8px;
+            cursor: grab;
+            transition: background 0.15s, box-shadow 0.15s;
+            user-select: none;
+        }
+        .field-item:active { cursor: grabbing; }
+        .field-item.drag-over {
+            background: #f0e8ef;
+            border-color: #b76e79;
+            box-shadow: 0 2px 8px rgba(183,110,121,0.18);
+        }
+        .field-item.dragging {
+            opacity: 0.45;
+        }
+        .drag-handle {
+            color: #ccc;
+            font-size: 14px;
+            flex-shrink: 0;
+            cursor: grab;
+            line-height: 1;
+        }
+        .field-item-num {
+            width: 20px;
+            height: 20px;
+            background: #b76e79;
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .field-item-name { flex: 1; font-size: 13px; color: #333; }
+        .field-item-remove {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0 2px;
+            line-height: 1;
+            transition: color 0.15s;
+            flex-shrink: 0;
+        }
+        .field-item-remove:hover { color: #c82333; }
+        .drag-hint {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        /* Empty state */
+        .empty-state { text-align: center; padding: 60px 20px; color: #666; }
+        .empty-state h3 { font-size: 22px; margin-bottom: 8px; }
+        .empty-state p { font-size: 14px; }
+
+        /* Messages */
+        .success-message, .error-message {
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        .success-message { background: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+        .success-message.show { display: block; }
+        .error-message { background: #fee; color: #c33; border-left: 4px solid #c33; }
+        .error-message.show { display: block; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+        .modal-header h3 { color: #333; font-size: 22px; font-weight: 600; }
+        .close-btn { background: none; border: none; font-size: 24px; color: #666; cursor: pointer; }
+        .close-btn:hover { color: #333; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: 500; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            outline: none;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #b76e79;
+            box-shadow: 0 0 0 3px rgba(183,110,121,0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 90px; }
+
+        /* Measurement input row in modal */
+        .measurement-input-row { display: flex; gap: 8px; margin-bottom: 4px; }
+        .measurement-input-row input { margin-bottom: 0; flex: 1; }
+        .add-measurement-btn {
+            padding: 10px 16px;
+            background: #0d4f4f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .add-measurement-btn:hover { background: #1a5f5f; }
+
+        .modal-footer { display: flex; gap: 14px; margin-top: 28px; }
+        .cancel-btn {
+            flex: 1;
+            padding: 12px;
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .cancel-btn:hover { background: #e9ecef; }
+        .save-btn {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .save-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(183,110,121,0.35); }
+
+        /* ── Customer Orders tab ── */
+        .orders-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .orders-toolbar label { font-size: 13px; font-weight: 600; color: #555; white-space: nowrap; }
+        .orders-toolbar select {
+            padding: 9px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color .2s;
+            background: #fff;
+        }
+        .orders-toolbar select:focus { border-color: #b76e79; }
+        .orders-toolbar .refresh-btn {
+            padding: 9px 18px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        .orders-toolbar .refresh-btn:hover { background: #e9ecef; }
+
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+        .status-PENDING     { background: #fff3cd; color: #856404; }
+        .status-IN-PROGRESS { background: #cce5ff; color: #004085; }
+        .status-DONE        { background: #d4edda; color: #155724; }
+
+        /* Inline status selector in table */
+        .status-select {
+            padding: 5px 10px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            transition: border-color .2s;
+            background: #fff;
+        }
+        .status-select:focus { border-color: #b76e79; }
+        .save-status-btn {
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .save-status-btn:hover { opacity: .88; }
+        .view-btn {
+            padding: 6px 14px;
+            background: #0d4f4f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .view-btn:hover { background: #1a5f5f; }
+
+        /* Order detail modal — wider */
+        .modal-content.modal-xl {
+            max-width: 760px;
+        }
+        .order-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 24px;
+            margin-bottom: 20px;
+        }
+        .od-row { padding: 7px 0; border-bottom: 1px solid #f3f3f3; }
+        .od-row:last-child { border-bottom: none; }
+        .od-key {
+            font-size: 11px;
+            font-weight: 700;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-bottom: 2px;
+        }
+        .od-val { font-size: 13px; color: #333; }
+        .od-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #b76e79;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            margin: 18px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1.5px solid #f0e8ef;
+        }
+        .od-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .od-image-thumb {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1.5px solid #e8e0e6;
+            cursor: zoom-in;
+            transition: transform .15s, box-shadow .15s;
+        }
+        .od-image-thumb:hover { transform: scale(1.05); box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+        .od-measurements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .od-mchip {
+            padding: 5px 12px;
+            background: #f0e8ef;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #333;
+        }
+        .od-mchip strong { color: #b76e79; }
+
+        /* Status bar inside detail modal */
+        .od-status-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .od-status-bar label { font-size: 13px; font-weight: 600; color: #555; }
+        .od-status-bar select {
+            padding: 8px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+            flex: 1;
+            cursor: pointer;
+            transition: border-color .2s;
+        }
+        .od-status-bar select:focus { border-color: #b76e79; }
+        .od-save-btn {
+            padding: 9px 22px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .od-save-btn:hover { opacity: .88; }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; padding: 15px 20px; }
+            .navbar-brand h1 { font-size: 20px; }
+            .container { padding: 20px; }
+            .tabs { flex-direction: column; gap: 4px; }
+            .tab { padding: 10px 16px; }
+            .section-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+            .data-table th, .data-table td { padding: 10px; font-size: 12px; }
+            .modal-content { padding: 24px 20px; margin: 16px; }
+            .order-detail-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1>Eldora <span>Atelier</span></h1>
+        </div>
+        <div class="navbar-actions">
+            <a href="index.html" class="back-btn">← Back to Dashboard</a>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab active" data-tab="co-categories">Custom Order Categories</button>
+                <button class="tab" data-tab="co-measurements">Custom Measurements</button>
+                <button class="tab" data-tab="customer-orders">Customer Orders</button>
+            </div>
+
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+
+            <!-- CO Categories Tab -->
+            <div class="tab-content active" id="co-categories">
+                <div class="section-header">
+                    <h2>Custom Order Categories</h2>
+                    <button class="add-btn" id="addCoCategoryBtn">+ Add Category</button>
+                </div>
+                <div id="coCategoriesTable"></div>
+            </div>
+
+            <!-- Customer Orders Tab -->
+            <div class="tab-content" id="customer-orders">
+                <div class="section-header">
+                    <h2>Customer Orders</h2>
+                </div>
+                <div class="orders-toolbar">
+                    <label for="orderStatusFilter">Filter by Status:</label>
+                    <select id="orderStatusFilter">
+                        <option value="">All Orders</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="IN-PROGRESS">In Progress</option>
+                        <option value="DONE">Done</option>
+                    </select>
+                    <button class="refresh-btn" id="refreshOrdersBtn">↻ Refresh</button>
+                </div>
+                <div id="customerOrdersTable"></div>
+            </div>
+
+            <!-- CO Measurements Tab -->
+            <div class="tab-content" id="co-measurements">
+                <div class="section-header">
+                    <h2>Custom Measurements</h2>
+                    <button class="add-btn" id="addCoMeasurementBtn">+ Add Measurement</button>
+                </div>
+                <div id="coMeasurementsTable"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- CO Category Modal -->
+    <div class="modal" id="coCategoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="coCategoryModalTitle">Add Custom Order Category</h3>
+                <button class="close-btn" id="closeCoCategoryModal">&times;</button>
+            </div>
+            <form id="coCategoryForm">
+                <input type="hidden" id="coCategoryId">
+                <div class="form-group">
+                    <label for="coCategoryName">Category Name *</label>
+                    <input type="text" id="coCategoryName" placeholder="e.g. Lehenga, Saree, Suit" required>
+                </div>
+                <div class="form-group">
+                    <label for="coCategoryDesc">Description</label>
+                    <textarea id="coCategoryDesc" placeholder="Brief description of this category (optional)"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" id="cancelCoCategoryBtn">Cancel</button>
+                    <button type="submit" class="save-btn">Save Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CO Measurement Modal -->
+    <div class="modal" id="coMeasurementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="coMeasurementModalTitle">Add Custom Measurement</h3>
+                <button class="close-btn" id="closeCoMeasurementModal">&times;</button>
+            </div>
+            <form id="coMeasurementForm">
+                <input type="hidden" id="coMeasurementId">
+                <div class="form-group">
+                    <label for="coMeasurementCategory">Category *</label>
+                    <select id="coMeasurementCategory" required>
+                        <option value="">Select a category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Measurement Fields *</label>
+                    <div class="measurement-input-row">
+                        <input type="text" id="measurementFieldInput" placeholder="e.g. Chest, Waist, Hip…">
+                        <button type="button" class="add-measurement-btn" id="addFieldBtn">+ Add</button>
+                    </div>
+                    <ul class="field-list" id="fieldList"></ul>
+                    <p class="drag-hint" id="dragHint" style="display:none">☰ Drag rows to reorder</p>
+                    <input type="hidden" id="measurementNames">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" id="cancelCoMeasurementBtn">Cancel</button>
+                    <button type="submit" class="save-btn">Save Measurement</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('admin_token');
+        if (!token) window.location.href = 'login.html';
+
+        /* ── helpers ── */
+        function apiPost(body) {
+            return fetch('../api/admin_api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ ...body, token })
+            }).then(r => r.json());
+        }
+
+        function showSuccess(msg) {
+            const el = document.getElementById('successMessage');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3500);
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 4000);
+        }
+
+        /* ── logout ── */
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('admin_token');
+            window.location.href = 'login.html';
+        });
+
+        /* ── tabs ── */
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+                if (tab.dataset.tab === 'co-categories') loadCoCategories();
+                else if (tab.dataset.tab === 'co-measurements') loadCoMeasurements();
+                else if (tab.dataset.tab === 'customer-orders') loadCustomerOrders();
+            });
+        });
+
+        /* ════════════════════════════════════
+           CO CATEGORIES
+        ════════════════════════════════════ */
+        async function loadCoCategories() {
+            try {
+                const data = await apiPost({ action: 'co_get_categories' });
+                if (data.success) renderCoCategories(data.categories);
+                else showError(data.message || 'Failed to load categories');
+            } catch { showError('An error occurred. Please try again.'); }
+        }
+
+        function renderCoCategories(categories) {
+            const container = document.getElementById('coCategoriesTable');
+            if (!categories || categories.length === 0) {
+                container.innerHTML = `<div class="empty-state"><h3>No Categories Yet</h3><p>Click "+ Add Category" to create your first custom order category</p></div>`;
+                return;
+            }
+            container.innerHTML = `
+                <table class="data-table">
+                    <thead><tr><th>Name</th><th>Description</th><th>Created</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        ${categories.map(cat => `
+                            <tr>
+                                <td><strong>${escHtml(cat.name)}</strong></td>
+                                <td>${cat.description ? escHtml(cat.description) : '<span style="color:#aaa">—</span>'}</td>
+                                <td>${new Date(cat.created_at).toLocaleDateString()}</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="edit-btn" onclick="editCoCategory(${cat.id})">Edit</button>
+                                        <button class="delete-btn" onclick="deleteCoCategory(${cat.id})">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>`).join('')}
+                    </tbody>
+                </table>`;
+        }
+
+        /* add */
+        const coCategoryModal = document.getElementById('coCategoryModal');
+        document.getElementById('addCoCategoryBtn').addEventListener('click', () => {
+            document.getElementById('coCategoryModalTitle').textContent = 'Add Custom Order Category';
+            document.getElementById('coCategoryId').value = '';
+            document.getElementById('coCategoryName').value = '';
+            document.getElementById('coCategoryDesc').value = '';
+            coCategoryModal.classList.add('active');
+        });
+        document.getElementById('closeCoCategoryModal').addEventListener('click', () => coCategoryModal.classList.remove('active'));
+        document.getElementById('cancelCoCategoryBtn').addEventListener('click', () => coCategoryModal.classList.remove('active'));
+
+        /* edit */
+        window.editCoCategory = async (id) => {
+            try {
+                const data = await apiPost({ action: 'co_get_category', id });
+                if (data.success) {
+                    const c = data.category;
+                    document.getElementById('coCategoryModalTitle').textContent = 'Edit Custom Order Category';
+                    document.getElementById('coCategoryId').value = c.id;
+                    document.getElementById('coCategoryName').value = c.name;
+                    document.getElementById('coCategoryDesc').value = c.description || '';
+                    coCategoryModal.classList.add('active');
+                } else { showError(data.message || 'Failed to load category'); }
+            } catch { showError('An error occurred. Please try again.'); }
+        };
+
+        /* delete */
+        window.deleteCoCategory = async (id) => {
+            if (!confirm('Delete this category? Any measurements linked to it will also be deleted.')) return;
+            try {
+                const data = await apiPost({ action: 'co_delete_category', id });
+                if (data.success) { showSuccess(data.message || 'Category deleted'); loadCoCategories(); }
+                else showError(data.message || 'Failed to delete category');
+            } catch { showError('An error occurred. Please try again.'); }
+        };
+
+        /* submit */
+        document.getElementById('coCategoryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id   = document.getElementById('coCategoryId').value;
+            const name = document.getElementById('coCategoryName').value.trim();
+            const desc = document.getElementById('coCategoryDesc').value.trim();
+            if (!name) { showError('Category name is required'); return; }
+            try {
+                const data = await apiPost({
+                    action: id ? 'co_update_category' : 'co_add_category',
+                    ...(id ? { id } : {}),
+                    name, description: desc
+                });
+                if (data.success) {
+                    showSuccess(data.message || 'Category saved');
+                    coCategoryModal.classList.remove('active');
+                    loadCoCategories();
+                } else showError(data.message || 'Failed to save category');
+            } catch { showError('An error occurred. Please try again.'); }
+        });
+
+        /* ════════════════════════════════════
+           CO MEASUREMENTS
+        ════════════════════════════════════ */
+
+        // measurementFields holds objects: { id: dbId|null, name: string }
+        // Order in the array = display order = sort_order sent to API
+        let measurementFields = [];
+
+        /* ── load & render (card grid) ── */
+        async function loadCoMeasurements() {
+            try {
+                const data = await apiPost({ action: 'co_get_measurements' });
+                if (data.success) renderCoMeasurements(data.measurements);
+                else showError(data.message || 'Failed to load measurements');
+            } catch { showError('An error occurred. Please try again.'); }
+        }
+
+        function renderCoMeasurements(measurements) {
+            const container = document.getElementById('coMeasurementsTable');
+            if (!measurements || measurements.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Measurements Yet</h3>
+                        <p>Click "+ Add Measurement" to define measurement fields for a category</p>
+                    </div>`;
+                return;
+            }
+
+            // Group by category, preserving sort_order within each group
+            const byCategory = {};
+            measurements.forEach(m => {
+                if (!byCategory[m.category_id]) {
+                    byCategory[m.category_id] = { name: m.category_name, rows: [] };
+                }
+                byCategory[m.category_id].rows.push(m);
+            });
+
+            const cards = Object.entries(byCategory).map(([catId, g]) => `
+                <div class="cat-card">
+                    <div class="cat-card-head">
+                        <h4>${escHtml(g.name)}</h4>
+                        <span class="cat-count">${g.rows.length} field${g.rows.length !== 1 ? 's' : ''}</span>
+                    </div>
+                    <div class="cat-card-body">
+                        ${g.rows.map((m, i) => `
+                            <div class="m-field-row">
+                                <div class="m-field-left">
+                                    <span class="m-field-num">${i + 1}</span>
+                                    <span class="m-field-name">${escHtml(m.name)}</span>
+                                </div>
+                                <div class="m-field-actions">
+                                    <button class="m-edit-btn" onclick="editCoMeasurement(${m.id})">Edit</button>
+                                    <button class="m-del-btn" onclick="deleteCoMeasurement(${m.id})">Delete</button>
+                                </div>
+                            </div>`).join('')}
+                    </div>
+                    <div class="cat-card-foot">
+                        <button onclick="openAddMeasurementForCategory(${catId})">+ Add field</button>
+                    </div>
+                </div>`).join('');
+
+            container.innerHTML = `<div class="cat-card-grid">${cards}</div>`;
+        }
+
+        /* ── drag-to-reorder field list in modal ── */
+        const fieldList           = document.getElementById('fieldList');
+        const dragHint            = document.getElementById('dragHint');
+        const measurementFieldInput = document.getElementById('measurementFieldInput');
+        let dragSrcIndex          = null;
+
+        function syncHiddenInput() {
+            document.getElementById('measurementNames').value =
+                measurementFields.map(f => f.name).join('|');
+        }
+
+        function renderFieldList() {
+            fieldList.innerHTML = measurementFields.map((f, i) => `
+                <li class="field-item" draggable="true" data-index="${i}">
+                    <span class="drag-handle">⠿</span>
+                    <span class="field-item-num">${i + 1}</span>
+                    <span class="field-item-name">${escHtml(f.name)}</span>
+                    <button type="button" class="field-item-remove" data-index="${i}" title="Remove">&times;</button>
+                </li>`).join('');
+
+            dragHint.style.display = measurementFields.length > 1 ? 'block' : 'none';
+            syncHiddenInput();
+            attachDragEvents();
+            attachRemoveEvents();
+        }
+
+        function attachRemoveEvents() {
+            fieldList.querySelectorAll('.field-item-remove').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    measurementFields.splice(parseInt(btn.dataset.index), 1);
+                    renderFieldList();
+                });
+            });
+        }
+
+        function attachDragEvents() {
+            fieldList.querySelectorAll('.field-item').forEach(item => {
+                item.addEventListener('dragstart', e => {
+                    dragSrcIndex = parseInt(item.dataset.index);
+                    item.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('dragging');
+                    fieldList.querySelectorAll('.field-item').forEach(i => i.classList.remove('drag-over'));
+                });
+                item.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    fieldList.querySelectorAll('.field-item').forEach(i => i.classList.remove('drag-over'));
+                    item.classList.add('drag-over');
+                });
+                item.addEventListener('drop', e => {
+                    e.preventDefault();
+                    const targetIndex = parseInt(item.dataset.index);
+                    if (dragSrcIndex === null || dragSrcIndex === targetIndex) return;
+                    const moved = measurementFields.splice(dragSrcIndex, 1)[0];
+                    measurementFields.splice(targetIndex, 0, moved);
+                    dragSrcIndex = null;
+                    renderFieldList();
+                });
+            });
+        }
+
+        document.getElementById('addFieldBtn').addEventListener('click', () => {
+            const val = measurementFieldInput.value.trim();
+            if (!val) return;
+            // Prevent exact duplicate names within the same session
+            if (!measurementFields.some(f => f.name === val)) {
+                measurementFields.push({ id: null, name: val });
+                renderFieldList();
+            }
+            measurementFieldInput.value = '';
+            measurementFieldInput.focus();
+        });
+
+        measurementFieldInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') { e.preventDefault(); document.getElementById('addFieldBtn').click(); }
+        });
+
+        /* ── open add modal (generic) ── */
+        const coMeasurementModal = document.getElementById('coMeasurementModal');
+
+        async function openAddMeasurementModal(preselectedCategoryId) {
+            await loadCoCategoriesDropdown();
+            document.getElementById('coMeasurementModalTitle').textContent = 'Add Measurement Fields';
+            document.getElementById('coMeasurementId').value = '';
+            document.getElementById('coMeasurementCategory').value = preselectedCategoryId || '';
+            measurementFields = [];
+            renderFieldList();
+            measurementFieldInput.value = '';
+            coMeasurementModal.classList.add('active');
+            setTimeout(() => measurementFieldInput.focus(), 100);
+        }
+
+        document.getElementById('addCoMeasurementBtn').addEventListener('click', () => openAddMeasurementModal(''));
+
+        // Called from card footer "+ Add field" button
+        window.openAddMeasurementForCategory = (catId) => openAddMeasurementModal(catId);
+
+        document.getElementById('closeCoMeasurementModal').addEventListener('click', () => coMeasurementModal.classList.remove('active'));
+        document.getElementById('cancelCoMeasurementBtn').addEventListener('click', () => coMeasurementModal.classList.remove('active'));
+
+        async function loadCoCategoriesDropdown() {
+            try {
+                const data = await apiPost({ action: 'co_get_categories' });
+                const sel = document.getElementById('coMeasurementCategory');
+                const current = sel.value;
+                sel.innerHTML = '<option value="">Select a category</option>';
+                if (data.success && data.categories) {
+                    data.categories.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c.id;
+                        opt.textContent = c.name;
+                        sel.appendChild(opt);
+                    });
+                }
+                if (current) sel.value = current;
+            } catch { /* silently ignore */ }
+        }
+
+        /* ── edit single measurement field ── */
+        window.editCoMeasurement = async (id) => {
+            await loadCoCategoriesDropdown();
+            try {
+                const data = await apiPost({ action: 'co_get_measurement', id });
+                if (data.success) {
+                    const m = data.measurement;
+                    document.getElementById('coMeasurementModalTitle').textContent = 'Edit Measurement Field';
+                    document.getElementById('coMeasurementId').value = m.id;
+                    document.getElementById('coMeasurementCategory').value = m.category_id;
+                    measurementFields = [{ id: m.id, name: m.name }];
+                    renderFieldList();
+                    coMeasurementModal.classList.add('active');
+                } else showError(data.message || 'Failed to load measurement');
+            } catch { showError('An error occurred. Please try again.'); }
+        };
+
+        /* ── delete single measurement field ── */
+        window.deleteCoMeasurement = async (id) => {
+            if (!confirm('Delete this measurement field?')) return;
+            try {
+                const data = await apiPost({ action: 'co_delete_measurement', id });
+                if (data.success) { showSuccess(data.message || 'Measurement deleted'); loadCoMeasurements(); }
+                else showError(data.message || 'Failed to delete');
+            } catch { showError('An error occurred. Please try again.'); }
+        };
+
+        /* ── submit ── */
+        document.getElementById('coMeasurementForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id         = document.getElementById('coMeasurementId').value;
+            const categoryId = document.getElementById('coMeasurementCategory').value;
+            const names      = document.getElementById('measurementNames').value;
+
+            if (!categoryId) { showError('Please select a category'); return; }
+            if (!names)       { showError('Add at least one measurement field'); return; }
+
+            try {
+                const data = await apiPost({
+                    action: id ? 'co_update_measurement' : 'co_add_measurements',
+                    ...(id ? { id } : {}),
+                    category_id: categoryId,
+                    names   // pipe-separated, in the exact order from the drag list
+                });
+                if (data.success) {
+                    showSuccess(data.message || 'Saved successfully');
+                    coMeasurementModal.classList.remove('active');
+                    loadCoMeasurements();
+                } else showError(data.message || 'Failed to save');
+            } catch { showError('An error occurred. Please try again.'); }
+        });
+
+        /* ── XSS helper ── */
+        function escHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        /* ── initial load ── */
+        loadCoCategories();
+
+        /* ════════════════════════════════════
+           CUSTOMER ORDERS
+        ════════════════════════════════════ */
+        let currentOrderId = null; // tracks which order is open in the detail modal
+
+        async function loadCustomerOrders() {
+            const status = document.getElementById('orderStatusFilter').value;
+            const container = document.getElementById('customerOrdersTable');
+            container.innerHTML = '<p style="color:#aaa;font-size:13px;padding:20px 0;">Loading orders…</p>';
+            try {
+                const data = await apiPost({ action: 'get_customer_orders', status });
+                if (data.success) renderCustomerOrders(data.orders);
+                else showError(data.message || 'Failed to load orders');
+            } catch { showError('An error occurred. Please try again.'); }
+        }
+
+        function renderCustomerOrders(orders) {
+            const container = document.getElementById('customerOrdersTable');
+            if (!orders || orders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Orders Yet</h3>
+                        <p>Customer orders will appear here once they are submitted.</p>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Phone</th>
+                            <th>Category</th>
+                            <th>Size</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${orders.map(o => {
+                            const d  = o.order_data || {};
+                            const c  = d.customer   || {};
+                            const cat = d.category  || {};
+                            const sz = d.size       || {};
+                            const sizeLabel = sz.method === 'standard'
+                                ? (sz.standard_size || '—')
+                                : sz.method === 'custom' ? 'Custom' : '—';
+                            const dateStr = new Date(o.created_at).toLocaleString('en-IN', {
+                                day: '2-digit', month: 'short', year: 'numeric',
+                                hour: '2-digit', minute: '2-digit'
+                            });
+                            return `
+                            <tr>
+                                <td><strong>#${o.id}</strong></td>
+                                <td style="white-space:nowrap;font-size:12px;">${dateStr}</td>
+                                <td>${escHtml(c.name || '—')}</td>
+                                <td>${escHtml(c.phone || '—')}</td>
+                                <td>${escHtml(cat.name || '—')}</td>
+                                <td>${escHtml(sizeLabel)}</td>
+                                <td>
+                                    <span class="status-badge status-${escHtml(o.status)}">${escHtml(o.status)}</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-btn" onclick="openOrderDetail(${o.id})">View</button>
+                                        <select class="status-select" id="sel-${o.id}">
+                                            <option value="PENDING"     ${o.status === 'PENDING'     ? 'selected' : ''}>Pending</option>
+                                            <option value="IN-PROGRESS" ${o.status === 'IN-PROGRESS' ? 'selected' : ''}>In Progress</option>
+                                            <option value="DONE"        ${o.status === 'DONE'        ? 'selected' : ''}>Done</option>
+                                        </select>
+                                        <button class="save-status-btn" onclick="saveOrderStatus(${o.id})">Save</button>
+                                    </div>
+                                </td>
+                            </tr>`;
+                        }).join('')}
+                    </tbody>
+                </table>`;
+        }
+
+        /* ── status filter + refresh ── */
+        document.getElementById('orderStatusFilter').addEventListener('change', loadCustomerOrders);
+        document.getElementById('refreshOrdersBtn').addEventListener('click', loadCustomerOrders);
+
+        /* ── inline status save ── */
+        window.saveOrderStatus = async (id) => {
+            const sel = document.getElementById('sel-' + id);
+            if (!sel) return;
+            const status = sel.value;
+            try {
+                const data = await apiPost({ action: 'update_order_status', id, status });
+                if (data.success) { showSuccess(data.message || 'Status updated'); loadCustomerOrders(); }
+                else showError(data.message || 'Failed to update status');
+            } catch { showError('An error occurred. Please try again.'); }
+        };
+
+        /* ── order detail modal ── */
+        window.openOrderDetail = async (id) => {
+            currentOrderId = id;
+            try {
+                // Re-use get_customer_orders with no filter, then find by id
+                // (we already have the data in the table; re-fetch for freshness)
+                const data = await apiPost({ action: 'get_customer_orders', status: '' });
+                if (!data.success) { showError('Failed to load order'); return; }
+                const order = data.orders.find(o => Number(o.id) === Number(id));
+                if (!order) { showError('Order not found'); return; }
+                renderOrderDetailModal(order);
+                document.getElementById('orderDetailModal').classList.add('active');
+            } catch { showError('An error occurred. Please try again.'); }
+        };
+
+        function renderOrderDetailModal(order) {
+            const d   = order.order_data || {};
+            const c   = d.customer  || {};
+            const cat = d.category  || {};
+            const sz  = d.size      || {};
+            const des = d.design    || {};
+            const images = Array.isArray(des.images) ? des.images : [];
+
+            // Size display
+            let sizeHtml = '';
+            if (sz.method === 'standard') {
+                sizeHtml = `<span>Standard: <strong>${escHtml(sz.standard_size || '—')}</strong></span>`;
+            } else if (sz.method === 'custom') {
+                const chips = Array.isArray(sz.measurements) && sz.measurements.length
+                    ? sz.measurements.map(m =>
+                        `<span class="od-mchip"><strong>${escHtml(m.label)}:</strong> ${escHtml(m.value)}"</span>`
+                      ).join('')
+                    : '<span style="color:#aaa">No measurements entered</span>';
+                sizeHtml = `<div class="od-measurements">${chips}</div>`;
+                if (sz.fit_notes) sizeHtml += `<div style="margin-top:6px;font-size:12px;color:#666">Fit notes: ${escHtml(sz.fit_notes)}</div>`;
+            }
+
+            // Images
+            const imagesHtml = images.length
+                ? `<div class="od-images">${images.map(src =>
+                    `<img class="od-image-thumb" src="../${src.replace(/^\//, '')}" alt="Design reference"
+                          onclick="window.open('../${src.replace(/^\//, '')}','_blank')" />`
+                  ).join('')}</div>`
+                : '<span style="color:#aaa;font-size:13px;">No images uploaded</span>';
+
+            const dateStr = new Date(order.created_at).toLocaleString('en-IN', {
+                weekday: 'short', day: '2-digit', month: 'short',
+                year: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+
+            document.getElementById('orderDetailBody').innerHTML = `
+                <p class="od-section-title">Customer</p>
+                <div class="order-detail-grid">
+                    <div class="od-row"><div class="od-key">Name</div><div class="od-val">${escHtml(c.name || '—')}</div></div>
+                    <div class="od-row"><div class="od-key">Phone</div><div class="od-val">${escHtml(c.phone || '—')}</div></div>
+                    <div class="od-row"><div class="od-key">Email</div><div class="od-val">${escHtml(c.email || '—')}</div></div>
+                    <div class="od-row"><div class="od-key">Event Date</div><div class="od-val">${escHtml(c.event_date || '—')}</div></div>
+                </div>
+
+                <p class="od-section-title">Order</p>
+                <div class="order-detail-grid">
+                    <div class="od-row"><div class="od-key">Order #</div><div class="od-val">#${order.id}</div></div>
+                    <div class="od-row"><div class="od-key">Placed On</div><div class="od-val">${dateStr}</div></div>
+                    <div class="od-row"><div class="od-key">Category</div><div class="od-val">${escHtml(cat.name || '—')}</div></div>
+                    <div class="od-row"><div class="od-key">Budget</div><div class="od-val">${escHtml(d.budget || '—')}</div></div>
+                </div>
+
+                <p class="od-section-title">Size &amp; Measurements</p>
+                <div style="padding:6px 0;">${sizeHtml}</div>
+
+                <p class="od-section-title">Design Reference</p>
+                <div class="od-row" style="margin-bottom:10px;">
+                    <div class="od-key">Description</div>
+                    <div class="od-val" style="white-space:pre-wrap;">${escHtml(des.description || '—')}</div>
+                </div>
+                ${imagesHtml}
+
+                ${d.notes ? `
+                <p class="od-section-title">Additional Notes</p>
+                <div class="od-val" style="white-space:pre-wrap;">${escHtml(d.notes)}</div>` : ''}
+
+                <div class="od-status-bar">
+                    <label for="od-status-sel">Status:</label>
+                    <select id="od-status-sel">
+                        <option value="PENDING"     ${order.status === 'PENDING'     ? 'selected' : ''}>Pending</option>
+                        <option value="IN-PROGRESS" ${order.status === 'IN-PROGRESS' ? 'selected' : ''}>In Progress</option>
+                        <option value="DONE"        ${order.status === 'DONE'        ? 'selected' : ''}>Done</option>
+                    </select>
+                    <button class="od-save-btn" id="odSaveBtn">Save Status</button>
+                </div>`;
+
+            // Wire up save button inside modal
+            document.getElementById('odSaveBtn').onclick = async () => {
+                const status = document.getElementById('od-status-sel').value;
+                try {
+                    const data = await apiPost({ action: 'update_order_status', id: currentOrderId, status });
+                    if (data.success) {
+                        showSuccess(data.message || 'Status updated');
+                        document.getElementById('orderDetailModal').classList.remove('active');
+                        loadCustomerOrders();
+                    } else showError(data.message || 'Failed to update');
+                } catch { showError('An error occurred. Please try again.'); }
+            };
+        }
+
+        // The modal HTML sits below the script tag, so register via delegation
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'closeOrderDetailModal') {
+                document.getElementById('orderDetailModal').classList.remove('active');
+            }
+        });
+
+    </script>
+
+    <!-- Order Detail Modal -->
+    <div class="modal" id="orderDetailModal">
+        <div class="modal-content modal-xl">
+            <div class="modal-header">
+                <h3>Order Details</h3>
+                <button class="close-btn" id="closeOrderDetailModal">&times;</button>
+            </div>
+            <div id="orderDetailBody"></div>
+        </div>
+    </div>
+
+</body>
+</html>

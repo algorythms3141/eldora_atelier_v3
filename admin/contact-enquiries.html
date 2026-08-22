@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../eldora-monogram.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Enquiries - Eldora Atelier Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d4f4f 0%, #1a5f5f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand { display: flex; align-items: center; gap: 15px; }
+        .navbar-brand h1 { color: #333; font-size: 24px; font-weight: 600; }
+        .navbar-brand span { color: #b76e79; }
+        .navbar-actions { display: flex; align-items: center; gap: 15px; }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: #e9ecef; }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(183,110,121,0.3); }
+
+        /* ── Layout ── */
+        .main-content { flex: 1; padding: 30px 20px; }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ── Page header ── */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .page-header h2 { color: #333; font-size: 22px; font-weight: 700; }
+        .page-header p  { color: #666; font-size: 13px; margin-top: 4px; }
+
+        .header-right { display: flex; align-items: center; gap: 12px; }
+
+        .enquiry-count {
+            background: #f0f4f4;
+            color: #0d4f4f;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #c0d8d8;
+        }
+
+        /* ── Table ── */
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead th {
+            background: #f8f9fa;
+            color: #444;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 14px;
+            border-bottom: 2px solid #e0e0e0;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.15s;
+        }
+        tbody tr:hover { background: #fafcfc; }
+
+        tbody td {
+            padding: 13px 14px;
+            color: #333;
+            vertical-align: top;
+        }
+
+        .td-name   { font-weight: 600; color: #1a1a1a; min-width: 120px; }
+        .td-email  { color: #0d4f4f; }
+        .td-email a { color: inherit; text-decoration: none; }
+        .td-email a:hover { text-decoration: underline; }
+        .td-phone  { white-space: nowrap; color: #555; }
+        .td-type   { white-space: nowrap; }
+        .td-message {
+            max-width: 260px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .td-message.expanded { max-width: none; white-space: pre-wrap; }
+        .td-date   { white-space: nowrap; color: #888; font-size: 12px; }
+        .td-actions { white-space: nowrap; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: capitalize;
+            background: #e8f4f4;
+            color: #0d4f4f;
+        }
+        .badge-custom-order   { background: #e8f0fa; color: #1a4a8a; }
+        .badge-bridal         { background: #fae8f0; color: #8a1a4a; }
+        .badge-consultation   { background: #f4f0e8; color: #7a5a1a; }
+        .badge-collection     { background: #e8f4e8; color: #1a6a1a; }
+        .badge-wholesale      { background: #f0e8fa; color: #5a1a8a; }
+        .badge-other          { background: #f0f0f0; color: #555; }
+
+        .read-more {
+            background: none;
+            border: none;
+            color: #0d4f4f;
+            font-size: 11px;
+            cursor: pointer;
+            padding: 2px 0;
+            text-decoration: underline;
+        }
+
+        .btn-delete {
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #dc3545 0%, #e06070 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-delete:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(220,53,69,0.3); }
+
+        /* ── Empty / Loading ── */
+        .state-row td {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #1e3a3a;
+            color: #f0ddc7;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast.error { background: #5c1a1a; color: #f8d7d7; }
+
+        /* ── Confirm Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .confirm-modal {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            width: 100%;
+            max-width: 400px;
+            margin: 16px;
+            text-align: center;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+        }
+        .confirm-modal h3 { font-size: 18px; color: #333; margin-bottom: 10px; }
+        .confirm-modal p  { font-size: 14px; color: #666; margin-bottom: 24px; line-height: 1.5; }
+        .confirm-actions { display: flex; gap: 12px; justify-content: center; }
+        .btn-secondary {
+            padding: 10px 22px;
+            background: #f8f9fa;
+            color: #555;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-secondary:hover { background: #e9ecef; }
+        .btn-confirm-delete {
+            padding: 10px 22px;
+            background: linear-gradient(135deg, #dc3545 0%, #e06070 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-confirm-delete:hover { box-shadow: 0 4px 12px rgba(220,53,69,0.3); }
+        .btn-confirm-delete:disabled { opacity: 0.6; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1>Eldora <span>Atelier</span></h1>
+        </div>
+        <div class="navbar-actions">
+            <a href="index.html" class="back-btn">← Dashboard</a>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h2>Contact Enquiries</h2>
+                    <p>All enquiries submitted through the contact form — newest first</p>
+                </div>
+                <div class="header-right">
+                    <span class="enquiry-count" id="enquiry-count">Loading…</span>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table id="enquiries-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Type</th>
+                            <th>Event</th>
+                            <th>Message</th>
+                            <th>Received</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="enquiries-body">
+                        <tr class="state-row"><td colspan="9">Loading enquiries…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="confirm-modal">
+            <h3>Delete Enquiry?</h3>
+            <p id="confirmMsg">This will permanently delete the enquiry.</p>
+            <div class="confirm-actions">
+                <button class="btn-secondary" id="confirmCancel">Cancel</button>
+                <button class="btn-confirm-delete" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+    (function () {
+        'use strict';
+
+        const token = localStorage.getItem('admin_token');
+        if (!token) { window.location.href = 'login.html'; return; }
+
+        const API = '../api/admin_api.php';
+
+        function authHeaders() {
+            return { 'Authorization': 'Bearer ' + token };
+        }
+
+        function showToast(msg, isError = false) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast' + (isError ? ' error' : '');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function fmtDate(str) {
+            if (!str) return '—';
+            const d = new Date(str.replace(' ', 'T'));
+            return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
+                 + ' ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
+
+        const TYPE_LABELS = {
+            'custom-order':  'Custom Order',
+            'bridal':        'Bridal',
+            'consultation':  'Consultation',
+            'collection':    'Collection',
+            'wholesale':     'Wholesale',
+            'other':         'Other',
+        };
+
+        function badgeClass(type) {
+            return 'badge badge-' + (type || 'other');
+        }
+
+        function escHtml(s) {
+            return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        /* ── Load enquiries ── */
+        let enquiries = [];
+
+        async function loadEnquiries() {
+            const body = document.getElementById('enquiries-body');
+            body.innerHTML = '<tr class="state-row"><td colspan="9">Loading enquiries…</td></tr>';
+
+            try {
+                const fd = new FormData();
+                fd.append('action', 'get_contact_enquiries');
+                fd.append('token',  token);
+                const res  = await fetch(API, { method: 'POST', headers: authHeaders(), body: fd });
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message);
+                enquiries = data.enquiries || [];
+                renderTable();
+            } catch (e) {
+                body.innerHTML = `<tr class="state-row"><td colspan="9" style="color:#c33">Failed to load: ${escHtml(e.message)}</td></tr>`;
+            }
+        }
+
+        function renderTable() {
+            const body = document.getElementById('enquiries-body');
+            const count = document.getElementById('enquiry-count');
+            count.textContent = enquiries.length + (enquiries.length === 1 ? ' Enquiry' : ' Enquiries');
+
+            if (!enquiries.length) {
+                body.innerHTML = '<tr class="state-row"><td colspan="9">No enquiries yet.</td></tr>';
+                return;
+            }
+
+            body.innerHTML = enquiries.map((e, idx) => {
+                const msgShort = (e.message || '').length > 80
+                    ? escHtml(e.message.slice(0, 80)) + '…'
+                    : escHtml(e.message);
+                const hasMore  = (e.message || '').length > 80;
+                const typeLabel = TYPE_LABELS[e.enquiry_type] || escHtml(e.enquiry_type) || '—';
+
+                return `<tr id="row-${e.id}">
+                    <td class="td-date" style="color:#aaa;font-size:11px">${enquiries.length - idx}</td>
+                    <td class="td-name">${escHtml(e.name)}</td>
+                    <td class="td-email"><a href="mailto:${escHtml(e.email)}">${escHtml(e.email)}</a></td>
+                    <td class="td-phone">${e.phone ? `<a href="tel:${escHtml(e.phone)}">${escHtml(e.phone)}</a>` : '—'}</td>
+                    <td><span class="${badgeClass(e.enquiry_type)}">${typeLabel}</span></td>
+                    <td style="color:#666;font-size:12px">${escHtml(e.event) || '—'}</td>
+                    <td class="td-message" id="msg-${e.id}">
+                        <span id="msg-text-${e.id}">${msgShort}</span>
+                        ${hasMore ? `<br><button class="read-more" onclick="toggleMsg(${e.id}, ${JSON.stringify(escHtml(e.message))})">Read more</button>` : ''}
+                    </td>
+                    <td class="td-date">${fmtDate(e.created_at)}</td>
+                    <td class="td-actions">
+                        <button class="btn-delete" onclick="openDelete(${e.id}, ${JSON.stringify(escHtml(e.name))})">Delete</button>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        /* ── Read more / less toggle ── */
+        window.toggleMsg = function (id, fullHtml) {
+            const span = document.getElementById('msg-text-' + id);
+            const btn  = span && span.nextElementSibling;
+            if (!span) return;
+            if (btn && btn.textContent === 'Read more') {
+                span.innerHTML = fullHtml;
+                if (btn) btn.textContent = 'Show less';
+            } else {
+                const short = fullHtml.length > 80 ? fullHtml.slice(0, 80) + '…' : fullHtml;
+                span.innerHTML = short;
+                if (btn) btn.textContent = 'Read more';
+            }
+        };
+
+        /* ── Delete ── */
+        let pendingDeleteId   = null;
+
+        window.openDelete = function (id, name) {
+            pendingDeleteId = id;
+            document.getElementById('confirmMsg').textContent =
+                `Delete enquiry from "${name}"? This cannot be undone.`;
+            document.getElementById('confirmModal').classList.add('open');
+        };
+
+        document.getElementById('confirmCancel').addEventListener('click', () => {
+            document.getElementById('confirmModal').classList.remove('open');
+            pendingDeleteId = null;
+        });
+
+        document.getElementById('confirmModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                this.classList.remove('open');
+                pendingDeleteId = null;
+            }
+        });
+
+        document.getElementById('confirmDelete').addEventListener('click', async function () {
+            if (!pendingDeleteId) return;
+            this.disabled = true;
+            this.textContent = 'Deleting…';
+            try {
+                const fd = new FormData();
+                fd.append('action', 'delete_contact_enquiry');
+                fd.append('token',  token);
+                fd.append('id',     pendingDeleteId);
+                const res  = await fetch(API, { method: 'POST', headers: authHeaders(), body: fd });
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message);
+
+                showToast('Enquiry deleted');
+                document.getElementById('confirmModal').classList.remove('open');
+                pendingDeleteId = null;
+                await loadEnquiries();
+            } catch (err) {
+                showToast(err.message || 'Delete failed', true);
+            } finally {
+                this.disabled = false;
+                this.textContent = 'Delete';
+            }
+        });
+
+        /* ── Logout ── */
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('admin_token');
+            window.location.href = 'login.html';
+        });
+
+        /* ── Init ── */
+        loadEnquiries();
+    })();
+    </script>
+</body>
+</html>

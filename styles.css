@@ -1582,3 +1582,48 @@ footer {
   .lookbook-teaser { padding: 54px 5%; }
   .collections { padding: 54px 5%; }
 }
+
+/* ================================================================
+   WHATSAPP FLOATING BUTTON
+   ================================================================ */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 3000;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(37,211,102,.45);
+  text-decoration: none;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+}
+.wa-float:hover {
+  transform: scale(1.12);
+  box-shadow: 0 8px 28px rgba(37,211,102,.55);
+}
+.wa-float svg { display: block; }
+
+/* Pulse ring */
+.wa-float::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37,211,102,.4);
+  animation: wa-pulse 2.2s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1);   opacity: .7; }
+  70%  { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+@media (max-width: 600px) {
+  .wa-float { bottom: 18px; right: 18px; width: 48px; height: 48px; }
+}
