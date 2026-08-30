@@ -137,6 +137,22 @@ try {
         case 'public_get_services':
             handlePublicGetServices($db);
             break;
+        // Articles
+        case 'get_articles':
+            handleGetArticles($db, $input);
+            break;
+        case 'get_article':
+            handleGetArticle($db, $input);
+            break;
+        case 'add_article':
+            handleAddArticle($db, $input);
+            break;
+        case 'update_article':
+            handleUpdateArticle($db, $input);
+            break;
+        case 'delete_article':
+            handleDeleteArticle($db, $input);
+            break;
         default:
             echo json_encode(['success' => false, 'message' => 'Invalid action']);
             break;
@@ -1190,6 +1206,182 @@ function handlePublicGetServices($db) {
     $stmt = $db->query("SELECT id, title, summary, description, photo_urls, starting_price, last_modified FROM services ORDER BY created_at DESC");
     $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode(['success' => true, 'services' => $services]);
+}
+
+/* ================================================================
+   ARTICLES handlers
+================================================================ */
+function handleGetArticles($db, $input) {
+    verifyTokenOrDie($input);
+
+    $stmt = $db->query("
+        SELECT id, title, content, image_urls, created, modified, active
+        FROM articles
+        ORDER BY created DESC
+    ");
+    $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode(['success' => true, 'articles' => $articles]);
+}
+
+function handleGetArticle($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'Invalid article id']);
+        return;
+    }
+
+    $stmt = $db->prepare("
+        SELECT id, title, content, image_urls, created, modified, active
+        FROM articles
+        WHERE id = :id
+    ");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $article = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$article) {
+        echo json_encode(['success' => false, 'message' => 'Article not found']);
+        return;
+    }
+
+    echo json_encode(['success' => true, 'article' => $article]);
+}
+
+function handleAddArticle($db, $input) {
+    verifyTokenOrDie($input);
+
+    $title = trim($input['title'] ?? '');
+    $content = trim($input['content'] ?? '');
+    $active = $input['active'] ?? 'Y';
+
+    if (empty($title) || empty($content)) {
+        echo json_encode(['success' => false, 'message' => 'Title and content are required']);
+        return;
+    }
+
+    error_log("Article add - FILES: " . print_r($_FILES, true));
+    error_log("Article add - POST: " . print_r($_POST, true));
+
+    // Handle photo uploads (similar to services)
+    $newPhotos = [];
+    for ($i = 0; $i <= 4; $i++) {
+        $key = "photo_$i";
+        error_log("Checking key: $key, exists: " . (isset($_FILES[$key]) ? 'yes' : 'no'));
+        if (!empty($_FILES[$key]) && $_FILES[$key]['error'] === UPLOAD_ERR_OK) {
+            error_log("Uploading file: $key");
+            $url = uploadImage($_FILES[$key], 'articles');
+            if ($url) {
+                $newPhotos[] = $url;
+                error_log("Uploaded successfully: $url");
+            }
+        }
+    }
+
+    // Limit to 5 images
+    $allPhotos = array_slice($newPhotos, 0, 5);
+    $photoUrlsString = implode('|', $allPhotos);
+
+    error_log("Final photo URLs: $photoUrlsString");
+
+    $stmt = $db->prepare("
+        INSERT INTO articles (title, content, image_urls, active)
+        VALUES (:title, :content, :image_urls, :active)
+    ");
+    $stmt->bindParam(':title', $title);
+    $stmt->bindParam(':content', $content);
+    $stmt->bindParam(':image_urls', $photoUrlsString);
+    $stmt->bindParam(':active', $active);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Article created successfully']);
+}
+
+function handleUpdateArticle($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    $title = trim($input['title'] ?? '');
+    $content = trim($input['content'] ?? '');
+    $active = $input['active'] ?? 'Y';
+    $existingPhotos = trim($input['existing_photos'] ?? '');
+
+    if (empty($id) || empty($title) || empty($content)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid request']);
+        return;
+    }
+
+    // Existing photos the admin chose to keep (pipe-separated urls sent from the form)
+    $existingPhotosArray = [];
+    if ($existingPhotos !== '') {
+        $existingPhotosArray = array_values(array_filter(explode('|', $existingPhotos)));
+    }
+
+    // New photo uploads: keys photo_0 .. photo_4
+    $newPhotos = [];
+    for ($i = 0; $i <= 4; $i++) {
+        $key = "photo_$i";
+        if (!empty($_FILES[$key]) && $_FILES[$key]['error'] === UPLOAD_ERR_OK) {
+            $url = uploadImage($_FILES[$key], 'articles');
+            if ($url) {
+                $newPhotos[] = $url;
+            }
+        }
+    }
+
+    // Merge: kept existing first, then new; cap at 5
+    $allPhotos = array_slice(array_merge($existingPhotosArray, $newPhotos), 0, 5);
+    $photoUrlsString = implode('|', $allPhotos);
+
+    $stmt = $db->prepare("
+        UPDATE articles
+        SET title = :title, content = :content, image_urls = :image_urls, active = :active
+        WHERE id = :id
+    ");
+    $stmt->bindParam(':title', $title);
+    $stmt->bindParam(':content', $content);
+    $stmt->bindParam(':image_urls', $photoUrlsString);
+    $stmt->bindParam(':active', $active);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Article updated successfully']);
+}
+
+function handleDeleteArticle($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'Invalid article id']);
+        return;
+    }
+
+    // Fetch images so we can delete files
+    $stmt = $db->prepare("SELECT image_urls FROM articles WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $article = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Delete DB row
+    $stmt = $db->prepare("DELETE FROM articles WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Delete image files
+    if ($article && !empty($article['image_urls'])) {
+        foreach (explode('|', $article['image_urls']) as $url) {
+            if ($url && file_exists(__DIR__ . '/../' . $url)) {
+                unlink(__DIR__ . '/../' . $url);
+            }
+        }
+    }
+
+    echo json_encode(['success' => true, 'message' => 'Article deleted successfully']);
 }
 
 /* ================================================================

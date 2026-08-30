@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - Admin Portal - Eldora Atelier</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d4f4f 0%, #1a5f5f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar-brand h1 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .navbar-brand span {
+            color: #b76e79;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #e9ecef;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.3);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            color: white;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .add-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.3);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn {
+            padding: 8px 16px;
+            background: #b76e79;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background: #a05d68;
+        }
+
+        .delete-btn {
+            padding: 8px 16px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #b76e79;
+            box-shadow: 0 0 0 3px rgba(183, 110, 121, 0.1);
+        }
+
+        .form-group textarea { 
+            resize: vertical; 
+            min-height: 80px; 
+        }
+        .form-group textarea.tall { 
+            min-height: 160px; 
+        }
+
+        /* ── Photo Upload Section ── */
+        .photo-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 12px;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .photo-slot {
+            position: relative;
+            aspect-ratio: 1;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fafafa;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .photo-slot:hover { 
+            border-color: #0d4f4f; 
+            background: #f0f6f6; 
+        }
+        .photo-slot.has-image { 
+            border-style: solid; 
+            border-color: #0d4f4f; 
+        }
+
+        .photo-slot input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+        .photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-slot-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 6px;
+            color: #bbb;
+            pointer-events: none;
+        }
+        .photo-slot-placeholder svg { 
+            opacity: 0.6; 
+        }
+        .photo-slot-placeholder span { 
+            font-size: 9px; 
+            text-align: center; 
+        }
+
+        .photo-remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(220,53,69,0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 24px;
+        }
+
+        .cancel-btn {
+            flex: 1;
+            padding: 12px;
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background: #e9ecef;
+        }
+
+        .save-btn {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #b76e79 0%, #d4a5a5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.3);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #b76e79;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .navbar-brand h1 {
+                font-size: 20px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .data-table {
+                font-size: 12px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1>Eldora <span>Atelier</span></h1>
+        </div>
+        <div class="navbar-actions">
+            <span class="user-info" id="userInfo">Welcome, Admin</span>
+            <a href="index.html" class="back-btn">Back</a>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="section-header">
+                <h2>📝 Articles Management</h2>
+                <button class="add-btn" id="addArticleBtn">+ Add New Article</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading articles...</p>
+            </div>
+
+            <table class="data-table" id="articlesTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Created</th>
+                        <th>Modified</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="articlesTableBody">
+                    <!-- Articles will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal for Add/Edit Article -->
+    <div class="modal" id="articleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Article</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <form id="articleForm">
+                <input type="hidden" id="articleId">
+                
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">Content *</label>
+                    <textarea id="content" name="content" required></textarea>
+                </div>
+
+                <!-- Photo Upload -->
+                <div>
+                    <div class="photo-section-title">
+                        Images — Up to 5 images
+                    </div>
+                    <div class="photo-grid" id="photoGrid">
+                        <!-- Slot 0 -->
+                        <div class="photo-slot" id="slot-0">
+                            <input type="file" id="photoInput0" accept="image/jpeg,image/png,image/webp" data-slot="0">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder0">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Image 1</span>
+                            </div>
+                            <img id="slotPreview0" style="display:none" alt="image 1">
+                            <button type="button" class="photo-remove" id="slotRemove0" style="display:none" data-slot="0">&times;</button>
+                        </div>
+                        <!-- Slot 1 -->
+                        <div class="photo-slot" id="slot-1">
+                            <input type="file" id="photoInput1" accept="image/jpeg,image/png,image/webp" data-slot="1">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder1">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Image 2</span>
+                            </div>
+                            <img id="slotPreview1" style="display:none" alt="image 2">
+                            <button type="button" class="photo-remove" id="slotRemove1" style="display:none" data-slot="1">&times;</button>
+                        </div>
+                        <!-- Slot 2 -->
+                        <div class="photo-slot" id="slot-2">
+                            <input type="file" id="photoInput2" accept="image/jpeg,image/png,image/webp" data-slot="2">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder2">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Image 3</span>
+                            </div>
+                            <img id="slotPreview2" style="display:none" alt="image 3">
+                            <button type="button" class="photo-remove" id="slotRemove2" style="display:none" data-slot="2">&times;</button>
+                        </div>
+                        <!-- Slot 3 -->
+                        <div class="photo-slot" id="slot-3">
+                            <input type="file" id="photoInput3" accept="image/jpeg,image/png,image/webp" data-slot="3">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder3">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Image 4</span>
+                            </div>
+                            <img id="slotPreview3" style="display:none" alt="image 4">
+                            <button type="button" class="photo-remove" id="slotRemove3" style="display:none" data-slot="3">&times;</button>
+                        </div>
+                        <!-- Slot 4 -->
+                        <div class="photo-slot" id="slot-4">
+                            <input type="file" id="photoInput4" accept="image/jpeg,image/png,image/webp" data-slot="4">
+                            <div class="photo-slot-placeholder" id="slotPlaceholder4">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <span>Image 5</span>
+                            </div>
+                            <img id="slotPreview4" style="display:none" alt="image 5">
+                            <button type="button" class="photo-remove" id="slotRemove4" style="display:none" data-slot="4">&times;</button>
+                        </div>
+                    </div>
+                    <!-- Hidden field: existing photo urls to keep on edit -->
+                    <input type="hidden" id="existingPhotos" value="">
+                </div>
+
+                <div class="form-group">
+                    <label for="active">Status</label>
+                    <select id="active" name="active">
+                        <option value="Y">Active</option>
+                        <option value="N">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="save-btn" id="saveBtn">Save Article</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userInfo = document.getElementById('userInfo');
+        const addArticleBtn = document.getElementById('addArticleBtn');
+        const articleModal = document.getElementById('articleModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const articleForm = document.getElementById('articleForm');
+        const articlesTableBody = document.getElementById('articlesTableBody');
+        const loading = document.getElementById('loading');
+        const modalTitle = document.getElementById('modalTitle');
+
+        /* ─────────────── PHOTO SLOTS ─────────────── */
+        // slotState[i] = { file: File|null, existingUrl: string|null }
+        const slotState = [
+            { file: null, existingUrl: null },
+            { file: null, existingUrl: null },
+            { file: null, existingUrl: null },
+            { file: null, existingUrl: null },
+            { file: null, existingUrl: null },
+        ];
+
+        function resetSlots() {
+            for (let i = 0; i < 5; i++) {
+                slotState[i] = { file: null, existingUrl: null };
+                renderSlot(i);
+                const inp = document.getElementById('photoInput' + i);
+                if (inp) inp.value = '';
+            }
+        }
+
+        function renderSlot(i) {
+            const s = slotState[i];
+            const slot = document.getElementById('slot-' + i);
+            const img = document.getElementById('slotPreview' + i);
+            const ph = document.getElementById('slotPlaceholder' + i);
+            const rm = document.getElementById('slotRemove' + i);
+
+            if (s.file) {
+                img.src = URL.createObjectURL(s.file);
+                img.style.display = 'block';
+                ph.style.display = 'none';
+                rm.style.display = 'flex';
+                slot.classList.add('has-image');
+            } else if (s.existingUrl) {
+                // Add ../ prefix for display if path starts with /uploads/
+                let displayUrl = s.existingUrl;
+                if (displayUrl.startsWith('/uploads/')) {
+                    displayUrl = '../' + displayUrl;
+                }
+                img.src = displayUrl;
+                img.style.display = 'block';
+                ph.style.display = 'none';
+                rm.style.display = 'flex';
+                slot.classList.add('has-image');
+            } else {
+                img.src = '';
+                img.style.display = 'none';
+                ph.style.display = 'flex';
+                rm.style.display = 'none';
+                slot.classList.remove('has-image');
+            }
+        }
+
+        // Attach file input listeners
+        for (let i = 0; i < 5; i++) {
+            const input = document.getElementById('photoInput' + i);
+            if (input) {
+                input.addEventListener('change', function () {
+                    const file = this.files[0];
+                    if (!file) return;
+                    slotState[i].file = file;
+                    slotState[i].existingUrl = null;
+                    renderSlot(i);
+                    this.value = '';
+                });
+            }
+            const removeBtn = document.getElementById('slotRemove' + i);
+            if (removeBtn) {
+                removeBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    slotState[i].file = null;
+                    slotState[i].existingUrl = null;
+                    renderSlot(i);
+                });
+            }
+        }
+
+        // Check authentication on page load
+        async function checkAuth() {
+            const token = localStorage.getItem('admin_token');
+            
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'verify',
+                        token: token
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    throw new Error(data.message || 'Authentication failed');
+                }
+
+                if (data.username) {
+                    userInfo.textContent = `Welcome, ${data.username}`;
+                }
+
+                // Load articles after successful auth
+                loadArticles();
+            } catch (error) {
+                console.error('Auth failed:', error);
+                localStorage.removeItem('admin_token');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Load articles from server
+        async function loadArticles() {
+            const token = localStorage.getItem('admin_token');
+            
+            loading.classList.add('show');
+            
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'get_articles'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.articles) {
+                    renderArticles(data.articles);
+                } else {
+                    console.error('Failed to load articles:', data.message);
+                }
+            } catch (error) {
+                console.error('Failed to load articles:', error);
+            } finally {
+                loading.classList.remove('show');
+            }
+        }
+
+        // Render articles table
+        function renderArticles(articles) {
+            articlesTableBody.innerHTML = '';
+            
+            if (articles.length === 0) {
+                articlesTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No articles found</td></tr>';
+                return;
+            }
+
+            articles.forEach(article => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${article.id}</td>
+                    <td>${article.title}</td>
+                    <td>${new Date(article.created).toLocaleDateString()}</td>
+                    <td>${new Date(article.modified).toLocaleDateString()}</td>
+                    <td>
+                        <span class="status-badge ${article.active === 'Y' ? 'status-active' : 'status-inactive'}">
+                            ${article.active === 'Y' ? 'Active' : 'Inactive'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="edit-btn" onclick="editArticle(${article.id})">Edit</button>
+                            <button class="delete-btn" onclick="deleteArticle(${article.id})">Delete</button>
+                        </div>
+                    </td>
+                `;
+                articlesTableBody.appendChild(row);
+            });
+        }
+
+        // Open modal for adding new article
+        addArticleBtn.addEventListener('click', () => {
+            modalTitle.textContent = 'Add New Article';
+            articleForm.reset();
+            document.getElementById('articleId').value = '';
+            document.getElementById('active').value = 'Y';
+            document.getElementById('existingPhotos').value = '';
+            resetSlots();
+            articleModal.classList.add('active');
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            articleModal.classList.remove('active');
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            articleModal.classList.remove('active');
+        });
+
+        // Edit article
+        window.editArticle = async function(id) {
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'get_article',
+                        id: id
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.article) {
+                    modalTitle.textContent = 'Edit Article';
+                    document.getElementById('articleId').value = data.article.id;
+                    document.getElementById('title').value = data.article.title;
+                    document.getElementById('content').value = data.article.content;
+                    document.getElementById('active').value = data.article.active;
+                    
+                    // Handle existing photos
+                    resetSlots();
+                    const existingPhotos = data.article.image_urls || '';
+                    document.getElementById('existingPhotos').value = existingPhotos;
+                    
+                    if (existingPhotos) {
+                        const urls = existingPhotos.split('|').filter(u => u.trim() !== '');
+                        urls.forEach((url, idx) => {
+                            if (idx < 5) {
+                                slotState[idx].existingUrl = url;
+                                renderSlot(idx);
+                            }
+                        });
+                    }
+                    
+                    articleModal.classList.add('active');
+                } else {
+                    alert('Failed to load article');
+                }
+            } catch (error) {
+                console.error('Failed to load article:', error);
+                alert('Failed to load article');
+            }
+        };
+
+        // Delete article
+        window.deleteArticle = async function(id) {
+            if (!confirm('Are you sure you want to delete this article?')) {
+                return;
+            }
+
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        action: 'delete_article',
+                        id: id
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Article deleted successfully');
+                    loadArticles();
+                } else {
+                    alert('Failed to delete article: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Failed to delete article:', error);
+                alert('Failed to delete article');
+            }
+        };
+
+        // Save article (create or update)
+        articleForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const token = localStorage.getItem('admin_token');
+            const articleId = document.getElementById('articleId').value;
+            
+            // Build existing photos list (photos that were not removed)
+            const existingPhotos = [];
+            for (let i = 0; i < 5; i++) {
+                if (slotState[i].existingUrl) {
+                    // Remove ../ prefix if present before saving to database
+                    let url = slotState[i].existingUrl;
+                    if (url.startsWith('../')) {
+                        url = url.substring(2);
+                    }
+                    existingPhotos.push(url);
+                }
+            }
+            
+            const formData = new FormData();
+            formData.append('action', articleId ? 'update_article' : 'add_article');
+            formData.append('title', document.getElementById('title').value);
+            formData.append('content', document.getElementById('content').value);
+            formData.append('active', document.getElementById('active').value);
+            formData.append('existing_photos', existingPhotos.join('|'));
+            
+            if (articleId) {
+                formData.append('id', articleId);
+            }
+            
+            // Add new photo uploads
+            let photoCount = 0;
+            for (let i = 0; i < 5; i++) {
+                if (slotState[i].file) {
+                    formData.append(`photo_${i}`, slotState[i].file);
+                    photoCount++;
+                    console.log(`Adding photo_${i}:`, slotState[i].file.name);
+                }
+            }
+            formData.append('photo_count', photoCount);
+
+            console.log('Submitting article with photo_count:', photoCount);
+            console.log('Existing photos:', existingPhotos);
+
+            try {
+                const response = await fetch('../api/admin_api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+                console.log('Server response:', data);
+
+                if (data.success) {
+                    alert(articleId ? 'Article updated successfully' : 'Article created successfully');
+                    articleModal.classList.remove('active');
+                    loadArticles();
+                } else {
+                    alert('Failed to save article: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Failed to save article:', error);
+                alert('Failed to save article');
+            }
+        });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('admin_token');
+            window.location.href = 'login.html';
+        });
+
+        // Check auth on page load
+        checkAuth();
+    </script>
+</body>
+</html>

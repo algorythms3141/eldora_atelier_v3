@@ -192,106 +192,392 @@
   revealEls.forEach(el => ro.observe(el));
 
   /* ================================================================
-     4. FILTER TABS
+     4. FILTER TABS (REMOVED - Page now shows only articles)
   ================================================================ */
-  const tabs    = $$('.lb-tab');
-  const cards   = $$('.lb-card');
-  const featured = $('#lb-featured');
-  const styleGuides = $$('.style-guide');
-  const articleCards = $$('.article-card');
-  const emptyEl  = $('#lb-empty');
-  const countEl  = $('#lb-count');
-
-  function setCount(n) {
-    if (countEl) countEl.textContent = `${n} piece${n !== 1 ? 's' : ''}`;
-  }
-
-  function filterAll(filter) {
-    // Grid cards
-    let visible = 0;
-    cards.forEach((card, i) => {
-      const match = filter === 'all' || card.dataset.category === filter;
-      if (match) {
-        card.classList.remove('hidden', 'fade-in');
-        void card.offsetWidth;
-        card.style.animationDelay = (visible * 50) + 'ms';
-        card.classList.add('fade-in');
-        visible++;
-      } else {
-        card.classList.add('hidden');
-      }
-    });
-
-    // Featured article
-    if (featured) {
-      const featCat = featured.dataset.category;
-      const featMatch = filter === 'all' || featCat === filter;
-      featured.style.display = featMatch ? '' : 'none';
-      if (featMatch) visible++;
-    }
-
-    // Style Guides section
-    styleGuides.forEach(sg => {
-      const match = filter === 'all' || filter === 'style';
-      sg.style.display = match ? '' : 'none';
-    });
-    const styleSection = $('#style-section');
-    if (styleSection) styleSection.style.display = (filter === 'all' || filter === 'style') ? '' : 'none';
-
-    // Articles section
-    const articlesSection = $('#articles-section');
-    articleCards.forEach(ac => {
-      const match = filter === 'all' || ac.dataset.category === filter || ac.dataset.category === 'article';
-      ac.style.display = match ? '' : 'none';
-      if (match) visible++;
-    });
-    if (articlesSection) articlesSection.style.display = (filter === 'all' || filter === 'article' || filter === 'trends') ? '' : 'none';
-
-    // Empty state
-    if (emptyEl) {
-      visible === 0 ? emptyEl.removeAttribute('hidden') : emptyEl.setAttribute('hidden', '');
-    }
-
-    setCount(visible + styleGuides.length);
-  }
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected','true');
-      filterAll(tab.dataset.filter);
-    });
-  });
-
-  // Initial count
-  setCount(cards.length + 1 + styleGuides.length + articleCards.length);
 
   /* ================================================================
-     5. LOAD MORE ARTICLES
+     5. LOAD MORE ARTICLES (Dynamic from/articles_api.php)
   ================================================================ */
+  const articlesList = $('#articles-list');
   const lmBtn = $('#articles-load-more');
-  let lmClicks = 0;
+  let articleOffset = 0;
+  const articleLimit = 7;
+  let totalArticles = 0;
+  let isLoading = false;
 
-  if (lmBtn) {
-    lmBtn.addEventListener('click', () => {
-      lmClicks++;
+  async function loadArticles(offset = 0, append = false) {
+    if (isLoading) return;
+    isLoading = true;
+
+    console.log(`loadArticles called: offset=${offset}, append=${append}`);
+
+    if (lmBtn) {
       lmBtn.textContent = 'Loading\u2026';
       lmBtn.disabled = true;
-      setTimeout(() => {
-        if (lmClicks >= 2) {
-          lmBtn.textContent = 'All Articles Loaded';
-          lmBtn.style.opacity = '.45';
-          lmBtn.style.cursor = 'default';
-          showToast('You\'ve reached the end — new articles coming every month.');
-        } else {
-          lmBtn.textContent = 'Load More Articles';
-          lmBtn.disabled = false;
-          showToast('New articles coming soon. Subscribe to be notified first!');
+    }
+
+    const url = `api/articles_api.php?action=get_articles&offset=${offset}&limit=${articleLimit}`;
+    console.log('Fetching from:', url);
+
+    try {
+      const response = await fetch(url);
+      console.log('Response status:', response.status);
+      
+      const data = await response.json();
+      console.log('Response data:', data);
+
+      if (data.success) {
+        totalArticles = data.total;
+        const articles = data.articles;
+        console.log(`Loaded ${articles.length} articles, total: ${totalArticles}`);
+
+        if (!append && articlesList) {
+          articlesList.innerHTML = '';
         }
-      }, 900);
+
+        if (articles.length > 0) {
+          articles.forEach((article, index) => {
+            const articleCard = createArticleCard(article, append ? index : index);
+            if (articlesList) {
+              articlesList.appendChild(articleCard);
+            }
+          });
+
+          articleOffset += articles.length;
+
+          // Update load more button
+          if (lmBtn) {
+            if (articleOffset >= totalArticles) {
+              lmBtn.textContent = 'All Articles Loaded';
+              lmBtn.style.opacity = '.45';
+              lmBtn.style.cursor = 'default';
+              lmBtn.disabled = true;
+            } else {
+              lmBtn.textContent = 'Load More Articles';
+              lmBtn.disabled = false;
+            }
+          }
+
+          // Trigger reveal for new articles
+          const newCards = articlesList.querySelectorAll('.article-card:not(.revealed)');
+          newCards.forEach(card => ro.observe(card));
+        } else if (!append && articlesList) {
+          articlesList.innerHTML = '<p class="lb-empty" style="text-align:center;padding:40px;color:#888;">No articles available yet.</p>';
+          if (lmBtn) lmBtn.style.display = 'none';
+        }
+      } else {
+        console.error('API returned error:', data.message);
+      }
+    } catch (error) {
+      console.error('Failed to load articles:', error);
+      if (lmBtn) {
+        lmBtn.textContent = 'Load More';
+        lmBtn.disabled = false;
+      }
+    }
+
+    isLoading = false;
+  }
+
+  function createArticleCard(article, index) {
+    const card = document.createElement('article');
+    card.className = 'article-card reveal-left';
+    card.style.setProperty('--delay', `${(index % 7) * 0.06}s`);
+    card.dataset.category = 'article';
+    card.dataset.articleId = article.id;
+
+    // Parse image URLs
+    const imageUrls = article.image_urls ? article.image_urls.split('|').filter(u => u.trim()) : [];
+    const firstImage = imageUrls.length > 0 ? '.' + imageUrls[0] : 'logo-font.png'; // Fallback to logo
+
+    // Format date
+    const date = new Date(article.modified || article.created);
+    const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    // Calculate read time (rough estimate: 200 words per minute)
+    const wordCount = article.content ? article.content.split(/\s+/).length : 0;
+    const readTime = Math.max(1, Math.ceil(wordCount / 200));
+
+    // Create image gallery if multiple images
+    let imageHtml = '';
+    if (imageUrls.length > 1) {
+      imageHtml = `
+        <div class="article-img-gallery">
+          <img src="${firstImage}" alt="${article.title}" loading="lazy" />
+          <div class="article-img-count">${imageUrls.length} photos</div>
+        </div>
+      `;
+    } else {
+      imageHtml = `<img src="${firstImage}" alt="${article.title}" loading="lazy" />`;
+    }
+
+    card.innerHTML = `
+      <a href="#" class="article-link" data-article-id="${article.id}">
+        <div class="article-img">
+          ${imageHtml}
+        </div>
+        <div class="article-body">
+          <div class="article-meta-top">
+            <span class="lb-tag article">Article</span>
+            <time class="article-date" datetime="${date.toISOString()}">${formattedDate}</time>
+          </div>
+          <h3 class="article-title">${article.title}</h3>
+          <p class="article-excerpt">${article.content.substring(0, 150)}${article.content.length > 150 ? '...' : ''}</p>
+          <div class="article-footer">
+            <span class="article-read-time">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${readTime} min read
+            </span>
+            <span class="article-read-link">Read Article <span>&#8594;</span></span>
+          </div>
+        </div>
+      </a>
+    `;
+
+    return card;
+  }
+
+  // Load initial articles
+  console.log('Loading initial articles...');
+  loadArticles(0, false);
+
+  // Load more button handler
+  if (lmBtn) {
+    lmBtn.addEventListener('click', () => {
+      loadArticles(articleOffset, true);
+    });
+  } else {
+    console.log('Load more button not found');
+  }
+
+  /* ================================================================
+     6. ARTICLE MODAL
+  ================================================================ */
+  const articleModal = $('#article-modal');
+  const articleModalOverlay = $('#article-modal-overlay');
+  const articleModalClose = $('#article-modal-close');
+  const articleModalBody = $('#article-modal-body');
+  let carouselInterval = null;
+  let currentSlide = 0;
+  let totalSlides = 0;
+
+  function openArticleModal(articleId) {
+    console.log('Opening article modal for ID:', articleId);
+    
+    // Show loading state
+    if (articleModalBody) {
+      articleModalBody.innerHTML = '<div style="padding: 60px; text-align: center; color: var(--muted);">Loading article...</div>';
+    }
+    
+    // Show modal
+    if (articleModal) {
+      articleModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Fetch article details
+    fetch(`api/articles_api.php?action=get_article&id=${articleId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.article) {
+          renderArticleModal(data.article);
+        } else {
+          if (articleModalBody) {
+            articleModalBody.innerHTML = '<div style="padding: 60px; text-align: center; color: var(--muted);">Failed to load article.</div>';
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Failed to fetch article:', error);
+        if (articleModalBody) {
+          articleModalBody.innerHTML = '<div style="padding: 60px; text-align: center; color: var(--muted);">Failed to load article.</div>';
+        }
+      });
+  }
+
+  function renderArticleModal(article) {
+    if (!articleModalBody) return;
+
+    // Parse image URLs and add . prefix
+    const imageUrls = article.image_urls ? article.image_urls.split('|').filter(u => u.trim()) : [];
+    const fallbackImage = 'logo-font.png';
+    const images = imageUrls.length > 0 ? imageUrls.map(url => '.' + url) : [fallbackImage];
+
+    // Format date
+    const date = new Date(article.modified || article.created);
+    const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    // Create images HTML
+    let imagesHtml = '';
+    if (images.length === 1) {
+      imagesHtml = `
+        <div class="modal-article-single-img">
+          <img src="${images[0]}" alt="${article.title}" />
+        </div>
+      `;
+    } else {
+      // Create carousel
+      totalSlides = images.length;
+      currentSlide = 0;
+      
+      const slides = images.map(url => `
+        <div class="modal-carousel-slide">
+          <img src="${url}" alt="${article.title}" />
+        </div>
+      `).join('');
+      
+      const dots = images.map((_, index) => `
+        <button class="modal-carousel-dot ${index === 0 ? 'active' : ''}" data-slide="${index}"></button>
+      `).join('');
+      
+      imagesHtml = `
+        <div class="modal-article-carousel" id="modalCarousel">
+          <button class="modal-carousel-arrow prev" id="carouselPrev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="modal-carousel-track" id="carouselTrack">
+            ${slides}
+          </div>
+          <button class="modal-carousel-arrow next" id="carouselNext">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div class="modal-carousel-dots" id="carouselDots">
+            ${dots}
+          </div>
+        </div>
+      `;
+    }
+
+    articleModalBody.innerHTML = `
+      <div class="modal-article-header">
+        ${imagesHtml}
+      </div>
+      <div class="modal-article-content">
+        <div class="modal-article-meta">
+          <span class="lb-tag article">Article</span>
+          <time class="modal-article-date" datetime="${date.toISOString()}">${formattedDate}</time>
+        </div>
+        <h2 class="modal-article-title">${article.title}</h2>
+        <div class="modal-article-description">
+          ${article.content}
+        </div>
+      </div>
+    `;
+
+    // Initialize carousel if multiple images
+    if (images.length > 1) {
+      initCarousel();
+    }
+  }
+
+  function initCarousel() {
+    const track = $('#carouselTrack');
+    const prevBtn = $('#carouselPrev');
+    const nextBtn = $('#carouselNext');
+    const dots = $$('.modal-carousel-dot');
+
+    if (!track) return;
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    // Button handlers
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetInterval();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetInterval();
+      });
+    }
+
+    // Dot handlers
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        currentSlide = parseInt(dot.dataset.slide);
+        updateCarousel();
+        resetInterval();
+      });
+    });
+
+    // Auto-advance every second
+    function startInterval() {
+      carouselInterval = setInterval(nextSlide, 1000);
+    }
+
+    function resetInterval() {
+      if (carouselInterval) {
+        clearInterval(carouselInterval);
+      }
+      startInterval();
+    }
+
+    startInterval();
+  }
+
+  function closeArticleModal() {
+    if (articleModal) {
+      articleModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    if (articleModalBody) {
+      articleModalBody.innerHTML = '';
+    }
+    // Clear carousel interval
+    if (carouselInterval) {
+      clearInterval(carouselInterval);
+      carouselInterval = null;
+    }
+    currentSlide = 0;
+    totalSlides = 0;
+  }
+
+  // Event delegation for article links
+  if (articlesList) {
+    articlesList.addEventListener('click', (e) => {
+      const link = e.target.closest('.article-link');
+      if (link) {
+        e.preventDefault();
+        const articleId = link.dataset.articleId;
+        if (articleId) {
+          openArticleModal(articleId);
+        }
+      }
     });
   }
+
+  // Close modal handlers
+  if (articleModalClose) {
+    articleModalClose.addEventListener('click', closeArticleModal);
+  }
+  if (articleModalOverlay) {
+    articleModalOverlay.addEventListener('click', closeArticleModal);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && articleModal && articleModal.getAttribute('aria-hidden') === 'false') {
+      closeArticleModal();
+    }
+  });
 
   /* ================================================================
      6. NEWSLETTER FORM

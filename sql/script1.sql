@@ -147,3 +147,17 @@ CREATE TABLE IF NOT EXISTS contact_inquiries (
     KEY idx_contact_inquiries_type  (enquiry_type),
     KEY idx_contact_inquiries_created (created_at)
 );
+
+-- Create articles table (idempotent)
+CREATE TABLE IF NOT EXISTS articles (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    title       VARCHAR(255) NOT NULL,
+    content     LONGTEXT     NOT NULL,
+    image_urls  TEXT         DEFAULT NULL,
+    created     DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    modified    DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    active      ENUM('Y', 'N') NOT NULL DEFAULT 'Y',
+    KEY idx_articles_title (title),
+    KEY idx_articles_active (active),
+    KEY idx_articles_created (created)
+);
