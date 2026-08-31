@@ -562,8 +562,8 @@ nav a:hover::after, nav a.active::after { right: 0; }
   justify-content: center;
   text-decoration: none;
   position: relative;
-  height: 80px;
-  max-width: 280px;
+  height: 64px;
+  max-width: 220px;
 }
 
 .logo-full {
@@ -1511,7 +1511,7 @@ footer {
 
 @media (max-width: 960px) {
   header { padding: 0 3%; height: 74px; }
-  .logo { height: 64px; max-width: 240px; }
+  .logo { height: 52px; max-width: 190px; }
   nav { gap: 18px; font-size: 9px; }
   .menu-btn { display: inline-block; }
   .nav-left a { display: none; }
@@ -1552,7 +1552,7 @@ footer {
     gap: 0;
   }
   .nav-left { order: 1; gap: 0; }
-  .logo { order: 2; justify-self: center; height: 52px; max-width: 200px; }
+  .logo { order: 2; justify-self: center; height: 42px; max-width: 160px; }
   .nav-right { order: 3; gap: 10px; }
   .nav-left a, .nav-right a { display: none; }
   .hero-visual { height: 320px; }
