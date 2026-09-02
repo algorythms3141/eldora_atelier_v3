@@ -153,6 +153,22 @@ try {
         case 'delete_article':
             handleDeleteArticle($db, $input);
             break;
+        // Testimonials
+        case 'get_testimonials':
+            handleGetTestimonials($db, $input);
+            break;
+        case 'get_testimonial':
+            handleGetTestimonial($db, $input);
+            break;
+        case 'add_testimonial':
+            handleAddTestimonial($db, $input);
+            break;
+        case 'update_testimonial':
+            handleUpdateTestimonial($db, $input);
+            break;
+        case 'delete_testimonial':
+            handleDeleteTestimonial($db, $input);
+            break;
         default:
             echo json_encode(['success' => false, 'message' => 'Invalid action']);
             break;
@@ -1414,4 +1430,131 @@ function handleDeleteContactEnquiry($db, $input) {
     $stmt->execute();
 
     echo json_encode(['success' => true, 'message' => 'Enquiry deleted successfully']);
+}
+
+/* ================================================================
+   TESTIMONIALS handlers
+================================================================ */
+function handleGetTestimonials($db, $input) {
+    verifyTokenOrDie($input);
+
+    $stmt = $db->query("
+        SELECT id, customer_name, customer_location, review_desc, star_count, created, modified
+        FROM customer_testimonials
+        ORDER BY created DESC
+    ");
+    $testimonials = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode(['success' => true, 'testimonials' => $testimonials]);
+}
+
+function handleGetTestimonial($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'Invalid testimonial id']);
+        return;
+    }
+
+    $stmt = $db->prepare("SELECT * FROM customer_testimonials WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $testimonial = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$testimonial) {
+        echo json_encode(['success' => false, 'message' => 'Testimonial not found']);
+        return;
+    }
+
+    echo json_encode(['success' => true, 'testimonial' => $testimonial]);
+}
+
+function handleAddTestimonial($db, $input) {
+    verifyTokenOrDie($input);
+
+    $customer_name = trim($input['customer_name'] ?? '');
+    $customer_location = trim($input['customer_location'] ?? '');
+    $review_desc = trim($input['review_desc'] ?? '');
+    $star_count = intval($input['star_count'] ?? 5);
+
+    if (empty($customer_name) || empty($review_desc)) {
+        echo json_encode(['success' => false, 'message' => 'Customer name and review are required']);
+        return;
+    }
+
+    if ($star_count < 1 || $star_count > 5) {
+        echo json_encode(['success' => false, 'message' => 'Star count must be between 1 and 5']);
+        return;
+    }
+
+    $stmt = $db->prepare("
+        INSERT INTO customer_testimonials (customer_name, customer_location, review_desc, star_count)
+        VALUES (:customer_name, :customer_location, :review_desc, :star_count)
+    ");
+    $stmt->bindParam(':customer_name', $customer_name);
+    $stmt->bindParam(':customer_location', $customer_location);
+    $stmt->bindParam(':review_desc', $review_desc);
+    $stmt->bindParam(':star_count', $star_count, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Testimonial added successfully']);
+}
+
+function handleUpdateTestimonial($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'Invalid testimonial id']);
+        return;
+    }
+
+    $customer_name = trim($input['customer_name'] ?? '');
+    $customer_location = trim($input['customer_location'] ?? '');
+    $review_desc = trim($input['review_desc'] ?? '');
+    $star_count = intval($input['star_count'] ?? 5);
+
+    if (empty($customer_name) || empty($review_desc)) {
+        echo json_encode(['success' => false, 'message' => 'Customer name and review are required']);
+        return;
+    }
+
+    if ($star_count < 1 || $star_count > 5) {
+        echo json_encode(['success' => false, 'message' => 'Star count must be between 1 and 5']);
+        return;
+    }
+
+    $stmt = $db->prepare("
+        UPDATE customer_testimonials
+        SET customer_name = :customer_name,
+            customer_location = :customer_location,
+            review_desc = :review_desc,
+            star_count = :star_count
+        WHERE id = :id
+    ");
+    $stmt->bindParam(':customer_name', $customer_name);
+    $stmt->bindParam(':customer_location', $customer_location);
+    $stmt->bindParam(':review_desc', $review_desc);
+    $stmt->bindParam(':star_count', $star_count, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Testimonial updated successfully']);
+}
+
+function handleDeleteTestimonial($db, $input) {
+    verifyTokenOrDie($input);
+
+    $id = intval($input['id'] ?? 0);
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'Invalid testimonial id']);
+        return;
+    }
+
+    $stmt = $db->prepare("DELETE FROM customer_testimonials WHERE id = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    echo json_encode(['success' => true, 'message' => 'Testimonial deleted successfully']);
 }

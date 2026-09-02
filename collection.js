@@ -478,6 +478,36 @@
   }
 
   /* ── Initial render ── */
-  loadCategories();
+  
+  // Get category ID from URL parameter
+  function getCategoryIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('category');
+  }
+
+  // Initialize with URL filter if present
+  async function initializeCollection() {
+    const categoryIdFromUrl = getCategoryIdFromUrl();
+    
+    await loadCategories();
+    
+    if (categoryIdFromUrl) {
+      // Load products filtered by category from URL
+      await loadProducts(categoryIdFromUrl);
+      
+      // Activate the corresponding tab after a short delay to ensure tabs are rendered
+      setTimeout(() => {
+        const categoryTab = document.querySelector(`[data-category-id="${categoryIdFromUrl}"]`);
+        if (categoryTab) {
+          categoryTab.click();
+        }
+      }, 100);
+    } else {
+      // Load all products
+      loadProducts();
+    }
+  }
+
+  initializeCollection();
 
 })();

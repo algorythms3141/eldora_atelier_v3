@@ -246,12 +246,113 @@
   const prevBtn  = $('#rev-prev');
   const nextBtn  = $('#rev-next');
   const dotsWrap = $('#reviews-dots');
+  let carouselInitialized = false;
+  let autoTimer = null;
 
-  if (track) {
+  // Load testimonials from API
+  async function loadTestimonials() {
+    if (!track) return;
+
+    console.log('Loading testimonials from API...');
+
+    // Clear any existing carousel state
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+    carouselInitialized = false;
+
+    try {
+      const response = await fetch('api/aboutus_api.php?action=get_testimonials');
+      console.log('API response status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('API response data:', data);
+
+      if (data.success && data.testimonials.length > 0) {
+        renderTestimonials(data.testimonials);
+      } else {
+        // Fallback to static content if API fails or no testimonials
+        console.log('No testimonials found');
+        track.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">No testimonials available yet.</p>';
+      }
+    } catch (error) {
+      console.error('Failed to load testimonials:', error);
+      track.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Failed to load testimonials.</p>';
+    }
+  }
+
+  function renderTestimonials(testimonials) {
+    if (!track) return;
+
+    // Generate star rating HTML
+    function generateStars(count) {
+      let stars = '';
+      for (let i = 0; i < 5; i++) {
+        stars += i < count ? '&#9733;' : '&#9734;';
+      }
+      return stars;
+    }
+
+    // Generate review cards
+    track.innerHTML = testimonials.map(testimonial => {
+      const initials = testimonial.customer_name.charAt(0).toUpperCase();
+      const location = testimonial.customer_location || '';
+      const stars = generateStars(testimonial.star_count);
+
+      return `
+        <article class="review-card" aria-label="Review by ${testimonial.customer_name}">
+          <div class="review-stars" aria-label="${testimonial.star_count} out of 5 stars" aria-hidden="true">${stars}</div>
+          <blockquote class="review-text">"${testimonial.review_desc}"</blockquote>
+          <div class="review-author">
+            <div class="review-avatar" aria-hidden="true">${initials}</div>
+            <div>
+              <strong class="review-name">${testimonial.customer_name}</strong>
+              ${location ? `<span class="review-meta">${location}</span>` : ''}
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // Initialize carousel after DOM update
+    requestAnimationFrame(() => initCarousel());
+  }
+
+  function initCarousel() {
+    if (!track || carouselInitialized) return;
+
     const cards   = $$('.review-card', track);
+    if (cards.length === 0) return;
+
+    // Wait for cards to be rendered in DOM
+    if (!cards[0] || !cards[0].getBoundingClientRect) {
+      setTimeout(() => initCarousel(), 100);
+      return;
+    }
+
     const visible = window.innerWidth >= 900 ? 3 : window.innerWidth >= 600 ? 2 : 1;
     let index = 0;
     const maxIndex = Math.max(0, cards.length - visible);
+
+    // Don't initialize carousel if only 1 or fewer cards than visible
+    if (cards.length <= visible) {
+      prevBtn && (prevBtn.style.display = 'none');
+      nextBtn && (nextBtn.style.display = 'none');
+      carouselInitialized = true;
+      return;
+    }
+
+    // Show navigation buttons
+    prevBtn && (prevBtn.style.display = '');
+    nextBtn && (nextBtn.style.display = '');
+
+    // Clear existing dots
+    if (dotsWrap) dotsWrap.innerHTML = '';
 
     // Build dots
     const numDots = maxIndex + 1;
@@ -266,8 +367,11 @@
     });
 
     function goTo(n) {
+      if (!cards || cards.length === 0 || !cards[0]) return;
+      const cardRect = cards[0].getBoundingClientRect();
+      if (!cardRect) return;
+      const cardW = cardRect.width + 24; // gap
       index = Math.max(0, Math.min(n, maxIndex));
-      const cardW = cards[0].getBoundingClientRect().width + 24; // gap
       track.style.transform = `translateX(-${index * cardW}px)`;
       dots.forEach((d, i) => d.classList.toggle('active', i === index));
       prevBtn && (prevBtn.disabled = index === 0);
@@ -295,15 +399,22 @@
     });
 
     // Auto-advance
-    let autoTimer = setInterval(() => goTo(index < maxIndex ? index + 1 : 0), 5000);
+    autoTimer = setInterval(() => goTo(index < maxIndex ? index + 1 : 0), 5000);
     track.addEventListener('mouseenter', () => clearInterval(autoTimer));
-    track.addEventListener('mouseleave', () => { autoTimer = setInterval(() => goTo(index < maxIndex ? index + 1 : 0), 5000); });
+    track.addEventListener('mouseleave', () => { 
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = setInterval(() => goTo(index < maxIndex ? index + 1 : 0), 5000); 
+    });
 
     // Resize
     window.addEventListener('resize', () => goTo(index), { passive: true });
 
+    carouselInitialized = true;
     goTo(0);
   }
+
+  // Load testimonials on page load
+  loadTestimonials();
 
   /* ================================================================
      7. VIDEO LIGHTBOX

@@ -161,3 +161,17 @@ CREATE TABLE IF NOT EXISTS articles (
     KEY idx_articles_active (active),
     KEY idx_articles_created (created)
 );
+
+-- Create customer_testimonials table (idempotent)
+CREATE TABLE IF NOT EXISTS customer_testimonials (
+    id                INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name     VARCHAR(200) NOT NULL,
+    customer_location VARCHAR(200) DEFAULT NULL,
+    review_desc       TEXT         NOT NULL,
+    star_count        INT          NOT NULL DEFAULT 5,
+    created           DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    modified          DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    KEY idx_customer_testimonials_name (customer_name),
+    KEY idx_customer_testimonials_stars (star_count),
+    KEY idx_customer_testimonials_created (created)
+);

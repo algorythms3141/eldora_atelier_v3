@@ -20,7 +20,7 @@
 
   <!-- ── Announcement Bar ───────────────────────────────── -->
   <div class="announce">
-    Free consultations available &nbsp;·&nbsp; Shipping across India &amp; Worldwide
+    Free consultations available &nbsp;·&nbsp; Shipping across India
   </div>
 
   <!-- ── Header ────────────────────────────────────────── -->
@@ -41,8 +41,6 @@
     <nav class="nav-right">
       <a href="lookbook.html">Lookbook</a>
       <a href="contact.html">Contact Us</a>
-      <button aria-label="Search">⌕</button>
-      <button aria-label="Account">♙</button>
       <button class="bag-btn collections-btn" aria-label="My Collections">♧<sup class="collections-count">0</sup></button>
     </nav>
   </header>
@@ -169,43 +167,63 @@
       </div>
       <p class="section-sub reveal">Discover our curated collections of custom Indo-Western couture</p>
 
-      <div class="card-grid">
-        <article class="ed-card reveal reveal-delay-1">
-          <div class="ed-card-img" style="background-image:url('card-women.png')"></div>
-          <div class="ed-card-body">
-            <span class="ed-cat">Women</span>
-            <a href="collection.html" class="ed-link">Explore →</a>
-          </div>
-        </article>
-
-        <article class="ed-card reveal reveal-delay-2">
-          <div class="ed-card-img" style="background-image:url('card-men.png')"></div>
-          <div class="ed-card-body">
-            <span class="ed-cat">Men</span>
-            <a href="collection.html" class="ed-link">Explore →</a>
-          </div>
-        </article>
-
-        <article class="ed-card reveal reveal-delay-3">
-          <div class="ed-card-img" style="background-image:url('card-bridal.png')"></div>
-          <div class="ed-card-body">
-            <span class="ed-cat">Bridal</span>
-            <a href="collection.html" class="ed-link">Explore →</a>
-          </div>
-        </article>
-
-        <article class="ed-card reveal reveal-delay-4">
-          <div class="ed-card-img" style="background-image:url('card-occasion.png')"></div>
-          <div class="ed-card-body">
-            <span class="ed-cat">Occasion Wear</span>
-            <a href="collection.html" class="ed-link">Explore →</a>
-          </div>
-        </article>
+      <div class="card-grid" id="explore-designs-grid">
+        <!-- Categories will be loaded dynamically here -->
       </div>
     </section>
 
     <!-- ══════════════════════════════════════════════════ -->
-    <!-- §4  CUSTOM ORDER                                   -->
+    <!-- §4  SERVICES TEASER                                 -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="services-teaser">
+      <div class="section-head reveal">
+        <div class="gold-rule-line"></div>
+        <h2>Our Services</h2>
+        <div class="gold-rule-line"></div>
+      </div>
+      <p class="section-sub reveal">From bespoke couture to personalized styling, we bring your vision to life</p>
+
+      <div class="services-grid">
+        <div class="service-item reveal reveal-delay-1">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3>Perfect Fit Guarantee</h3>
+          <p>We ensure every garment fits you perfectly with multiple fittings and adjustments</p>
+        </div>
+
+        <div class="service-item reveal reveal-delay-2">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          </div>
+          <h3>Quality Assurance</h3>
+          <p>Rigorous quality checks at every stage to ensure premium craftsmanship</p>
+        </div>
+
+        <div class="service-item reveal reveal-delay-3">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+          </div>
+          <h3>Bespoke Tailoring</h3>
+          <p>Custom-tailored garments crafted to your exact measurements and style preferences</p>
+        </div>
+
+        <div class="service-item reveal reveal-delay-4">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </div>
+          <h3>Alterations & Fittings</h3>
+          <p>Precision alterations and fittings to ensure the perfect silhouette</p>
+        </div>
+      </div>
+
+      <div class="services-cta reveal reveal-delay-4">
+        <a href="service.html" class="btn btn-fill">Explore Services</a>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §5  CUSTOM ORDER                                   -->
     <!-- ══════════════════════════════════════════════════ -->
     <section class="custom-order-section">
       <div class="co-image reveal">
@@ -265,7 +283,7 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════ -->
-    <!-- §5  BRAND STORY                                    -->
+    <!-- §7  BRAND STORY                                    -->
     <!-- ══════════════════════════════════════════════════ -->
     <section class="brand-story-wrap">
       <div class="bs-ornament reveal">❦ · ❦</div>
@@ -283,30 +301,53 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════ -->
-    <!-- §6  LOOKBOOK TEASER                                -->
+    <!-- §8  SOCIAL MEDIA SECTION                            -->
     <!-- ══════════════════════════════════════════════════ -->
-    <section class="lookbook-teaser">
-      <div class="lt-head reveal">
-        <h2>The Lookbook</h2>
-        <a href="lookbook.html" class="teal-link">View All →</a>
+    <section class="social-media-section">
+      <div class="social-media-bg" style="background-image: url('hero-couple.png')"></div>
+      <div class="social-media-content">
+        <h2 class="reveal">Follow Our Journey</h2>
+        <p class="reveal reveal-delay-1">Stay connected for exclusive updates, behind-the-scenes, and style inspiration</p>
+        
+        <div class="social-buttons-row reveal reveal-delay-2" id="social-links-section">
+          <a href="#" class="social-btn social-instagram" id="instagram-link" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a>
+          <a href="#" class="social-btn social-pinterest" id="pinterest-link" target="_blank" rel="noopener" aria-label="Follow us on Pinterest">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a4 4 0 1 0 8 0 4 4 0 0 0-8 0"/><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.73 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.44.84-2.52 1.88-2.52.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.86 3.48-.24 1.04.51 1.88 1.53 1.88 1.84 0 3.07-2.34 3.07-5.12 0-2.11-1.42-3.59-3.46-3.59-2.35 0-3.73 1.76-3.73 3.58 0 .71.27 1.47.61 1.88.07.08.08.15.06.23-.06.25-.2.79-.23.9-.04.15-.13.18-.3.11-1.12-.52-1.82-2.17-1.82-3.49 0-2.83 2.06-5.44 5.94-5.44 3.12 0 5.55 2.22 5.55 5.19 0 3.1-1.95 5.59-4.66 5.59-.91 0-1.77-.47-2.06-1.03l-.56 2.09c-.2.78-.75 1.75-1.12 2.34.84.26 1.73.4 2.65.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            Pinterest
+          </a>
+        </div>
       </div>
-      <div class="lt-grid">
-        <div class="lt-img lt-tall reveal"
-             style="background-image:url('about-hero.png')"
-             role="img" aria-label="Eldora Atelier lookbook"></div>
-        <div class="lt-img reveal reveal-delay-1"
-             style="background-image:url('about-craft.png')"
-             role="img" aria-label="Craft detail"></div>
-        <div class="lt-img reveal reveal-delay-2"
-             style="background-image:url('about-insta-1.png')"
-             role="img" aria-label="Featured look"></div>
-        <div class="lt-img reveal reveal-delay-1"
-             style="background-image:url('card-indo-western.png')"
-             role="img" aria-label="Indo western look"></div>
-        <div class="lt-img reveal reveal-delay-2"
-             style="background-image:url('about-story.png')"
-             role="img" aria-label="Our story"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- §9  CUSTOMER REVIEWS                                -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="ab-section ab-reviews" id="reviews" aria-labelledby="reviews-heading">
+      <div class="ab-section-header reveal-up">
+        <p class="section-eyebrow">CUSTOMER REVIEWS</p>
+        <h2 class="section-title" id="reviews-heading">What Our Clients Say</h2>
+        <div class="section-ornament" aria-hidden="true">&#9135;&#9135;&#9135; &#10022; &#9135;&#9135;&#9135;</div>
       </div>
+
+      <!-- Review carousel -->
+      <div class="reviews-track-wrap">
+        <button class="reviews-arrow reviews-arrow-prev" id="rev-prev" aria-label="Previous review">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="reviews-track" id="reviews-track" aria-live="polite">
+          <!-- Testimonials will be loaded dynamically from API -->
+        </div>
+        <button class="reviews-arrow reviews-arrow-next" id="rev-next" aria-label="Next review">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Dots -->
+      <div class="reviews-dots" id="reviews-dots" role="tablist" aria-label="Review navigation dots"></div>
+
     </section>
 
     <!-- ══════════════════════════════════════════════════ -->
@@ -578,23 +619,329 @@
     })();
   </script>
 
+  <!-- Load Categories for Explore Designs Section ───────────────────────────── -->
+  <script>
+    (function () {
+      const exploreGrid = document.getElementById('explore-designs-grid');
+      
+      async function loadCategories() {
+        if (!exploreGrid) return;
+
+        try {
+          const response = await fetch('api/products_api.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'get_categories' })
+          });
+          const data = await response.json();
+
+          if (data.success && data.categories.length > 0) {
+            renderCategories(data.categories);
+          } else {
+            // Fallback to static cards if API fails
+            renderFallbackCards();
+          }
+        } catch (error) {
+          console.error('Failed to load categories:', error);
+          renderFallbackCards();
+        }
+      }
+
+      function renderCategories(categories) {
+        const delays = ['reveal-delay-1', 'reveal-delay-2', 'reveal-delay-3', 'reveal-delay-4'];
+        
+        exploreGrid.innerHTML = categories.map((category, index) => {
+          const delayClass = delays[index % delays.length];
+          const imageUrl = category.image_url ? '.' + category.image_url : 'card-women.png'; // Fallback image
+          
+          return `
+            <article class="ed-card reveal ${delayClass}">
+              <div class="ed-card-img" style="background-image:url('${imageUrl}')"></div>
+              <div class="ed-card-body">
+                <span class="ed-cat">${category.name}</span>
+                <a href="collection.html?category=${category.id}" class="ed-link">Explore →</a>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        // Re-initialize scroll reveal for new elements
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('revealed');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.08 }
+        );
+        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+      }
+
+      function renderFallbackCards() {
+        // Static fallback cards
+        exploreGrid.innerHTML = `
+          <article class="ed-card reveal reveal-delay-1">
+            <div class="ed-card-img" style="background-image:url('card-women.png')"></div>
+            <div class="ed-card-body">
+              <span class="ed-cat">Women</span>
+              <a href="collection.html" class="ed-link">Explore →</a>
+            </div>
+          </article>
+          <article class="ed-card reveal reveal-delay-2">
+            <div class="ed-card-img" style="background-image:url('card-men.png')"></div>
+            <div class="ed-card-body">
+              <span class="ed-cat">Men</span>
+              <a href="collection.html" class="ed-link">Explore →</a>
+            </div>
+          </article>
+          <article class="ed-card reveal reveal-delay-3">
+            <div class="ed-card-img" style="background-image:url('card-bridal.png')"></div>
+            <div class="ed-card-body">
+              <span class="ed-cat">Bridal</span>
+              <a href="collection.html" class="ed-link">Explore →</a>
+            </div>
+          </article>
+          <article class="ed-card reveal reveal-delay-4">
+            <div class="ed-card-img" style="background-image:url('card-occasion.png')"></div>
+            <div class="ed-card-body">
+              <span class="ed-cat">Occasion Wear</span>
+              <a href="collection.html" class="ed-link">Explore →</a>
+            </div>
+          </article>
+        `;
+      }
+
+      // Load categories on page load
+      loadCategories();
+
+      // Load social links from settings
+      async function loadSocialLinks() {
+        try {
+          const response = await fetch('api/settings_api.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'get_public_settings' })
+          });
+          const data = await response.json();
+          
+          if (data.success && data.settings) {
+            const instagramLink = document.getElementById('instagram-link');
+            const pinterestLink = document.getElementById('pinterest-link');
+            
+            if (data.settings.instagram_link && instagramLink) {
+              instagramLink.href = data.settings.instagram_link;
+            }
+            if (data.settings.pinterest_link && pinterestLink) {
+              pinterestLink.href = data.settings.pinterest_link;
+            }
+          }
+        } catch (error) {
+          console.error('Failed to load social links:', error);
+        }
+      }
+
+      loadSocialLinks();
+    })();
+  </script>
+
+  <!-- Load Testimonials for Home Page Reviews Section ───────────────────────────── -->
+  <script>
+    (function () {
+      const track = document.getElementById('reviews-track');
+      const prevBtn = document.getElementById('rev-prev');
+      const nextBtn = document.getElementById('rev-next');
+      const dotsWrap = document.getElementById('reviews-dots');
+      let carouselInitialized = false;
+      let autoTimer = null;
+
+      // Load testimonials from API
+      async function loadTestimonials() {
+        if (!track) return;
+
+        console.log('Loading testimonials from API...');
+
+        // Clear any existing carousel state
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+        carouselInitialized = false;
+
+        try {
+          const response = await fetch('api/aboutus_api.php?action=get_testimonials');
+          console.log('API response status:', response.status);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
+          const data = await response.json();
+          console.log('API response data:', data);
+
+          if (data.success && data.testimonials.length > 0) {
+            renderTestimonials(data.testimonials);
+          } else {
+            console.log('No testimonials found');
+            track.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">No testimonials available yet.</p>';
+          }
+        } catch (error) {
+          console.error('Failed to load testimonials:', error);
+          track.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">Failed to load testimonials.</p>';
+        }
+      }
+
+      function renderTestimonials(testimonials) {
+        if (!track) return;
+
+        // Generate star rating HTML
+        function generateStars(count) {
+          let stars = '';
+          for (let i = 0; i < 5; i++) {
+            stars += i < count ? '&#9733;' : '&#9734;';
+          }
+          return stars;
+        }
+
+        // Generate review cards
+        track.innerHTML = testimonials.map(testimonial => {
+          const initials = testimonial.customer_name.charAt(0).toUpperCase();
+          const location = testimonial.customer_location || '';
+          const stars = generateStars(testimonial.star_count);
+
+          return `
+            <article class="review-card" aria-label="Review by ${testimonial.customer_name}">
+              <div class="review-stars" aria-label="${testimonial.star_count} out of 5 stars" aria-hidden="true">${stars}</div>
+              <blockquote class="review-text">"${testimonial.review_desc}"</blockquote>
+              <div class="review-author">
+                <div class="review-avatar" aria-hidden="true">${initials}</div>
+                <div>
+                  <strong class="review-name">${testimonial.customer_name}</strong>
+                  ${location ? `<span class="review-meta">${location}</span>` : ''}
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        // Initialize carousel after DOM update
+        requestAnimationFrame(() => initCarousel());
+      }
+
+      function initCarousel() {
+        if (!track || carouselInitialized) return;
+
+        const cards = document.querySelectorAll('.review-card', track);
+        if (cards.length === 0) return;
+
+        // Wait for cards to be rendered in DOM
+        if (!cards[0] || !cards[0].getBoundingClientRect) {
+          setTimeout(() => initCarousel(), 100);
+          return;
+        }
+
+        const visible = window.innerWidth >= 900 ? 3 : window.innerWidth >= 600 ? 2 : 1;
+        let index = 0;
+        const maxIndex = Math.max(0, cards.length - visible);
+
+        // Don't initialize carousel if only 1 or fewer cards than visible
+        if (cards.length <= visible) {
+          prevBtn && (prevBtn.style.display = 'none');
+          nextBtn && (nextBtn.style.display = 'none');
+          carouselInitialized = true;
+          return;
+        }
+
+        // Show navigation buttons
+        prevBtn && (prevBtn.style.display = '');
+        nextBtn && (nextBtn.style.display = '');
+
+        // Clear existing dots
+        if (dotsWrap) dotsWrap.innerHTML = '';
+
+        // Build dots
+        const numDots = maxIndex + 1;
+        const dots = Array.from({ length: numDots }, (_, i) => {
+          const d = document.createElement('button');
+          d.className = 'rev-dot' + (i === 0 ? ' active' : '');
+          d.setAttribute('role', 'tab');
+          d.setAttribute('aria-label', `Go to review group ${i + 1}`);
+          d.addEventListener('click', () => goTo(i));
+          dotsWrap && dotsWrap.appendChild(d);
+          return d;
+        });
+
+        function goTo(n) {
+          if (!cards || cards.length === 0 || !cards[0]) return;
+          const cardRect = cards[0].getBoundingClientRect();
+          if (!cardRect) return;
+          const cardW = cardRect.width + 24; // gap
+          index = Math.max(0, Math.min(n, maxIndex));
+          track.style.transform = `translateX(-${index * cardW}px)`;
+          dots.forEach((d, i) => d.classList.toggle('active', i === index));
+          prevBtn && (prevBtn.disabled = index === 0);
+          nextBtn && (nextBtn.disabled = index === maxIndex);
+        }
+
+        prevBtn && prevBtn.addEventListener('click', () => goTo(index - 1));
+        nextBtn && nextBtn.addEventListener('click', () => goTo(index + 1));
+
+        // Drag support
+        let startX = 0, isDragging = false;
+        track.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX; track.style.cursor = 'grabbing'; });
+        document.addEventListener('mouseup', e => {
+          if (!isDragging) return;
+          isDragging = false;
+          track.style.cursor = '';
+          const diff = e.clientX - startX;
+          if (Math.abs(diff) > 50) goTo(diff < 0 ? index + 1 : index - 1);
+        });
+
+        track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', e => {
+          const diff = e.changedTouches[0].clientX - startX;
+          if (Math.abs(diff) > 50) goTo(diff < 0 ? index + 1 : index - 1);
+        });
+
+        // Auto-advance
+        autoTimer = setInterval(() => goTo(index < maxIndex ? index + 1 : 0), 5000);
+        track.addEventListener('mouseenter', () => clearInterval(autoTimer));
+        track.addEventListener('mouseleave', () => { 
+          if (autoTimer) clearInterval(autoTimer);
+          autoTimer = setInterval(() => goTo(index < maxIndex ? index + 1 : 0), 5000); 
+        });
+
+        // Resize
+        window.addEventListener('resize', () => goTo(index), { passive: true });
+
+        carouselInitialized = true;
+        goTo(0);
+      }
+
+      // Load testimonials on page load
+      loadTestimonials();
+    })();
+  </script>
+
   <!-- WhatsApp float -->
   <a href="#" class="wa-float" id="wa-float-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
   </a>
   <script>
-  (function(){
-    var btn = document.getElementById('wa-float-btn');
-    function setWaHref(num){ btn.href = 'https://wa.me/' + num.replace(/\D/g,''); }
-    try {
-      var s = JSON.parse(localStorage.getItem('ea_settings') || '{}');
-      if (s.contact_number1) { setWaHref(s.contact_number1); return; }
-    } catch(e){}
-    fetch('api/settings_api.php', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'get_public_settings'}) })
-      .then(function(r){ return r.json(); })
-      .then(function(d){ if(d.success && d.settings.contact_number1){ localStorage.setItem('ea_settings', JSON.stringify(d.settings)); setWaHref(d.settings.contact_number1); } })
-      .catch(function(){});
-  })();
+    (function(){
+      var btn = document.getElementById('wa-float-btn');
+      function setWaHref(num){ btn.href = 'https://wa.me/' + num.replace(/\D/g,''); }
+      try {
+        var s = JSON.parse(localStorage.getItem('ea_settings') || '{}');
+        if (s.contact_number1) { setWaHref(s.contact_number1); return; }
+      } catch(e){}
+      fetch('api/settings_api.php', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'get_public_settings'}) })
+        .then(function(r){ return r.json(); })
+        .then(function(d){ if(d.success && d.settings.contact_number1){ localStorage.setItem('ea_settings', JSON.stringify(d.settings)); setWaHref(d.settings.contact_number1); } })
+        .catch(function(){});
+    })();
   </script>
 </body>
 </html>
