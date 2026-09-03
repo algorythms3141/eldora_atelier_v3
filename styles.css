@@ -1666,8 +1666,128 @@ nav a:hover::after, nav a.active::after { right: 0; }
 footer {
   background: var(--teal);
   color: var(--gold-pale);
-  padding: 54px 6% 22px;
+  padding: 60px 6% 0;
 }
+
+/* Rich footer inner layout */
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.6fr auto 1fr 1fr;
+  gap: 0 48px;
+  align-items: start;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(215,188,120,0.15);
+}
+
+/* Brand column */
+.fi-brand {
+  padding-right: 12px;
+}
+.fi-tagline {
+  font: 400 13px/1.6 var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  margin: 10px 0 10px;
+  letter-spacing: 0.02em;
+}
+.fi-story {
+  font: 300 11px/1.8 var(--sans);
+  color: rgba(215,188,120,0.6);
+  margin-bottom: 14px;
+  max-width: 260px;
+}
+.fi-badge {
+  display: inline-block;
+  font: 400 9px var(--heading);
+  letter-spacing: 0.2em;
+  color: rgba(215,188,120,0.5);
+  border-top: 1px solid rgba(215,188,120,0.2);
+  border-bottom: 1px solid rgba(215,188,120,0.2);
+  padding: 5px 0;
+}
+
+/* Vertical divider */
+.fi-divider {
+  width: 1px;
+  background: rgba(215,188,120,0.15);
+  align-self: stretch;
+  margin: 0 4px;
+}
+
+/* Link/info columns */
+.fi-col {
+  display: flex;
+  flex-direction: column;
+}
+.fi-heading {
+  font: 500 9px var(--heading);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(215,188,120,0.15);
+}
+.fi-col a {
+  display: block;
+  font: 300 11px var(--sans);
+  color: rgba(215,188,120,0.65);
+  margin-bottom: 8px;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.fi-col a:hover { color: var(--gold-light); }
+
+/* Contact items */
+.fi-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  font: 300 11px/1.5 var(--sans);
+  color: rgba(215,188,120,0.65);
+}
+.fi-icon {
+  color: var(--gold);
+  opacity: 0.7;
+  flex-shrink: 0;
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+/* Social icons */
+.fi-social {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(215,188,120,0.12);
+}
+.fi-social a {
+  color: rgba(215,188,120,0.55);
+  transition: color 0.2s;
+  margin-bottom: 0 !important;
+}
+.fi-social a:hover { color: var(--gold-light); }
+
+/* Bottom bar */
+.foot-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0 20px;
+  font: 300 9px var(--sans);
+  color: rgba(215,188,120,0.35);
+  letter-spacing: 0.05em;
+}
+.foot-bottom a {
+  color: rgba(215,188,120,0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.foot-bottom a:hover { color: var(--gold-light); }
+
 .foot-grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr;
@@ -1680,10 +1800,10 @@ footer {
   align-items: center;
   justify-content: flex-start;
   gap: 0;
-  margin-bottom: 14px;
+  margin-bottom: 0;
   position: relative;
-  height: 60px;
-  max-width: 220px;
+  height: 140px;
+  max-width: 140px;
 }
 .foot-brand-inner img {
   width: 100%;
@@ -1693,6 +1813,20 @@ footer {
   filter: drop-shadow(0 0 15px rgba(215, 188, 120, 0.4))
           drop-shadow(0 0 30px rgba(184, 137, 46, 0.2));
   animation: footer-logo-glow 3s ease-in-out infinite;
+}
+
+.foot-brand-name {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  color: var(--gold, #c9a96e);
+  margin-bottom: 10px;
+  text-align: left;
+}
+.foot-brand-name em {
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.8;
 }
 
 /* Glow pulse effect for footer logo */
