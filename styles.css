@@ -6,20 +6,20 @@
 
 /* ── 1. Design Tokens ─────────────────────────────────────── */
 :root {
-  /* Backgrounds — silky beige */
-  --bg:           #F5F0E8;   /* silky beige          */
-  --bg-warm:      #F0E8DC;   /* warm beige           */
-  --bg-blush:     #F3EBE0;   /* beige blush          */
-  --bg-teal-lt:   #E8DFD5;   /* pale beige tint      */
-  --bg-gold-lt:   #F4E9DC;   /* pale beige gold      */
+  /* Backgrounds — cream with teal & gold undertones */
+  --bg:           #EFF1E6;   /* sage cream           */
+  --bg-warm:      #E9EDDF;   /* warm sage            */
+  --bg-blush:     #F1EEDC;   /* gold-tinted cream    */
+  --bg-teal-lt:   #DDE9E0;   /* pale teal tint       */
+  --bg-gold-lt:   #F3EBD0;   /* pale gold tint       */
 
   /* Brand colors */
-  --teal:         #0F5147;   /* deep elegant teal    */
-  --teal-mid:     #17665A;   /* mid teal             */
-  --teal-soft:    #4A8A7D;   /* muted teal           */
-  --gold:         #B8892E;   /* champagne gold       */
-  --gold-light:   #D7BC78;   /* light gold           */
-  --gold-pale:    #F0E4C0;   /* pale gold warmth     */
+  --teal:         #0B5A4D;   /* deep elegant teal    */
+  --teal-mid:     #127264;   /* mid teal             */
+  --teal-soft:    #3F9484;   /* muted teal           */
+  --gold:         #C1932F;   /* champagne gold       */
+  --gold-light:   #DDC272;   /* light gold           */
+  --gold-pale:    #F3E6B8;   /* pale gold warmth     */
 
   /* Text */
   --ink:          #1C2E28;   /* primary text         */
@@ -27,15 +27,15 @@
   --ink-muted:    #7A9088;   /* muted text           */
 
   /* Borders */
-  --border:       rgba(184,137,46,0.22); /* soft gold border */
-  --border-warm:  #D8CCBA;
+  --border:       rgba(193,147,47,0.28); /* soft gold border */
+  --border-warm:  #D3D2B5;
 
   /* Legacy aliases — keeps other page CSS working */
-  --wine:         #0F5147;
-  --wine2:        #17665A;
-  --ivory:        #F5F0E8;
-  --champagne:    #F0E8DC;
-  --lightgold:    #D7BC78;
+  --wine:         #0B5A4D;
+  --wine2:        #127264;
+  --ivory:        #EFF1E6;
+  --champagne:    #E9EDDF;
+  --lightgold:    #DDC272;
 
   /* Typography */
   --display:  'Cinzel Decorative', 'Cinzel', serif;
@@ -75,7 +75,7 @@ a { text-decoration: none; color: inherit; cursor: pointer; }
 
 /* Soft background with satin texture */
 body {
-  background: linear-gradient(135deg, #F5F0E8 0%, #F0E8DC 50%, #F5F0E8 100%);
+  background: linear-gradient(135deg, #EFF1E6 0%, #E9EDDF 50%, #EFF1E6 100%);
   position: relative;
 }
 
@@ -664,48 +664,48 @@ nav a:hover::after, nav a.active::after { right: 0; }
   font: 400 13px var(--heading);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--teal-soft);
+  color: var(--gold);
   margin-bottom: 12px;
 }
 
-/* Hero Boutique Text with Shimmer Gold & Glow */
+/* Hero Boutique Text with Shimmer Teal Green & Glow */
 .hero-boutique {
   font: 700 clamp(52px, 7.5vw, 84px) var(--display);
   letter-spacing: 0.12em;
   line-height: 0.85;
   margin-bottom: 8px;
   background: linear-gradient(135deg,
-    #6B4510 0%, 
-    #C49A3A 25%, 
-    #EDD98A 50%, 
-    #C49A3A 72%, 
-    #6B4510 100%);
+    #0F5147 0%,
+    #17665A 25%,
+    #4A8A7D 50%,
+    #17665A 72%,
+    #0F5147 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: boutique-shimmer 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(215, 188, 120, 0.6))
-          drop-shadow(0 0 40px rgba(184, 137, 46, 0.4));
-  text-shadow: 0 0 30px rgba(215, 188, 120, 0.5);
+  filter: drop-shadow(0 0 20px rgba(74, 138, 125, 0.6))
+          drop-shadow(0 0 40px rgba(23, 102, 90, 0.4));
+  text-shadow: 0 0 30px rgba(74, 138, 125, 0.5);
 }
 
 /* Shimmer animation for boutique text */
 @keyframes boutique-shimmer {
   0% {
     background-position: 0% auto;
-    filter: drop-shadow(0 0 15px rgba(215, 188, 120, 0.4))
-            drop-shadow(0 0 30px rgba(184, 137, 46, 0.2));
+    filter: drop-shadow(0 0 15px rgba(74, 138, 125, 0.4))
+            drop-shadow(0 0 30px rgba(23, 102, 90, 0.2));
   }
   50% {
     background-position: 100% auto;
-    filter: drop-shadow(0 0 35px rgba(215, 188, 120, 0.8))
-            drop-shadow(0 0 70px rgba(184, 137, 46, 0.5));
+    filter: drop-shadow(0 0 35px rgba(74, 138, 125, 0.8))
+            drop-shadow(0 0 70px rgba(23, 102, 90, 0.5));
   }
   100% {
     background-position: 200% auto;
-    filter: drop-shadow(0 0 15px rgba(215, 188, 120, 0.4))
-            drop-shadow(0 0 30px rgba(184, 137, 46, 0.2));
+    filter: drop-shadow(0 0 15px rgba(74, 138, 125, 0.4))
+            drop-shadow(0 0 30px rgba(23, 102, 90, 0.2));
   }
 }
 
@@ -713,7 +713,7 @@ nav a:hover::after, nav a.active::after { right: 0; }
 .hero-subtext {
   font: 400 14px var(--serif);
   font-style: italic;
-  color: var(--ink-soft);
+  color: var(--gold);
   margin-bottom: 20px;
   letter-spacing: 0.02em;
 }
@@ -2084,21 +2084,85 @@ footer {
 }
 .wa-float svg { display: block; }
 
-/* Pulse ring */
-.wa-float::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 2px solid rgba(37,211,102,.4);
+/* Pulse ring — box-shadow based so it never adds horizontal overflow */
+.wa-float {
   animation: wa-pulse 2.2s ease-out infinite;
 }
 @keyframes wa-pulse {
-  0%   { transform: scale(1);   opacity: .7; }
-  70%  { transform: scale(1.35); opacity: 0; }
-  100% { transform: scale(1.35); opacity: 0; }
+  0%   { box-shadow: 0 4px 18px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,.45); }
+  70%  { box-shadow: 0 4px 18px rgba(37,211,102,.45), 0 0 0 12px rgba(37,211,102,0); }
+  100% { box-shadow: 0 4px 18px rgba(37,211,102,.45), 0 0 0 12px rgba(37,211,102,0); }
 }
 
 @media (max-width: 600px) {
-  .wa-float { bottom: 18px; right: 18px; width: 48px; height: 48px; }
+  .wa-float { bottom: 18px; right: 16px; width: 48px; height: 48px; }
+}
+
+/* Prevent any sideways scroll / zoomed-out layout on mobile */
+html { overflow-x: hidden; }
+body { overflow-x: clip; max-width: 100%; }
+
+/* ── Brand film (eldora.mp4) — home & contact ─────────────── */
+.film-section {
+  background: linear-gradient(180deg, var(--bg-teal-lt) 0%, var(--bg-warm) 100%);
+  padding: 72px 5%;
+  text-align: center;
+}
+.film-eyebrow {
+  font: 600 10px var(--sans);
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: #9A7114;
+  margin-bottom: 12px;
+}
+.film-title {
+  font: 400 clamp(30px, 3.6vw, 48px) var(--serif);
+  color: var(--ink);
+  line-height: 1.12;
+  margin-bottom: 12px;
+}
+.film-title em { font-style: italic; color: var(--teal-mid); }
+.film-ornament {
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+.film-sub {
+  font: 400 14px var(--sans);
+  color: var(--ink-soft);
+  max-width: 560px;
+  margin: 0 auto 36px;
+  line-height: 1.8;
+}
+.film-frame {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 10px;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold) 50%, var(--gold-light));
+  border-radius: 8px;
+  box-shadow: 0 18px 50px rgba(11, 90, 77, .28);
+}
+.film-frame::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 5px;
+  pointer-events: none;
+  z-index: 1;
+}
+.film-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  object-fit: contain;
+  background: var(--teal);
+  border-radius: 4px;
+}
+@media (max-width: 700px) {
+  .film-section { padding: 52px 5%; }
+  .film-frame { padding: 6px; }
 }
