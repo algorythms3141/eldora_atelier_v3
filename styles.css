@@ -1774,7 +1774,7 @@ footer {
 /* Bottom bar */
 .foot-bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 16px 0 20px;
   font: 300 9px var(--sans);
@@ -1962,12 +1962,15 @@ footer {
 .nl-label button:hover { background: var(--gold-light); }
 .foot-copy {
   padding-top: 18px;
+  padding-bottom: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   font: 300 9px var(--sans);
   color: rgba(215,188,120,0.38);
   letter-spacing: 0.04em;
 }
+.foot-copy a { color: var(--gold-light); transition: color 0.2s; }
+.foot-copy a:hover { color: var(--gold-pale); }
 
 /* ── 14. Responsive Breakpoints ───────────────────────────── */
 @media (max-width: 1200px) {
